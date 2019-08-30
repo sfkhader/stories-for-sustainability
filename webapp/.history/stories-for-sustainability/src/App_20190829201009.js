@@ -1,6 +1,5 @@
 import React from 'react';
 import logo from './logo4.png';
-import { makeStyles } from '@material-ui/core/styles';
 import './App.css';
 import Button from '@material-ui/core/Button';
 
@@ -22,11 +21,16 @@ function App() {
         <p>
           Stories for Sustainability
         </p>
-        <div>
-          <Button variant="contained" className = {classes.button}>Register</Button>
-          <Button variant="contained" className = {classes.button}>Login</Button>
-        </div>
-
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+        <Button variant="contained" className = {classes.button}>Register</Button>
+        <Button variant="contained" className = {classes.button}>Login</Button>
 
       </header>
     </div>

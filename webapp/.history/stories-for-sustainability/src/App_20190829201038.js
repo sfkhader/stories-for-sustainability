@@ -22,11 +22,9 @@ function App() {
         <p>
           Stories for Sustainability
         </p>
-        <div>
-          <Button variant="contained" className = {classes.button}>Register</Button>
-          <Button variant="contained" className = {classes.button}>Login</Button>
-        </div>
 
+        <Button variant="contained" className = {classes.button}>Register</Button>
+        <Button variant="contained" className = {classes.button}>Login</Button>
 
       </header>
     </div>
