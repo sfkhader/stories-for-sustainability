@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './logo2.png';
+import logo from './logo4.png';
 import { makeStyles } from '@material-ui/core/styles';
 import './App.css';
 import Button from '@material-ui/core/Button';

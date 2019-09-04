@@ -6,7 +6,8 @@
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
   pointer-events: none;
-
+  width:150%;
+  height:150%;
 }
 
 .App-header {

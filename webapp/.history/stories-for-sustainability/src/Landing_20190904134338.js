@@ -8,7 +8,7 @@ import {HashRouter as Router, Route, Link} from 'react-router-dom';
 
 // const useStyles = 
 
-export default class App extends React.Component {
+export default class Landing extends React.Component {
 
   constructor(props) {
     super();
@@ -35,7 +35,9 @@ export default class App extends React.Component {
               <Button variant="contained"  component={link} className = {classes.button}>Register</Button>
               <Button variant="contained" component ={link} className = {classes.button}>Login</Button>
             </div>
-            <Route path="/register" component={Register}/>
+            {/* <Route exact path="/" component={App}/>
+
+            <Route path="/register" component={Register}/> */}
   
   
           </Router>

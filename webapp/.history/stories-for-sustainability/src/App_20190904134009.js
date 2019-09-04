@@ -35,7 +35,7 @@ export default class App extends React.Component {
               <Button variant="contained"  component={link} className = {classes.button}>Register</Button>
               <Button variant="contained" component ={link} className = {classes.button}>Login</Button>
             </div>
-            <Route path="/register" component={Register}/>
+            <Route exact path="/register" component={Register}/>
   
   
           </Router>
