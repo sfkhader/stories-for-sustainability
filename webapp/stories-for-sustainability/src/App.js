@@ -32,9 +32,16 @@ export default class App extends React.Component {
           </p>
           <Router>
             <div>
+            <Link to="/register">
               <Button variant="contained"  component={link} className = {classes.button}>Register</Button>
-              <Button variant="contained" component ={link} className = {classes.button}>Login</Button>
+            </Link>
+
+            <Link to="/register">
+            <Button variant="contained" component ={link} className = {classes.button}>Login</Button>
+            </Link>
             </div>
+            {/* need to be able to redirect to register page without below path */}
+            {/* i think it needs an onClick method...?  */}
             <Route path="/register" component={Register}/>
   
   
