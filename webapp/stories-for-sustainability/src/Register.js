@@ -26,7 +26,6 @@ export default class Register extends Component {
               </p>
               <div>
                 <Button variant="contained" className = {classes.button}>Register</Button>
-                <Button variant="contained" className = {classes.button}>Login</Button>
                 <Button variant="contained" className = {classes.button}>Testing</Button>
               </div>
       
