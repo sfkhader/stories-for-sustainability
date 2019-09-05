@@ -3,54 +3,53 @@ import logo from './logo2.png';
 import { makeStyles } from '@material-ui/core/styles';
 import './App.css';
 import Button from '@material-ui/core/Button';
-import Register from './Register';
-import {HashRouter as Router, Route, Link} from 'react-router-dom';
-
-// const useStyles = 
+// import {BrowserRouter as Router, Link, Switch} from 'react-router-dom';
+import Route from 'react-router-dom/Route';
 
 export default class App extends React.Component {
-
   constructor(props) {
-    super();
+        super();
   }
-  render() {
-    const classes = makeStyles(theme => ({
-      button: {
-        margin: theme.spacing(1),
-      },
-      input: {
-        display: 'none',
-      },
-    })); 
-    const link = props=> <Link to ="/register" {...props}/>
-    return (
+    render() {
+      const classes = makeStyles(theme => ({
+        button: {
+          margin: theme.spacing(1),
+        },
+        input: {
+          display: 'none',
+        },
+      })); 
+
+      return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Stories for Sustainability
-          </p>
-          <Router>
-            <div>
-            <Link to="/register">
-              <Button variant="contained"  component={link} className = {classes.button}>Register</Button>
-            </Link>
+            <p>
+              Stories for Sustainability
+            </p>
+            {/* <Button variant="contained"  component={link} className = {classes.button}>Register</Button> */}
+            <Route render={({ history}) => (
+              <Button
+                className={classes.button}
+                onClick={() => { history.push('/register') }}
+                variant="contained"
+              >
+              Register
+              </Button>
+            )} />
 
-            <Link to="/register">
-            <Button variant="contained" component ={link} className = {classes.button}>Login</Button>
-            </Link>
-            </div>
-            {/* need to be able to redirect to register page without below path */}
-            {/* i think it needs an onClick method...?  */}
-            <Route path="/register" component={Register}/>
-  
-  
-          </Router>
-        </header>
-      </div>
-    );
-  }
+            <Route render={({ history}) => (
+              <Button
+              className={classes.button}
+                onClick={() => { history.push('/login') }}
+                variant="contained"
+              >
+              Login
+              </Button>
+            )} />
 
+          </header>
+        </div>
+      );
+    }
 }
-
-// export default App;

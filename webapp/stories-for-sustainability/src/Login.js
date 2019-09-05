@@ -22,7 +22,7 @@ export default class Register extends Component {
           <React.Fragment>
             {/* <header> */}
               <p>
-                Register
+                Login
               </p>
               <div>
                 <Button variant="contained" className = {classes.button}>Register</Button>
