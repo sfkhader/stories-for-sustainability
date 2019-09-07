@@ -1,7 +1,5 @@
 import logo from '../../logo2.png';
-import { makeStyles } from '@material-ui/core/styles';
 import '../../App.css';
-import Button from '@material-ui/core/Button';
 import React, { Component } from 'react';
 import * as ROUTES from '../../constants/routes';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -20,6 +18,12 @@ const Landing = () => (
       <Link to={ROUTES.SIGN_UP}> 
       <button class="button" >
         Register
+      </button>
+      </Link>
+
+      <Link to={ROUTES.SIGN_IN}> 
+      <button class="button" >
+        Log In
       </button>
       </Link>
       

@@ -2,17 +2,18 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { withFirebase } from '../Firebase';
+import logo from '../../logo2.png';
 
 
 import { FirebaseContext } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 const SignUpPage = () => (
-  <div>
-    <h1>SignUp</h1>
+  <div className="Landing-header">
+    <img src={logo} className="Landing-logo" alt="logo" />
+    <h1>Sign Up</h1>
     <FirebaseContext.Consumer>
       {firebase => <SignUpForm firebase={firebase} />}
     </FirebaseContext.Consumer>
-    <SignUpForm />
   </div>
 );
 
@@ -84,6 +85,7 @@ class SignUpFormBase extends Component {
           type="text"
           placeholder="Full Name"
         />
+        <br></br>
         <input
           name="email"
           value={email}
@@ -91,6 +93,7 @@ class SignUpFormBase extends Component {
           type="text"
           placeholder="Email Address"
         />
+        <br></br>
         <input
           name="passwordOne"
           value={passwordOne}
@@ -98,6 +101,7 @@ class SignUpFormBase extends Component {
           type="password"
           placeholder="Password"
         />
+        <br></br>
         <input
           name="passwordTwo"
           value={passwordTwo}
@@ -105,6 +109,7 @@ class SignUpFormBase extends Component {
           type="password"
           placeholder="Confirm Password"
         />
+        <br></br>
           <button disabled={isInvalid} type="submit">Sign Up</button>
         {error && <p>{error.message}</p>}
       </form>
