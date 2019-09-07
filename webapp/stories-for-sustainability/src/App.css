@@ -32,3 +32,9 @@
     transform: rotate(360deg);
   }
 }
+
+.register-header {
+  text-align: center;
+  font-size: calc(10px + 2vmin);
+
+}
