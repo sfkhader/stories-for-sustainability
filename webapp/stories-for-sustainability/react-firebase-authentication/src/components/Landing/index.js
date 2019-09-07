@@ -10,25 +10,26 @@ import { Link } from 'react-router-dom';
 const Landing = () => (
   <div className="Landing">
 
-    <h1 className = "Landing-header">
-    <img src={logo} className="Landing-logo" alt="logo" />
+    <header className = "Landing-header">
+      <img src={logo} className="Landing-logo" alt="logo" />
 
-      Stories for Sustainability 
+        Stories for Sustainability 
+        
+        <Link to={ROUTES.SIGN_UP}> 
+        <button class="button" >
+          Register
+        </button>
+        </Link>
+        
+        <Link to={ROUTES.SIGN_IN}> 
+        <button class="button" >
+          Log In
+        </button>
+        </Link>
+
       
-      <Link to={ROUTES.SIGN_UP}> 
-      <button class="button" >
-        Register
-      </button>
-      </Link>
 
-      <Link to={ROUTES.SIGN_IN}> 
-      <button class="button" >
-        Log In
-      </button>
-      </Link>
-      
-
-    </h1>
+    </header>
 
   </div>
 );

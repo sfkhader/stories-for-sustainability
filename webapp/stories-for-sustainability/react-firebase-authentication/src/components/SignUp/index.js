@@ -7,6 +7,8 @@ import logo from '../../logo2.png';
 
 import { FirebaseContext } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
+import * as ROLES from '../../constants/roles';
+
 const SignUpPage = () => (
   <div className="Landing-header">
     <img src={logo} className="Landing-logo" alt="logo" />
@@ -22,6 +24,7 @@ const INITIAL_STATE = {
   email: '',
   passwordOne: '',
   passwordTwo: '',
+  isAdmin: false,
   error: null,
 };
 
@@ -33,7 +36,12 @@ class SignUpFormBase extends Component {
 
   }
   onSubmit = event => {
-    const { username, email, passwordOne } = this.state;
+    const { username, email, passwordOne, isAdmin } = this.state;
+    const roles = {};
+    if (isAdmin) {
+      roles[ROLES.ADMIN] = ROLES.ADMIN;
+    }
+
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
@@ -43,6 +51,7 @@ class SignUpFormBase extends Component {
           .set({
             username,
             email,
+            roles,
           });
       })
       .then(() => {
@@ -61,12 +70,17 @@ class SignUpFormBase extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  onChangeCheckbox = event => {
+    this.setState({ [event.target.name]: event.target.checked });
+  };
+
   render() {
     const {
       username,
       email,
       passwordOne,
       passwordTwo,
+      isAdmin,
       error,
     } = this.state;
 
@@ -110,6 +124,16 @@ class SignUpFormBase extends Component {
           placeholder="Confirm Password"
         />
         <br></br>
+        <label>
+          Admin:
+          <input
+            name="isAdmin"
+            type="checkbox"
+            checked={isAdmin}
+            onChange={this.onChangeCheckbox}
+          />
+        </label>
+
           <button disabled={isInvalid} type="submit">Sign Up</button>
         {error && <p>{error.message}</p>}
       </form>
