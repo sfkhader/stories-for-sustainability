@@ -37,10 +37,10 @@ export default class App extends React.Component {
               Register
               </Button>
             )} />
-
+            &nbsp;
             <Route render={({ history}) => (
               <Button
-              className={classes.button}
+                className={classes.button}
                 onClick={() => { history.push('/login') }}
                 variant="contained"
               >

@@ -19,19 +19,33 @@ export default class Register extends Component {
             },
         })); 
         return (
-          <React.Fragment>
-            {/* <header> */}
-              <p>
-                Login
-              </p>
-              <div>
-                <Button variant="contained" className = {classes.button}>Register</Button>
-                <Button variant="contained" className = {classes.button}>Testing</Button>
-              </div>
-      
-      
-            {/* </header> */}
-          </React.Fragment>
+          <div className="App">
+            <header className="Login">
+              <React.Fragment>
+                {/* <header> */}
+                  <p>
+                  <center>Login</center>
+                  </p>
+                  <form>
+                    <label>
+                      Username:
+                      <input type="text" name="username" />
+                    </label>
+                  </form>
+                  <form>
+                    <label>
+                      Password:
+                      <input type="text" name="password" />
+                    </label>
+                  </form>
+                  &nbsp;
+                  <div>
+                    <Button variant="contained" className = {classes.button}>Login</Button>
+                  </div>
+                  {/* </header> */}
+              </React.Fragment>
+            </header>
+          </div>
         );
     }
 
