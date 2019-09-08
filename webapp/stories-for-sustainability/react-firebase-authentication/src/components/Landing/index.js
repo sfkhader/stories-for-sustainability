@@ -22,7 +22,7 @@ const Landing = () => (
         </Link>
         
         <Link to={ROUTES.SIGN_IN}> 
-        <button class="button" >
+        <button class="login-button" >
           Log In
         </button>
         </Link>

@@ -20,8 +20,12 @@ const SignUpPage = () => (
 );
 
 const INITIAL_STATE = {
+  firstname: '',
+  lastname: '',
   username: '',
   email: '',
+  age: '',
+  grade: '',
   passwordOne: '',
   passwordTwo: '',
   isAdmin: false,
@@ -76,8 +80,12 @@ class SignUpFormBase extends Component {
 
   render() {
     const {
+      firstname,
+      lastname,
       username,
       email,
+      age,
+      grade,
       passwordOne,
       passwordTwo,
       isAdmin,
@@ -92,38 +100,37 @@ class SignUpFormBase extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-         <input
-          name="username"
-          value={username}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Full Name"
-        />
-        <br></br>
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <br></br>
-        <input
-          name="passwordOne"
-          value={passwordOne}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <br></br>
-        <input
-          name="passwordTwo"
-          value={passwordTwo}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Confirm Password"
-        />
-        <br></br>
+        <ul class="form-style-1">
+        <li>
+          <label>Full Name <span class="required">*</span></label>
+          <input type="text" name="First Name" value={firstname} onChange={this.onChange} class="field-divided" placeholder="First" /> 
+          <input type="text" name="Last Name"  value={lastname} onChange={this.onChange} class="field-divided" placeholder="Last" />
+          </li>
+          <li>
+        <label>User Name <span class="required">*</span></label>
+        <input type="text" name="username" class="field-long" value={username} onChange={this.onChange} />
+       </li>
+          <li>
+        <label>Email <span class="required">*</span></label>
+        <input type="text" name="email" class="field-long" value={email} onChange={this.onChange} />
+       </li> 
+        <li>
+        <label>Age <span class="required">*</span></label>
+        <input type="text" name="age" class="field-long" value={age} onChange={this.onChange} />
+      </li>
+      <li>
+        <label>Grade <span class="required">*</span></label>
+        <input type="text" name="grade" class="field-long" value={grade} onChange={this.onChange} />
+      </li>
+      <li>
+        <label>Password <span class="required">*</span></label>
+        <input type="text" name="passwordOne" class="field-long" value={passwordOne} onChange={this.onChange} />
+      </li>
+      <li>
+        <label>Confirm Password <span class="required">*</span></label>
+        <input type="text" name="passwordTwo" class="field-long" value={passwordTwo} onChange={this.onChange} />
+      </li>
+
         <label>
           Admin:
           <input
@@ -133,16 +140,16 @@ class SignUpFormBase extends Component {
             onChange={this.onChangeCheckbox}
           />
         </label>
-
-          <button disabled={isInvalid} type="submit">Sign Up</button>
+          <button disabled={isInvalid} className ="signup-button" type="submit">Sign Up</button>
         {error && <p>{error.message}</p>}
+        </ul>
       </form>
     );
   }
 }
 const SignUpLink = () => (
   <p>
-    Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+    Don't have an account? <Link to={ROUTES.SIGN_UP} style={{color: 'green'}}>Sign Up!</Link>
   </p>
 );
 
