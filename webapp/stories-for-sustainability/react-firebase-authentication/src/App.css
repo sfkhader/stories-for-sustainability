@@ -20,6 +20,7 @@
   font-size: 16px;
   margin: 20px 30px;
   cursor: pointer;
+  border-radius: 8px;
 }
 
 .login-button {
@@ -31,8 +32,9 @@
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 10px 30px;
+  margin: 5px 30px;
   cursor: pointer;
+  border-radius: 8px;
 }
 
 .signup-button {
@@ -46,6 +48,7 @@
   font-size: 16px;
   margin: 10px 130px;
   cursor: pointer;
+  border-radius: 8px;
 }
 
 .Landing-header {
