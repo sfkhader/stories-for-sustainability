@@ -56,7 +56,7 @@ class SignInFormBase extends Component {
         <label>Password <span class="required">*</span></label>
         <input type="text" name="password" class="field-long" value={password} onChange={this.onChange} />
       </li>
-      <button disabled={isInvalid} className ="button" type="submit">Sign Up</button>
+      <button disabled={isInvalid} className ="button" type="submit">Sign In</button>
         {error && <p>{error.message}</p>}
         </ul>
       </form>
