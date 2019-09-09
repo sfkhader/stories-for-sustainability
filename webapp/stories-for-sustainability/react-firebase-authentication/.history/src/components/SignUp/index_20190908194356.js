@@ -103,32 +103,32 @@ class SignUpFormBase extends Component {
         <ul class="form-style-1">
         <li>
           <label>Full Name <span class="required">*</span></label>
-          <input type="text" name="firstname" value={firstname} onChange={this.onChange} class="field-divided" placeholder="First" /> 
-          <input type="text" name="lastname"  value={lastname} onChange={this.onChange} class="field-divided" placeholder="Last" />
+          <input type="text" name="First Name" value={firstname} onChange={this.onChange} class="field-divided" placeholder="First" /> 
+          <input type="text" name="Last Name"  value={lastname} onChange={this.onChange} class="field-divided" placeholder="Last" />
           </li>
           <li>
         <label>User Name <span class="required">*</span></label>
-        <input type="text" name="username" class="field-long" value={username} onChange={this.onChange} placeholder="username" />
+        <input type="text" name="username" class="field-long" value={username} onChange={this.onChange} />
        </li>
           <li>
         <label>Email <span class="required">*</span></label>
-        <input type="text" name="email" class="field-long" value={email} onChange={this.onChange} placeholder="email" />
+        <input type="text" name="email" class="field-long" value={email} onChange={this.onChange} />
        </li> 
         <li>
         <label>Age <span class="required">*</span></label>
-        <input type="text" name="age" class="field-long" value={age} onChange={this.onChange} placeholder="age"/>
+        <input type="text" name="age" class="field-long" value={age} onChange={this.onChange} />
       </li>
       <li>
         <label>Grade <span class="required">*</span></label>
-        <input type="text" name="grade" class="field-long" value={grade} onChange={this.onChange} placeholder="grade" />
+        <input type="text" name="grade" class="field-long" value={grade} onChange={this.onChange} />
       </li>
       <li>
         <label>Password <span class="required">*</span></label>
-        <input type="text" name="passwordOne" class="field-long" value={passwordOne} onChange={this.onChange} placeholder="password"/>
+        <input type="text" name="passwordOne" class="field-long" value={passwordOne} onChange={this.onChange} />
       </li>
       <li>
         <label>Confirm Password <span class="required">*</span></label>
-        <input type="text" name="passwordTwo" class="field-long" value={passwordTwo} onChange={this.onChange} placeholder="confirm password"/>
+        <input type="text" name="passwordTwo" class="field-long" value={passwordTwo} onChange={this.onChange} />
       </li>
 
         <label>

@@ -1,6 +1,7 @@
 body {
   margin: 0;
-  font-family: Verdana, Geneva, sans-serif;
+  font-family: "Helvetica Neue",
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

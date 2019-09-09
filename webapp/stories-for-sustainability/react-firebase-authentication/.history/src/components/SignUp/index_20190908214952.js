@@ -116,7 +116,7 @@ class SignUpFormBase extends Component {
        </li> 
         <li>
         <label>Age <span class="required">*</span></label>
-        <input type="text" name="age" class="field-long" value={age} onChange={this.onChange} placeholder="age"/>
+        <input type="text" name="age" class="field-long" value={age} onChange={this.onChange} placeholder="age/>
       </li>
       <li>
         <label>Grade <span class="required">*</span></label>
@@ -124,11 +124,11 @@ class SignUpFormBase extends Component {
       </li>
       <li>
         <label>Password <span class="required">*</span></label>
-        <input type="text" name="passwordOne" class="field-long" value={passwordOne} onChange={this.onChange} placeholder="password"/>
+        <input type="text" name="passwordOne" class="field-long" value={passwordOne} onChange={this.onChange} />
       </li>
       <li>
         <label>Confirm Password <span class="required">*</span></label>
-        <input type="text" name="passwordTwo" class="field-long" value={passwordTwo} onChange={this.onChange} placeholder="confirm password"/>
+        <input type="text" name="passwordTwo" class="field-long" value={passwordTwo} onChange={this.onChange} />
       </li>
 
         <label>

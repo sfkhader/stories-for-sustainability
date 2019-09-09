@@ -55,7 +55,6 @@ const NavigationNonAuth = () => (
   //     <Link to={ROUTES.ACCOUNT}>Account</Link>
   //   </li>
   // </ul>
-  <div></div>
 
 );
 export default Navigation;

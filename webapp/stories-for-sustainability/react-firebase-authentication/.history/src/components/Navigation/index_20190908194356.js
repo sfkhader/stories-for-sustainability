@@ -47,15 +47,14 @@ const NavigationAuth = ({ authUser }) => (
 
 const NavigationNonAuth = () => (
   
-  // <ul>
-  //   <li>
-  //     <Link to={ROUTES.HOME}>Home</Link>
-  //   </li>
-  //   <li>
-  //     <Link to={ROUTES.ACCOUNT}>Account</Link>
-  //   </li>
-  // </ul>
-  <div></div>
+  <ul>
+    <li>
+      <Link to={ROUTES.HOME}>Home</Link>
+    </li>
+    <li>
+      <Link to={ROUTES.ACCOUNT}>Account</Link>
+    </li>
+  </ul>
 
 );
 export default Navigation;
