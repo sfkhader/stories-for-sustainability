@@ -1,0 +1,21 @@
+[debug] [2019-09-07T02:31:24.883Z] ----------------------------------------------------------------------
+[debug] [2019-09-07T02:31:24.885Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Rwan\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2019-09-07T02:31:24.885Z] CLI Version:   7.3.1
+[debug] [2019-09-07T02:31:24.885Z] Platform:      win32
+[debug] [2019-09-07T02:31:24.885Z] Node Version:  v12.9.1
+[debug] [2019-09-07T02:31:24.886Z] Time:          Fri Sep 06 2019 22:31:24 GMT-0400 (Eastern Daylight Time)
+[debug] [2019-09-07T02:31:24.886Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-09-07T02:31:24.893Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-09-07T02:31:24.893Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Rwan\Desktop\stories-for-sustainability\webapp\stories-for-sustainability\react-firebase-authentication\src
+
