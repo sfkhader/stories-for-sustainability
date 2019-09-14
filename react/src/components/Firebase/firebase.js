@@ -2,6 +2,13 @@ import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
+var admin = require('firebase-admin');
+
+admin.initializeApp({
+  credential: admin.credential.applicationDefault(),
+  databaseURL: 'https://stories-for-sustainability.firebaseio.com'
+});
+
 
 const config = {
     apiKey: "AIzaSyC8Q9QITqvoKM_rqja6HUtgrOtfTDVcVBc",

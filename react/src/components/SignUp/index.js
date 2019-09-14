@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
+import * as ROLES from '../../constants/roles';
 import { FirebaseContext } from '../Firebase';
 import { compose } from 'recompose';
 import logo from '../../logo2.png';
@@ -22,6 +23,7 @@ const INITIAL_STATE = {
   email: '',
   passwordOne: '',
   passwordTwo: '',
+  isAdmin: false,
   error: null,
 };
 
@@ -33,28 +35,53 @@ class SignUpFormBase extends Component {
 
   }
   onSubmit = event => {
-    const { username, email, passwordOne } = this.state;
+    const { username, email, passwordOne, isAdmin } = this.state;
+    const roles = {};
+    if (isAdmin) {
+      roles[ROLES.ADMIN] = ROLES.ADMIN;
+    }
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
-        this.setState({ ...INITIAL_STATE });
-        this.props.history.push(ROUTES.HOME);
-
+        // Create a user in your Firebase realtime database
+        return this.props.firebase
+          .user(authUser.user.uid)
+          .set({
+            username,
+            email,
+            roles,
+          })
+      })
+      .then(() => {  
+        if (isAdmin) {
+          this.setState({ ...INITIAL_STATE });
+          this.props.history.push(ROUTES.ADMIN);
+        } else {
+          this.setState({ ...INITIAL_STATE });
+          this.props.history.push(ROUTES.HOME);
+        }
       })
       .catch(error => {
         this.setState({ error });
       });
     event.preventDefault();
-  }
+  };
+  
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
+
+  onChangeCheckbox = event => {
+    this.setState({ [event.target.name]: event.target.checked });
+  };
+
   render() {
     const {
       username,
       email,
       passwordOne,
       passwordTwo,
+      isAdmin,
       error,
     } = this.state;
     const isInvalid =
@@ -75,6 +102,15 @@ class SignUpFormBase extends Component {
         <input type="text" name="passwordOne" class="field-long" value={passwordOne} onChange={this.onChange} />
         <label>Confirm Password <span class="required">*</span></label>
         <input type="text" name="passwordTwo" class="field-long" value={passwordTwo} onChange={this.onChange} />
+        <label>
+          Admin:
+          <input
+            name="isAdmin"
+            type="checkbox"
+            checked={isAdmin}
+            onChange={this.onChangeCheckbox}
+          />
+        </label>
         <button disabled={isInvalid} className = "button" type="submit"> Sign Up</button>
         {error && <p>{error.message}</p>}
         </ul>
