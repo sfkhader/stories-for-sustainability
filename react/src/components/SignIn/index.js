@@ -5,7 +5,9 @@ import { SignUpLink } from '../SignUp';
 import { PasswordForgetLink } from '../PasswordForget';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
+import * as ROLES from '../../constants/roles';
 import logo from '../../logo2.png';
+import app from 'firebase/app';
 
 const SignInPage = () => (
   <div className="Landing-header">
@@ -21,6 +23,7 @@ const INITIAL_STATE = {
   password: '',
   error: null,
 };
+
 class SignInFormBase extends Component {
   constructor(props) {
     super(props);
@@ -31,14 +34,31 @@ class SignInFormBase extends Component {
     this.props.firebase
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
-        this.setState({ ...INITIAL_STATE });
-        this.props.history.push(ROUTES.HOME);
-      })
-      .catch(error => {
-        this.setState({ error });
-      });
-    event.preventDefault();
-  };
+        this.listener = this.props.firebase.onAuthUserListener(
+          authUser => {
+            if (authUser) {
+              this.props.firebase
+                .user(authUser.uid)
+                .once('value')
+                .then(snapshot => {
+                  const dbUser = snapshot.val();
+
+
+                  if (dbUser.roles != null && dbUser.roles.ADMIN == [ROLES.ADMIN]){
+                    this.props.history.push(ROUTES.ADMIN);
+                  } else {
+                    this.props.history.push(ROUTES.HOME);
+                  }
+ 
+                })
+              }
+          })
+        })
+        .catch(error => {
+          this.setState({ error });
+        });
+      event.preventDefault();
+    };
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };

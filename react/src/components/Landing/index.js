@@ -1,8 +1,7 @@
 import logo from '../../logo2.png';
 import '../../App.css';
-import React, { Component } from 'react';
+import React from 'react';
 import * as ROUTES from '../../constants/routes';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 

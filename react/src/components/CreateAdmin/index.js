@@ -8,13 +8,13 @@ import logo from '../../logo2.png';
 
 import { withFirebase } from '../Firebase';
 
-const SignUpPage = () => (
+const CreateAdminPage = () => (
   
   <div className="Landing-header">
     <img src={logo} className="Landing-logo" alt="logo" />
-    <h1>Sign Up</h1>
+    <h1>Create Admin</h1>
     <FirebaseContext.Consumer>
-      {firebase => <SignUpForm firebase={firebase} />}
+      {firebase => <CreateAdminForm firebase={firebase} />}
     </FirebaseContext.Consumer>  </div>
 );
 
@@ -23,10 +23,11 @@ const INITIAL_STATE = {
   email: '',
   passwordOne: '',
   passwordTwo: '',
+  isAdmin: true,
   error: null,
 };
 
-class SignUpFormBase extends Component {
+class CreateAdminFormBase extends Component {
   constructor(props) {
     super(props);
 
@@ -34,9 +35,11 @@ class SignUpFormBase extends Component {
 
   }
   onSubmit = event => {
-    const { username, email, passwordOne } = this.state;
+    const { username, email, passwordOne, isAdmin } = this.state;
     const roles = {};
-
+    if (isAdmin) {
+      roles[ROLES.ADMIN] = ROLES.ADMIN;
+    }
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
@@ -54,8 +57,6 @@ class SignUpFormBase extends Component {
       })
       .then(() => {  
         this.setState({ ...INITIAL_STATE });
-        this.props.history.push(ROUTES.HOME);
-        
       })
       .catch(error => {
         this.setState({ error });
@@ -67,13 +68,13 @@ class SignUpFormBase extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-
   render() {
     const {
       username,
       email,
       passwordOne,
       passwordTwo,
+      isAdmin,
       error,
     } = this.state;
     const isInvalid =
@@ -94,7 +95,7 @@ class SignUpFormBase extends Component {
         <input type="text" name="passwordOne" class="field-long" value={passwordOne} onChange={this.onChange} />
         <label>Confirm Password <span class="required">*</span></label>
         <input type="text" name="passwordTwo" class="field-long" value={passwordTwo} onChange={this.onChange} />
-        <button disabled={isInvalid} className = "button" type="submit"> Sign Up</button>
+        <button disabled={isInvalid} className = "button" type="submit"> Create Admin</button>
         {error && <p>{error.message}</p>}
         </ul>
 
@@ -102,16 +103,11 @@ class SignUpFormBase extends Component {
     );
   }
 }
-const SignUpLink = () => (
-  <p>
-    Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
-  </p>
-);
 
-const SignUpForm = compose(
+const CreateAdminForm = compose(
   withRouter,
   withFirebase,
-)(SignUpFormBase);
+)(CreateAdminFormBase);
 
-export default SignUpPage;
-export { SignUpForm, SignUpLink };
+export default CreateAdminPage;
+export { CreateAdminForm };
