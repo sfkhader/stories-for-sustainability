@@ -34,33 +34,31 @@ class SignInFormBase extends Component {
     this.props.firebase
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
-        var user = this.props.firebase.auth.currentUser;
-        const roles = {};
-        var email, uid, userInfo;
-        if (user != null) {
-          email = user.email;
-          uid = user.uid;
+        this.listener = this.props.firebase.onAuthUserListener(
+          authUser => {
+            if (authUser) {
+              this.props.firebase
+                .user(authUser.uid)
+                .once('value')
+                .then(snapshot => {
+                  const dbUser = snapshot.val();
 
-          userInfo = app.database()
-          .ref('/users/')
-          .orderByChild('email')
-          .equalTo(email)
-          .once('value', function(snapshot) {
-            var key = Object.keys(snapshot.val())[0];
-            roles[ROLES.ADMIN] = (snapshot.val()[key]['roles'])
-          });
-          if (roles[ROLES.ADMIN] = ROLES.ADMIN){
-            this.props.history.push(ROUTES.ADMIN);
-          } else {
-            this.props.history.push(ROUTES.HOME);
-          }
-        }
-      })
-      .catch(error => {
-        this.setState({ error });
-      });
-    event.preventDefault();
-  };
+
+                  if (dbUser.roles != null && dbUser.roles.ADMIN == [ROLES.ADMIN]){
+                    this.props.history.push(ROUTES.ADMIN);
+                  } else {
+                    this.props.history.push(ROUTES.HOME);
+                  }
+ 
+                })
+              }
+          })
+        })
+        .catch(error => {
+          this.setState({ error });
+        });
+      event.preventDefault();
+    };
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };

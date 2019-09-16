@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { compose } from 'recompose';
 
 import { withFirebase } from '../Firebase';
-import { withAuthorization } from '../Session';
+import { withAuthorization, withEmailVerification } from '../Session';
 import * as ROLES from '../../constants/roles';
+import * as ROUTES from '../../constants/routes';
+import { Link } from 'react-router-dom';
 
 class AdminPage extends Component {
   constructor(props) {
@@ -50,6 +52,12 @@ class AdminPage extends Component {
 
 const UserList = ({ users }) => (
   <ul>
+    <Link to={ROUTES.CREATE_ADMIN}> 
+        <button class="button" >
+          Create Admin
+        </button>
+    </Link>
+
     {users.map(user => (
       <li key={user.uid}>
         <span>
@@ -70,6 +78,7 @@ const condition = authUser =>
   authUser && !!authUser.roles[ROLES.ADMIN];
   
 export default compose(
+  withEmailVerification,
   withAuthorization(condition),
   withFirebase,
 )(AdminPage);
