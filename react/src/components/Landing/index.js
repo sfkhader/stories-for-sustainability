@@ -15,13 +15,13 @@ const Landing = () => (
         Stories for Sustainability 
         
         <Link to={ROUTES.SIGN_UP}> 
-        <button class="button" >
+        <button className="button" >
           Register
         </button>
         </Link>
         
         <Link to={ROUTES.SIGN_IN}> 
-        <button class="login-button" >
+        <button className="login-button" >
           Log In
         </button>
         </Link>

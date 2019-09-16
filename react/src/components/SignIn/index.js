@@ -7,7 +7,6 @@ import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 import logo from '../../logo2.png';
-import app from 'firebase/app';
 
 const SignInPage = () => (
   <div className="Landing-header">

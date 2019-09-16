@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
-import * as ROLES from '../../constants/roles';
+// import * as ROLES from '../../constants/roles';
 import { FirebaseContext } from '../Firebase';
 import { compose } from 'recompose';
 import logo from '../../logo2.png';
@@ -84,16 +84,16 @@ class SignUpFormBase extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-       <ul class="form-style-1">
+       <ul className="form-style-1">
 
-       <label>Username <span class="required">*</span></label>
-        <input type="text" name="username" class="field-long" value={username} onChange={this.onChange} />
-        <label>Email <span class="required">*</span></label>
-        <input type="text" name="email" class="field-long" value={email} onChange={this.onChange} />
-        <label>Password <span class="required">*</span></label>
-        <input type="text" name="passwordOne" class="field-long" value={passwordOne} onChange={this.onChange} />
-        <label>Confirm Password <span class="required">*</span></label>
-        <input type="text" name="passwordTwo" class="field-long" value={passwordTwo} onChange={this.onChange} />
+       <label>Username <span className="required">*</span></label>
+        <input type="text" name="username" className="field-long" value={username} onChange={this.onChange} />
+        <label>Email <span className="required">*</span></label>
+        <input type="text" name="email" className="field-long" value={email} onChange={this.onChange} />
+        <label>Password <span className="required">*</span></label>
+        <input type="text" name="passwordOne" className="field-long" value={passwordOne} onChange={this.onChange} />
+        <label>Confirm Password <span className="required">*</span></label>
+        <input type="text" name="passwordTwo" className="field-long" value={passwordTwo} onChange={this.onChange} />
         <button disabled={isInvalid} className = "button" type="submit"> Sign Up</button>
         {error && <p>{error.message}</p>}
         </ul>

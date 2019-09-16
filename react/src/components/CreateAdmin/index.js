@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import * as ROUTES from '../../constants/routes';
+import { withRouter } from 'react-router-dom';
+// import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 import { FirebaseContext } from '../Firebase';
 import { compose } from 'recompose';
@@ -74,7 +74,6 @@ class CreateAdminFormBase extends Component {
       email,
       passwordOne,
       passwordTwo,
-      isAdmin,
       error,
     } = this.state;
     const isInvalid =
