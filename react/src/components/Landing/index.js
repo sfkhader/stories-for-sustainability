@@ -8,12 +8,15 @@ import Navigation from '../Navigation';
 
 
 const Landing = () => (
-  <div className="Landing">
-    <header className = "Landing-header">
-      <img src={logo} className="Landing-logo" alt="logo" />
 
+  <div className="Landing">
+      <Navigation/>
+
+    <header className = "Landing-header">
+
+      <img src={logo} className="Landing-logo" alt="logo" />
+      
         Stories for Sustainability 
-        
         <Link to={ROUTES.SIGN_UP}> 
         <button className="button" >
           Register

@@ -49,6 +49,7 @@ class SignUpFormBase extends Component {
             lastname,
             username,
             email,
+            passwordOne,
             roles,
           })
       })

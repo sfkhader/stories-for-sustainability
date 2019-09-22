@@ -36,14 +36,18 @@ class AdminPage extends Component {
     const { users, loading } = this.state;
 
     return (
-      <div>
+      <div className="Landing-header">
         <h1>Admin</h1>
         <p>
           The Admin Page is accessible by every signed in admin user.
         </p>
         {loading && <div>Loading ...</div>}
         <UserList users={users} />
-
+        <Link to={ROUTES.FILEUPLOAD}> 
+        <button class="button" >
+          Upload Stories
+        </button>
+    </Link>
       </div>
     );
   }
