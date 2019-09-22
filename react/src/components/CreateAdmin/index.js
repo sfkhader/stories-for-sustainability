@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-// import * as ROUTES from '../../constants/routes';
+import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 import { FirebaseContext } from '../Firebase';
 import { compose } from 'recompose';
@@ -19,7 +19,9 @@ const CreateAdminPage = () => (
 );
 
 const INITIAL_STATE = {
-  username: '',
+  firstname:'',
+  lastname:'',
+  username:'',
   email: '',
   passwordOne: '',
   passwordTwo: '',
@@ -35,7 +37,7 @@ class CreateAdminFormBase extends Component {
 
   }
   onSubmit = event => {
-    const { username, email, passwordOne, isAdmin } = this.state;
+    const { firstname, lastname, username, email, passwordOne, isAdmin } = this.state;
     const roles = {};
     if (isAdmin) {
       roles[ROLES.ADMIN] = ROLES.ADMIN;
@@ -47,8 +49,11 @@ class CreateAdminFormBase extends Component {
         return this.props.firebase
           .user(authUser.user.uid)
           .set({
+            firstname,
+            lastname,
             username,
             email,
+            passwordOne,
             roles,
           })
       })
@@ -57,6 +62,8 @@ class CreateAdminFormBase extends Component {
       })
       .then(() => {  
         this.setState({ ...INITIAL_STATE });
+        this.props.history.push(ROUTES.ADMIN);
+
       })
       .catch(error => {
         this.setState({ error });
@@ -70,6 +77,8 @@ class CreateAdminFormBase extends Component {
 
   render() {
     const {
+      firstname,
+      lastname,
       username,
       email,
       passwordOne,
@@ -84,17 +93,29 @@ class CreateAdminFormBase extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-       <ul class="form-style-1">
-
-       <label>Username <span class="required">*</span></label>
-        <input type="text" name="username" class="field-long" value={username} onChange={this.onChange} />
+       <ul className="form-style-1">
+      <li>
+      <label>Full Name <span class="required">*</span></label>
+        <input type="text" name="firstname" class="field-divided" placeholder="First" value={firstname} onChange={this.onChange} /> 
+        <input type="text" name="lastname" class="field-divided" placeholder="Last" value={lastname} onChange={this.onChange} />
+      </li>
+      <li>
+        <label>Username <span class="required">*</span></label>
+        <input type="text" name="username" class="field-long" value={username} onChange={this.onChange}/>
+      </li>
+      <li>
         <label>Email <span class="required">*</span></label>
-        <input type="text" name="email" class="field-long" value={email} onChange={this.onChange} />
+        <input type="email" name="email" class="field-long" value={email} onChange={this.onChange}/>
+      </li>
+      <li>
         <label>Password <span class="required">*</span></label>
-        <input type="text" name="passwordOne" class="field-long" value={passwordOne} onChange={this.onChange} />
+        <input type="password" name="passwordOne" class="field-long" value={passwordOne} onChange={this.onChange}/>
+      </li>
+      <li>
         <label>Confirm Password <span class="required">*</span></label>
-        <input type="text" name="passwordTwo" class="field-long" value={passwordTwo} onChange={this.onChange} />
-        <button disabled={isInvalid} className = "button" type="submit"> Create Admin</button>
+        <input type="password" name="passwordTwo" class="field-long" value={passwordTwo} onChange={this.onChange}/>
+      </li>
+        <button disabled={isInvalid} className = "signup-button" type="submit"> Create Admin</button>
         {error && <p>{error.message}</p>}
         </ul>
 
