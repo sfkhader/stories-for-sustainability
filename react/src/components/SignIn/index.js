@@ -38,9 +38,9 @@ class SignInFormBase extends Component {
             if (authUser) {
               this.props.firebase
                 .user(authUser.uid)
-                .once('value')
+                .get()
                 .then(snapshot => {
-                  const dbUser = snapshot.val();
+                  const dbUser = snapshot.data();
 
 
                   if (dbUser.roles != null && dbUser.roles.ADMIN == [ROLES.ADMIN]){
