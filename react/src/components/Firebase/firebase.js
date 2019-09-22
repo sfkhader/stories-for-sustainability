@@ -1,6 +1,8 @@
 import app from 'firebase/app';
+import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+import 'firebase/storage';
 
 var admin = require('firebase-admin');
 
@@ -15,18 +17,17 @@ const config = {
     authDomain: "stories-for-sustainability.firebaseapp.com",
     databaseURL: "https://stories-for-sustainability.firebaseio.com",
     projectId: "stories-for-sustainability",
-    storageBucket: "",
+    storageBucket: "stories-for-sustainability.appspot.com",
     messagingSenderId: "225361778986",
     appId: "1:225361778986:web:c60e58e013babdd255a653"
   };
 
-  
+  app.initializeApp(config);
+  const storage = firebase.storage();
 class Firebase {
   constructor() {
-    app.initializeApp(config);
     this.auth = app.auth();
     this.db = app.database();
-
   }
 
   doSendEmailVerification = () =>
@@ -80,4 +81,7 @@ class Firebase {
     users = () => this.db.ref('users');
 
 }
-export default Firebase;
+
+export {
+  storage, Firebase as default
+}

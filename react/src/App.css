@@ -53,7 +53,8 @@ body {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 10px 130px;
+  margin: 10px 10px;
+  margin-left: 30%;
   cursor: pointer;
   border-radius: 8px;
 }
@@ -124,6 +125,7 @@ select{
 	outline: none;	
 }
 .form-style-1 input[type=text]:focus, 
+.form-style-1 input[type=password]:focus, 
 .form-style-1 input[type=date]:focus,
 .form-style-1 input[type=datetime]:focus,
 .form-style-1 input[type=number]:focus,
@@ -143,7 +145,7 @@ select{
 }
 
 .form-style-1 .field-long{
-	width: 100%;
+  width: 100%;
 }
 .form-style-1 .field-select{
 	width: 100%;

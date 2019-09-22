@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../EmailVerification.css';
 
 import AuthUserContext from './context';
 import { withFirebase } from '../Firebase';
@@ -30,16 +31,16 @@ const withEmailVerification = Component => {
         <AuthUserContext.Consumer>
           {authUser =>
             needsEmailVerification(authUser) ? (
-              <div>
+              <div className="header">
                 {this.state.isSent ? (
-                  <p>
+                  <p className="message">
                     E-Mail confirmation sent: Check you E-Mails (Spam
                     folder included) for a confirmation E-Mail.
                     Refresh this page once you confirmed your E-Mail.
                   </p>
                 ) : (
-                  <p>
-                    Verify your E-Mail: Check you E-Mails (Spam folder
+                  <p className="message">
+                    Verify your E-Mail: Check your E-Mails (Spam folder
                     included) for a confirmation E-Mail or send
                     another confirmation E-Mail.
                   </p>
@@ -47,6 +48,7 @@ const withEmailVerification = Component => {
 
                 <button
                   type="button"
+                  className="button"
                   onClick={this.onSendEmailVerification}
                   disabled={this.state.isSent}
                 >

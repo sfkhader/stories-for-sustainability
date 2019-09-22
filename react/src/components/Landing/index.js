@@ -3,12 +3,12 @@ import '../../App.css';
 import React from 'react';
 import * as ROUTES from '../../constants/routes';
 import { Link } from 'react-router-dom';
+import Navigation from '../Navigation';
 
 
 
 const Landing = () => (
   <div className="Landing">
-
     <header className = "Landing-header">
       <img src={logo} className="Landing-logo" alt="logo" />
 

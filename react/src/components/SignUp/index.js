@@ -5,7 +5,6 @@ import * as ROUTES from '../../constants/routes';
 import { FirebaseContext } from '../Firebase';
 import { compose } from 'recompose';
 import logo from '../../logo2.png';
-
 import { withFirebase } from '../Firebase';
 
 const SignUpPage = () => (
@@ -19,6 +18,8 @@ const SignUpPage = () => (
 );
 
 const INITIAL_STATE = {
+  firstname: '',
+  lastname: '',
   username: '',
   email: '',
   passwordOne: '',
@@ -34,7 +35,7 @@ class SignUpFormBase extends Component {
 
   }
   onSubmit = event => {
-    const { username, email, passwordOne } = this.state;
+    const { firstname, lastname, username, email, passwordOne } = this.state;
     const roles = {};
 
     this.props.firebase
@@ -44,6 +45,8 @@ class SignUpFormBase extends Component {
         return this.props.firebase
           .user(authUser.user.uid)
           .set({
+            firstname, 
+            lastname,
             username,
             email,
             roles,
@@ -70,6 +73,8 @@ class SignUpFormBase extends Component {
 
   render() {
     const {
+      firstname,
+      lastname,
       username,
       email,
       passwordOne,
@@ -85,16 +90,28 @@ class SignUpFormBase extends Component {
     return (
       <form onSubmit={this.onSubmit}>
        <ul className="form-style-1">
-
-       <label>Username <span className="required">*</span></label>
-        <input type="text" name="username" className="field-long" value={username} onChange={this.onChange} />
-        <label>Email <span className="required">*</span></label>
-        <input type="text" name="email" className="field-long" value={email} onChange={this.onChange} />
-        <label>Password <span className="required">*</span></label>
-        <input type="text" name="passwordOne" className="field-long" value={passwordOne} onChange={this.onChange} />
-        <label>Confirm Password <span className="required">*</span></label>
-        <input type="text" name="passwordTwo" className="field-long" value={passwordTwo} onChange={this.onChange} />
-        <button disabled={isInvalid} className = "button" type="submit"> Sign Up</button>
+      <li>
+      <label>Full Name <span class="required">*</span></label>
+        <input type="text" name="firstname" class="field-divided" placeholder="First" value={firstname} onChange={this.onChange} /> 
+        <input type="text" name="lastname" class="field-divided" placeholder="Last" value={lastname} onChange={this.onChange} />
+      </li>
+      <li>
+        <label>Username <span class="required">*</span></label>
+        <input type="text" name="username" class="field-long" value={username} onChange={this.onChange}/>
+      </li>
+      <li>
+        <label>Email <span class="required">*</span></label>
+        <input type="email" name="email" class="field-long" value={email} onChange={this.onChange}/>
+      </li>
+      <li>
+        <label>Password <span class="required">*</span></label>
+        <input type="password" name="passwordOne" class="field-long" value={passwordOne} onChange={this.onChange}/>
+      </li>
+      <li>
+        <label>Confirm Password <span class="required">*</span></label>
+        <input type="password" name="passwordTwo" class="field-long" value={passwordTwo} onChange={this.onChange}/>
+      </li>
+        <button disabled={isInvalid} className = "signup-button" type="submit"> Sign Up</button>
         {error && <p>{error.message}</p>}
         </ul>
 
