@@ -10,7 +10,7 @@ import Navigation from '../Navigation';
 const Landing = () => (
 
   <div className="Landing">
-      <Navigation/>
+      {/* <Navigation/> */}
 
     <header className = "Landing-header">
 
