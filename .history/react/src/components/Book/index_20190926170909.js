@@ -43,12 +43,12 @@ export default function Book() {
     var pageNumber = 1;
     const onNext = () => {
         pageNumber += 1;
-        // this.forceUpdate();
+        this.forceUpdate();
         // setState({pageNumber: this.state.pageNumber + 1})
     }
     const onPrev = () => {
         pageNumber -= 1;
-        // this.forceUpdate();
+        this.forceUpdate();
         // setState({pageNumber: this.state.pageNumber - 1})
     }
     console.log(pageNumber);

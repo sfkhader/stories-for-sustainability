@@ -35,23 +35,14 @@ const useStyles = makeStyles(theme => ({
   }));
 
 export default function Book() { 
-    // constructor = () => {
-    //     this.state = {pageNumber: 1};
-    //     setState.bind(this);
-    // }
     const classes = useStyles();
     var pageNumber = 1;
     const onNext = () => {
         pageNumber += 1;
-        // this.forceUpdate();
-        // setState({pageNumber: this.state.pageNumber + 1})
     }
     const onPrev = () => {
         pageNumber -= 1;
-        // this.forceUpdate();
-        // setState({pageNumber: this.state.pageNumber - 1})
     }
-    console.log(pageNumber);
     return (
             <div className="Landing-header">
                 <h2>Title of Book</h2>

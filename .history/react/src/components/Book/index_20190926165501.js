@@ -9,7 +9,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import {Document, Page, pdfjs,} from 'react-pdf';
 
@@ -25,54 +25,46 @@ function onErr(error) {
 function onSucc() {
     console.log("SUCCESSSSSSSSSSSSSSSSSS");
 }
-const useStyles = makeStyles(theme => ({
+var pageNumber = 1;
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
     button: {
       margin: theme.spacing(1),
     },
     input: {
       display: 'none',
     },
-  }));
+  }),
+);
 
-export default function Book() { 
-    // constructor = () => {
-    //     this.state = {pageNumber: 1};
-    //     setState.bind(this);
-    // }
-    const classes = useStyles();
-    var pageNumber = 1;
-    const onNext = () => {
-        pageNumber += 1;
-        // this.forceUpdate();
-        // setState({pageNumber: this.state.pageNumber + 1})
+export default class Book extends React.Component{ 
+
+    constructor() {
+        super();
     }
-    const onPrev = () => {
-        pageNumber -= 1;
-        // this.forceUpdate();
-        // setState({pageNumber: this.state.pageNumber - 1})
-    }
-    console.log(pageNumber);
-    return (
+    render() {
+        // const classes = useStyles();
+        return (
             <div className="Landing-header">
                 <h2>Title of Book</h2>
                 <div>
-                    <Button variant="contained" className = {classes.button} onClick = {onPrev}>
+                    <Button variant="contained" className = "button">
                         Previous
                     </Button>
-                    <Button variant="contained" className = {classes.button} onClick = {onNext}>
+                    <Button variant="contained" className = "button">
                         Next
                     </Button>
                 </div>
                 <div width = "1000px">
                     {/* <img src={'/pdf.pdf'}></img> */}
                     <Document file = {thing} onLoadError={onErr} onLoadSuccess={onSucc}>
-                        <Page pageNumber={pageNumber}/>
+                        <Page pageNumber={1}/>
                     </Document>
 
 
                 </div>
             </div>
-    )
+        )
+    }
 }
-
 // export default Book;

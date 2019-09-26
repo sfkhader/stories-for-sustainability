@@ -25,6 +25,7 @@ function onErr(error) {
 function onSucc() {
     console.log("SUCCESSSSSSSSSSSSSSSSSS");
 }
+var pageNumber = 1;
 const useStyles = makeStyles(theme => ({
     button: {
       margin: theme.spacing(1),
@@ -35,38 +36,22 @@ const useStyles = makeStyles(theme => ({
   }));
 
 export default function Book() { 
-    // constructor = () => {
-    //     this.state = {pageNumber: 1};
-    //     setState.bind(this);
-    // }
     const classes = useStyles();
-    var pageNumber = 1;
-    const onNext = () => {
-        pageNumber += 1;
-        // this.forceUpdate();
-        // setState({pageNumber: this.state.pageNumber + 1})
-    }
-    const onPrev = () => {
-        pageNumber -= 1;
-        // this.forceUpdate();
-        // setState({pageNumber: this.state.pageNumber - 1})
-    }
-    console.log(pageNumber);
     return (
             <div className="Landing-header">
                 <h2>Title of Book</h2>
                 <div>
-                    <Button variant="contained" className = {classes.button} onClick = {onPrev}>
+                    <Button variant="contained" className = {classes.button}>
                         Previous
                     </Button>
-                    <Button variant="contained" className = {classes.button} onClick = {onNext}>
+                    <Button variant="contained" className = "button">
                         Next
                     </Button>
                 </div>
                 <div width = "1000px">
                     {/* <img src={'/pdf.pdf'}></img> */}
                     <Document file = {thing} onLoadError={onErr} onLoadSuccess={onSucc}>
-                        <Page pageNumber={pageNumber}/>
+                        <Page pageNumber={1}/>
                     </Document>
 
 

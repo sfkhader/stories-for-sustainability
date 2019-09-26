@@ -35,21 +35,14 @@ const useStyles = makeStyles(theme => ({
   }));
 
 export default function Book() { 
-    // constructor = () => {
-    //     this.state = {pageNumber: 1};
-    //     setState.bind(this);
-    // }
+    this.state = {pageNumber: 1};
     const classes = useStyles();
     var pageNumber = 1;
     const onNext = () => {
-        pageNumber += 1;
-        // this.forceUpdate();
-        // setState({pageNumber: this.state.pageNumber + 1})
+        setState({pageNumber: this.state.pageNumber + 1})
     }
     const onPrev = () => {
-        pageNumber -= 1;
-        // this.forceUpdate();
-        // setState({pageNumber: this.state.pageNumber - 1})
+        setState({pageNumber: this.state.pageNumber - 1})
     }
     console.log(pageNumber);
     return (
