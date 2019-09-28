@@ -41,8 +41,6 @@ class SignInFormBase extends Component {
                 .get()
                 .then(snapshot => {
                   const dbUser = snapshot.data();
-
-
                   if (dbUser.roles != null && dbUser.roles.ADMIN == [ROLES.ADMIN]){
                     this.props.history.push(ROUTES.ADMIN);
                   } else {

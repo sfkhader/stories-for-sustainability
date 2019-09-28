@@ -48,7 +48,8 @@ class AdminPage extends Component {
         <button class="button" >
           Upload Stories
         </button>
-    </Link>
+        </Link>
+        
       </div>
     );
   }

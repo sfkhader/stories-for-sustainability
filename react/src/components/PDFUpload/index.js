@@ -62,12 +62,12 @@ class PDFUploadFormBase extends Component {
     () => {
       storage.ref('pdfs').child(pdf.name).getDownloadURL().then(url => {
         console.log(url);
-        const toBeAdded = {
+
+        db.collection('books').add({
           title: this.state.title,
           tag: this.state.tag,
           url: url
-        }
-        db.collection('books').add({toBeAdded});
+        });
 
     })
      

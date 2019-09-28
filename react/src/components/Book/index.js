@@ -8,16 +8,7 @@ import ReactDOM from "react-dom";
 import * as firebase from 'firebase';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-const storage = firebase.storage();
-const pathReference = storage.ref('pdfs/Anai Friends Story.pdf');
-const url = "https://firebasestorage.googleapis.com/v0/b/stories-for-sustainability.appspot.com/o/pdfs%2FAnai%20Friends%20Story.pdf?alt=media&token=725470e5-cb4a-46b0-9a38-9b80a8d64d53"//pathReference.getDownloadURL();
 
-function onErr(error) {
-    console.log(error);
-}
-function onSucc() {
-    console.log("SUCCESSSSSSSSSSSSSSSSSS");
-}
 const useStyles = makeStyles(theme => ({
     button: {
       margin: theme.spacing(1),
@@ -28,9 +19,37 @@ const useStyles = makeStyles(theme => ({
   }));
 
   class Book extends Component {
-    state = {
-      numPages: null,
-      pageNumber: 1,
+    
+    constructor(props) {
+      super(props);
+      this.state = {
+        book: {},
+        key: '',
+        url: '',
+        numPages: null,
+        pageNumber: 1,
+      };
+    }
+
+    componentDidMount() {
+      var url = this.props.location.pathname;
+      var urlsplit = url.split("/").slice(-1)[0];
+      console.log(urlsplit);
+      const ref = firebase.firestore().collection('books').doc(urlsplit);
+      ref.get().then((doc) => {
+        if (doc.exists) {
+          this.setState({
+            book: doc.data(),
+            title: doc.data().title,
+            tags: doc.data().tags,
+            key: doc.id,
+            url: doc.data().url,
+            isLoading: false
+          });
+        } else {
+          console.log("No such document!");
+        }
+      });
     }
   
     onDocumentLoad = ({ numPages }) => {
@@ -38,27 +57,27 @@ const useStyles = makeStyles(theme => ({
     }
   
     render() {
-      const { pageNumber, numPages } = this.state;
+      const { book, key, url, pageNumber, numPages, isLoading } = this.state;
   
       return (
-            <div className="Landing-header">
-                <h2>Title of Book</h2>
-                <div>
-                    <button className ="button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber - 1 }))}>
-                        Previous
-                    </button>
-                    <button  className = "button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber + 1 }))}>
-                        Next
-                    </button>
-                </div>
-                <div width = "1000px">
-                    <Document file = {url} onLoadError={onErr} onLoadSuccess={onSucc}>
-                        <Page pageNumber={pageNumber}/>
-                    </Document>
-
-
-                </div>
+        <div className="Landing-header">
+            <h2>{this.state.title}</h2>
+            <div>
+                <button className ="button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber - 1 }))}>
+                    Previous
+                </button>
+                <button  className = "button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber + 1 }))}>
+                    Next
+                </button>
             </div>
+            <div width = "1000px">
+                <Document file = {this.state.url}>
+                    <Page pageNumber={pageNumber}/>
+                </Document>
+
+
+            </div>
+        </div>
     )
     }
   }
