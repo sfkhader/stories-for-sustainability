@@ -24,7 +24,6 @@ const HomePage = () => (
           <TableCell><img src = {cover} className="book-cover"/></TableCell>
           <TableCell></TableCell>
 
-
         </TableRow>
       </TableBody>
     </Table>
