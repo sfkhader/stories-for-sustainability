@@ -59,10 +59,18 @@ class AdminPage extends Component {
             Upload Stories
           </button>
         </Link>
-        &nbsp;
+        </Inline>
+        <Inline>
         <Link to={ROUTES.FILEDELETE}> 
             <button class="admin-delete-button" >
               Delete Stories
+            </button>
+      
+        </Link>
+        &nbsp;
+        <Link to={ROUTES.DELETE_USER}> 
+            <button class="admin-delete-button" >
+              Delete Users
             </button>
       
         </Link>

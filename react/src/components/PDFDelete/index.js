@@ -52,6 +52,7 @@ class PDFDelete extends Component {
     firebase.firestore().collection('books').doc(id).delete().then(() => {
       console.log("Document successfully deleted!");
       this.props.history.push("/")
+      window.location.href = "/admin"
     }).catch((error) => {
       console.error("Error removing document: ", error);
     });

@@ -53,6 +53,7 @@ class DeleteUser extends Component {
     firebase.firestore().collection('users').doc(id).delete().then(() => {
       console.log("Document successfully deleted!");
       this.props.history.push("/")
+      window.location.href = "/admin"
     }).catch((error) => {
       console.error("Error removing document: ", error);
     });
@@ -76,7 +77,6 @@ class DeleteUser extends Component {
                     </DeleteButton>
                 </TableCell>
                 </th>
-
                 )}
         </TableRow>
       </TableBody>

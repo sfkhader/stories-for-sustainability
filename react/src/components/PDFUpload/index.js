@@ -68,7 +68,7 @@ class PDFUploadFormBase extends Component {
           tag: this.state.tag,
           url: url
         });
-       
+        window.location.href = "/admin"
 
     })
      
