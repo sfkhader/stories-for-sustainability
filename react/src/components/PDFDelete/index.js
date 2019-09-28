@@ -10,10 +10,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { firebase } from '@firebase/app';
 import {Document, Page, pdfjs,} from 'react-pdf';
+import { compose } from 'recompose';
+import * as ROLES from '../../constants/roles';
+import { withFirebase } from '../Firebase';
+import { withAuthorization, withEmailVerification } from '../Session';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-class Home extends Component {
+class PDFDelete extends Component {
   constructor(props) {
     super(props);
     this.ref = firebase.firestore().collection('books');
@@ -44,6 +48,15 @@ class Home extends Component {
     this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
   }
   
+  delete(id){
+    firebase.firestore().collection('books').doc(id).delete().then(() => {
+      console.log("Document successfully deleted!");
+      this.props.history.push("/")
+    }).catch((error) => {
+      console.error("Error removing document: ", error);
+    });
+  }
+
   render() {
     return (
       <div className="Landing-header">
@@ -59,7 +72,14 @@ class Home extends Component {
                       </Link>
                     </tr>
                     <p align="center" className="description">Book Description</p>
+                    <Link to={ROUTES.ADMIN}> 
+                        <button onClick={this.delete.bind(this, books.key)} class="button">
+                            Delete Story
+                        </button>
+                    </Link>
                     </th>
+
+                     
                 )}
         </TableRow>
       </TableBody>
@@ -69,4 +89,11 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const condition = authUser =>
+  authUser && !!authUser.roles[ROLES.ADMIN];
+
+export default compose(
+    withEmailVerification,
+    withAuthorization(condition),
+    withFirebase,
+)(PDFDelete);

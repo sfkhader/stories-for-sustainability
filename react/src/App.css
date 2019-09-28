@@ -5,6 +5,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 .Landing {
   text-align: center;
 }
@@ -26,6 +27,18 @@ body {
   border: none;
   box-shadow: 1px 1px 0px 2px rgba (0,0,0,0.3);
   background-color: #4CAF50;
+  cursor: pointer;
+}
+
+.admin-delete-button {
+  margin-top: 40px;
+  font-size: 18px;
+  height: 65px;
+  width: 250px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 1px 1px 0px 2px rgba (0,0,0,0.3);
+  background-color:red;
   cursor: pointer;
 }
 

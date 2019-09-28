@@ -6,6 +6,7 @@ import { withAuthorization, withEmailVerification } from '../Session';
 import * as ROLES from '../../constants/roles';
 import * as ROUTES from '../../constants/routes';
 import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components'
 
 class AdminPage extends Component {
   constructor(props) {
@@ -43,33 +44,58 @@ class AdminPage extends Component {
           The Admin Page is accessible by every signed in admin user.
         </p>
         {loading && <div>Loading ...</div>}
-        <UserList users={users} />
+        <Wrapper> User List:
+          <UserList users={users} />
+        </Wrapper>
+        <Inline>
+        <Link to={ROUTES.CREATE_ADMIN}> 
+          <button class="button" >
+            Create Admin
+          </button>
+        </Link> 
+        &nbsp;
         <Link to={ROUTES.FILEUPLOAD}> 
-        <button class="button" >
-          Upload Stories
-        </button>
+          <button class="button" >
+            Upload Stories
+          </button>
         </Link>
-        
+        &nbsp;
+        <Link to={ROUTES.FILEDELETE}> 
+            <button class="admin-delete-button" >
+              Delete Stories
+            </button>
+      
+        </Link>
+        </Inline>
       </div>
     );
   }
 }
 
 
+
+const Inline = styled.section`
+  display:inline-block;
+  margin-right:5px;
+  margin-bottom: 20px;
+`;
+const Wrapper = styled.section`
+  padding: 10px 10px;
+  box-shadow: inset 0 0 0 1px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  font: inherit;
+  background-color: green;
+  color: white;
+  width: 50%;
+  text-align: center;
+`;
+
 const UserList = ({ users }) => (
   <ul>
-    <Link to={ROUTES.CREATE_ADMIN}> 
-        <button class="button" >
-          Create Admin
-        </button>
-    </Link>
-
     {users.map(user => (
       <li key={user.uid}>
-        <span>
-          <strong>ID:</strong> {user.uid}
-        </span>
-        <br></br>
         <span>
           <strong>E-Mail:</strong> {user.email}
         </span>

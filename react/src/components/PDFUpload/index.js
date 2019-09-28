@@ -68,14 +68,18 @@ class PDFUploadFormBase extends Component {
           tag: this.state.tag,
           url: url
         });
+       
 
     })
      
-      this.setState({ title, tag, url });  
+      this.setState({ title, tag, url }); 
+      
     },
+    
       
   );
   }
+
 
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -111,7 +115,9 @@ class PDFUploadFormBase extends Component {
       <progress value={this.state.progress} max="100"/>
       <br/>
         <input type="file" onChange={this.handleChange}/>
+        {/* <Link to={ROUTES.ADMIN}>  */}
         <button className="button" onClick={this.handleUpload}>Upload</button>
+        {/* </Link> */}
         <br/>
       </div>
     )

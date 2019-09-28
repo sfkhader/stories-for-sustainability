@@ -8,3 +8,4 @@ export const PASSWORD_FORGET = '/pw-forget';
 export const CREATE_ADMIN = '/createadmin'
 export const FILEUPLOAD = '/fileupload'
 export const BOOK = '/book'
+export const FILEDELETE = '/filedelete'
