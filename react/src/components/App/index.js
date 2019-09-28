@@ -14,6 +14,7 @@ import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
 import Book from '../Book';
 import PDFDelete from '../PDFDelete';
+import DeleteUser from '../DeleteUser';
 
 const App = () => (
   <Router>
@@ -29,7 +30,7 @@ const App = () => (
       <Route path={ROUTES.FILEUPLOAD} component={PDFUpload} />
       <Route path={ROUTES.BOOK} component={Book} />
       <Route path={ROUTES.FILEDELETE} component={PDFDelete} />
-
+      <Route path={ROUTES.DELETE_USER} component={DeleteUser} />
 
     </div>
   </Router>
