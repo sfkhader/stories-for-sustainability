@@ -11,7 +11,7 @@ const SignUpPage = () => (
   
   <div className="Landing-header">
     <img src={logo} className="Landing-logo" alt="logo" />
-    <h1>Sign Up</h1>
+    <h1 className = "resitration">Registration</h1>
     <FirebaseContext.Consumer>
       {firebase => <SignUpForm firebase={firebase} />}
     </FirebaseContext.Consumer>  </div>
