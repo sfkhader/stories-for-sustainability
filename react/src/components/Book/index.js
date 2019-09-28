@@ -1,23 +1,16 @@
-// Access-Control-Allow-Origin: *
-import React from 'react';
-import logo from '../../logo2.png';
-import { compose } from 'recompose';
-import cover from '../../images/cover.jpg';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
 import {Document, Page, pdfjs,} from 'react-pdf';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
 
-import thing from "./pdf.pdf";
-import { withAuthorization, withEmailVerification } from '../Session';
-
-
+import * as firebase from 'firebase';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+
+const storage = firebase.storage();
+const pathReference = storage.ref('pdfs/Anai Friends Story.pdf');
+const url = "https://firebasestorage.googleapis.com/v0/b/stories-for-sustainability.appspot.com/o/pdfs%2FAnai%20Friends%20Story.pdf?alt=media&token=725470e5-cb4a-46b0-9a38-9b80a8d64d53"//pathReference.getDownloadURL();
 
 function onErr(error) {
     console.log(error);
@@ -34,38 +27,32 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-export default function Book() { 
-    // constructor = () => {
-    //     this.state = {pageNumber: 1};
-    //     setState.bind(this);
-    // }
-    const classes = useStyles();
-    var pageNumber = 1;
-    const onNext = () => {
-        pageNumber += 1;
-        // this.forceUpdate();
-        // setState({pageNumber: this.state.pageNumber + 1})
+  class Book extends Component {
+    state = {
+      numPages: null,
+      pageNumber: 1,
     }
-    const onPrev = () => {
-        pageNumber -= 1;
-        // this.forceUpdate();
-        // setState({pageNumber: this.state.pageNumber - 1})
+  
+    onDocumentLoad = ({ numPages }) => {
+      this.setState({ numPages });
     }
-    console.log(pageNumber);
-    return (
+  
+    render() {
+      const { pageNumber, numPages } = this.state;
+  
+      return (
             <div className="Landing-header">
                 <h2>Title of Book</h2>
                 <div>
-                    <Button variant="contained" className = {classes.button} onClick = {onPrev}>
+                    <button className ="button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber - 1 }))}>
                         Previous
-                    </Button>
-                    <Button variant="contained" className = {classes.button} onClick = {onNext}>
+                    </button>
+                    <button  className = "button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber + 1 }))}>
                         Next
-                    </Button>
+                    </button>
                 </div>
                 <div width = "1000px">
-                    {/* <img src={'/pdf.pdf'}></img> */}
-                    <Document file = {thing} onLoadError={onErr} onLoadSuccess={onSucc}>
+                    <Document file = {url} onLoadError={onErr} onLoadSuccess={onSucc}>
                         <Page pageNumber={pageNumber}/>
                     </Document>
 
@@ -73,6 +60,8 @@ export default function Book() {
                 </div>
             </div>
     )
-}
+    }
+  }
 
-// export default Book;
+
+export default Book;
