@@ -61,21 +61,22 @@ class DeleteUser extends Component {
   render() {
     return (
       <div className="Landing-header">
+          <h1>Delete a User</h1>
       <Table>
       <TableBody>
         <TableRow className = "row">
             {this.state.users.map(users =>
-                <TableCell>
                 <th align="center">
+                <TableCell>
                     <th align="center" className="description">Email: {users.email}</th>
                     &nbsp;
                     <th align="center" className="description">Username: {users.username}</th>
                     <DeleteButton onClick={this.delete.bind(this, users.key)}>
-                            Delete User
+                        Delete User
                     </DeleteButton>
-                    </th>
                 </TableCell>
-    
+                </th>
+
                 )}
         </TableRow>
       </TableBody>

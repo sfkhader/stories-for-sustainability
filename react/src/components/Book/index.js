@@ -66,10 +66,15 @@ const useStyles = makeStyles(theme => ({
                 <button className ="button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber - 1 }))}>
                     Previous
                 </button>
+                &nbsp;
+
                 <button  className = "button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber + 1 }))}>
                     Next
                 </button>
+
             </div>
+            &nbsp;
+
             <div width = "1000px">
                 <Document file = {this.state.url}>
                     <Page pageNumber={pageNumber}/>

@@ -47,6 +47,7 @@ class Home extends Component {
   render() {
     return (
       <div className="Landing-header">
+        <h1>Library</h1>
       <Table>
       <TableBody>
         <TableRow className = "row">
