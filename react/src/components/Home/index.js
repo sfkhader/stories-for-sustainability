@@ -1,4 +1,5 @@
 
+import { compose } from 'recompose';
 import cover from '../../images/cover.jpg';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,6 +11,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { firebase } from '@firebase/app';
 import {Document, Page, pdfjs,} from 'react-pdf';
+import { withAuthorization, withEmailVerification } from '../Session';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -70,4 +72,9 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const condition = authUser => !!authUser;
+
+export default compose(
+  withEmailVerification,
+  withAuthorization(condition),
+)(Home);

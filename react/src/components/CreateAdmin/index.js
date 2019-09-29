@@ -53,7 +53,6 @@ class CreateAdminFormBase extends Component {
     secondaryApp.auth().createUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         // Create a user in your Firebase realtime database
-        // console.log(authUser)
         this.props.firebase
           .user(authUser.user.uid)
           .set({
