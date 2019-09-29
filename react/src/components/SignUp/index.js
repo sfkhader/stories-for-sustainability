@@ -11,7 +11,7 @@ const SignUpPage = () => (
   
   <div className="Landing-header">
     <img src={logo} className="Landing-logo" alt="logo" />
-    <h1 className = "resitration">Registration</h1>
+    <h1 className = "resitration">Register</h1>
     <FirebaseContext.Consumer>
       {firebase => <SignUpForm firebase={firebase} />}
     </FirebaseContext.Consumer>  </div>
@@ -114,7 +114,7 @@ class SignUpFormBase extends Component {
         <label>Confirm Password <span class="required">*</span></label>
         <input type="password" name="passwordTwo" class="field-long" value={passwordTwo} onChange={this.onChange}/>
       </li>
-        <button disabled={isInvalid} className = "signup-button" type="submit"> Sign Up</button>
+        <button disabled={isInvalid} className = "signup-button" type="submit">Register</button>
         {error && <p>{error.message}</p>}
         </ul>
 

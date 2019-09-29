@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
-
 import { withFirebase } from '../Firebase';
 import { withAuthorization, withEmailVerification } from '../Session';
 import * as ROLES from '../../constants/roles';
 import * as ROUTES from '../../constants/routes';
 import { Link } from 'react-router-dom';
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 class AdminPage extends Component {
   constructor(props) {
@@ -48,31 +47,31 @@ class AdminPage extends Component {
           <UserList users={users} />
         </Wrapper>
         <Inline>
-        <Link to={ROUTES.CREATE_ADMIN}> 
+        <Link to={ROUTES.CREATE_ADMIN}>
           <button class="button" >
             Create Admin
           </button>
-        </Link> 
+        </Link>
         &nbsp;
-        <Link to={ROUTES.FILEUPLOAD}> 
+        <Link to={ROUTES.FILEUPLOAD}>
           <button class="button" >
             Upload Stories
           </button>
         </Link>
         </Inline>
         <Inline>
-        <Link to={ROUTES.FILEDELETE}> 
+        <Link to={ROUTES.FILEDELETE}>
             <button class="admin-delete-button" >
               Delete Stories
             </button>
-      
+
         </Link>
         &nbsp;
-        <Link to={ROUTES.DELETE_USER}> 
+        <Link to={ROUTES.DELETE_USER}>
             <button class="admin-delete-button" >
               Delete Users
             </button>
-      
+
         </Link>
         </Inline>
       </div>
@@ -118,7 +117,7 @@ const UserList = ({ users }) => (
 
 const condition = authUser =>
   authUser && !!authUser.roles[ROLES.ADMIN];
-  
+
 export default compose(
   withEmailVerification,
   withAuthorization(condition),
