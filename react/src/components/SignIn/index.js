@@ -11,7 +11,7 @@ import logo from '../../logo2.png';
 const SignInPage = () => (
   <div className="Landing-header">
     <img src={logo} className="Landing-logo" alt="logo" />
-    <h1>Sign In</h1>
+    <h1>Log In</h1>
     <SignInForm />
     <PasswordForgetLink />
     <SignUpLink />
@@ -73,7 +73,7 @@ class SignInFormBase extends Component {
         <label>Password <span class="required">*</span></label>
         <input type="password" name="password" class="field-long" value={password} onChange={this.onChange} />
       </li>
-      <button disabled={isInvalid} className ="button" type="submit">Sign In</button>
+      <button disabled={isInvalid} className ="button" type="submit">Log In</button>
         {error && <p>{error.message}</p>}
         </ul>
       </form>
