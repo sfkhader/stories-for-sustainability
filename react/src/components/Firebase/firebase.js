@@ -11,7 +11,6 @@ admin.initializeApp({
   databaseURL: 'https://stories-for-sustainability.firebaseio.com'
 });
 
-
 const config = {
     apiKey: "AIzaSyC8Q9QITqvoKM_rqja6HUtgrOtfTDVcVBc",
     authDomain: "stories-for-sustainability.firebaseapp.com",

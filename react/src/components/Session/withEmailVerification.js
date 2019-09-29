@@ -34,7 +34,7 @@ const withEmailVerification = Component => {
               <div className="header">
                 {this.state.isSent ? (
                   <p className="message">
-                    E-Mail confirmation sent: Check you E-Mails (Spam
+                    E-Mail confirmation sent: Check your E-Mails (Spam
                     folder included) for a confirmation E-Mail.
                     Refresh this page once you confirmed your E-Mail.
                   </p>

@@ -1,3 +1,4 @@
+import app from 'firebase/app';
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
@@ -42,11 +43,18 @@ class CreateAdminFormBase extends Component {
     if (isAdmin) {
       roles[ROLES.ADMIN] = ROLES.ADMIN;
     }
-    this.props.firebase
-      .doCreateUserWithEmailAndPassword(email, passwordOne)
+
+    var config = {
+      apiKey: "AIzaSyC8Q9QITqvoKM_rqja6HUtgrOtfTDVcVBc",
+      authDomain: "stories-for-sustainability.firebaseapp.com",
+      databaseURL: "https://stories-for-sustainability.firebaseio.com",};
+    var secondaryApp = app.initializeApp(config, "Secondary");
+
+    secondaryApp.auth().createUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         // Create a user in your Firebase realtime database
-        return this.props.firebase
+        // console.log(authUser)
+        this.props.firebase
           .user(authUser.user.uid)
           .set({
             firstname,
@@ -56,9 +64,16 @@ class CreateAdminFormBase extends Component {
             passwordOne,
             roles,
           })
+
+          secondaryApp.auth().currentUser.sendEmailVerification({
+          url: 'http://localhost:3000',
+        });
+
       })
-      .then(() => {
-        return this.props.firebase.doSendEmailVerification();
+      .then(function(firebaseUser) {
+        console.log("User " + firebaseUser.uid + " created successfully!");
+        //I don't know if the next statement is necessary 
+        secondaryApp.auth().signOut();
       })
       .then(() => {  
         this.setState({ ...INITIAL_STATE });
