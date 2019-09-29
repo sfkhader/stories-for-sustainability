@@ -49,11 +49,7 @@ class Home extends Component {
 
   render() {
     return (
-
       <div className="Landing-header">
-        <Link to = {ROUTES.LANDING}> <button className ="libButton">
-                    Sign Out
-            </button></Link>
         <h1>Library</h1>
       <Table>
       <TableBody>

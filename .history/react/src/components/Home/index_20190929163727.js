@@ -52,7 +52,7 @@ class Home extends Component {
 
       <div className="Landing-header">
         <Link to = {ROUTES.LANDING}> <button className ="libButton">
-                    Sign Out
+                    Back to Library
             </button></Link>
         <h1>Library</h1>
       <Table>

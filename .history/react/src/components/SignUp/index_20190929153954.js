@@ -115,8 +115,6 @@ class SignUpFormBase extends Component {
         <input type="password" name="passwordTwo" class="field-long" value={passwordTwo} onChange={this.onChange}/>
       </li>
         <button disabled={isInvalid} className = "signup-button" type="submit">Register</button>
-        <Link to = {ROUTES.LANDING}><button className = "signup-button" >Cancel</button> </Link>
-
         {error && <p>{error.message}</p>}
         </ul>
 

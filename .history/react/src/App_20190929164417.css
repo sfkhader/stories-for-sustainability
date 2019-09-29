@@ -80,7 +80,6 @@ body {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-  
 }
 
 
@@ -98,7 +97,6 @@ body {
 }
 
 .form-style-1 {
-  
 	margin:10px auto;
 	max-width: 400px;
 	padding: 20px 12px 10px 20px;

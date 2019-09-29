@@ -98,7 +98,8 @@ body {
 }
 
 .form-style-1 {
-  
+  font-weight: lighter;
+
 	margin:10px auto;
 	max-width: 400px;
 	padding: 20px 12px 10px 20px;
