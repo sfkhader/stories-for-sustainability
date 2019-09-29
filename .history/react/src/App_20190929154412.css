@@ -194,23 +194,7 @@ select{
 }
 .description{
   color:white;
-  font-weight:lighter;
 }
 .book {
   padding: 50px;
-}
-.libButton {
-  position: absolute;
-  left: 40px;
-  top: 20px;
-  color:white;
-  margin-top: 40px;
-  font-size: 18px;
-  height: 65px;
-  width: 250px;
-  border-radius: 10px;
-  border: none;
-  box-shadow: 1px 1px 0px 2px rgba (0,0,0,0.3);
-  background-color: #4CAF50;
-  cursor: pointer;
 }

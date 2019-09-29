@@ -5,7 +5,6 @@ import {Document, Page, pdfjs,} from 'react-pdf';
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import * as ROUTES from '../../constants/routes';
-import { Link } from 'react-router-dom';
 
 import * as firebase from 'firebase';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -67,7 +66,7 @@ const useStyles = makeStyles(theme => ({
   
       return (
         <div className="Landing-header">
-            <Link to = {ROUTES.HOME}> <button className ="libButton">
+            <Link to = {ROUTES.HOME}> <button className ="libButton" onClick={}>
                     Back to Library
             </button></Link>
             &nbsp;

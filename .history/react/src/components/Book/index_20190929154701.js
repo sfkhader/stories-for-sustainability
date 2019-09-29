@@ -4,8 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import {Document, Page, pdfjs,} from 'react-pdf';
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import * as ROUTES from '../../constants/routes';
-import { Link } from 'react-router-dom';
 
 import * as firebase from 'firebase';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -20,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     },
     libButton: {
         margin: theme.spacing(1),
-        alignSelf: 'left'
+        alignSelf: screenLeft
     }
   }));
 
@@ -67,9 +65,9 @@ const useStyles = makeStyles(theme => ({
   
       return (
         <div className="Landing-header">
-            <Link to = {ROUTES.HOME}> <button className ="libButton">
+             <button className ="libButton" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber - 1 }))}>
                     Back to Library
-            </button></Link>
+            </button>
             &nbsp;
             <h2>{this.state.title}</h2>
             <div>

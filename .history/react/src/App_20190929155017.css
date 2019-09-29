@@ -194,16 +194,14 @@ select{
 }
 .description{
   color:white;
-  font-weight:lighter;
 }
 .book {
   padding: 50px;
 }
 .libButton {
   position: absolute;
-  left: 40px;
+  left: 20px;
   top: 20px;
-  color:white;
   margin-top: 40px;
   font-size: 18px;
   height: 65px;

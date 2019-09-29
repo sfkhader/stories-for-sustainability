@@ -47,7 +47,29 @@ class Home extends Component {
   componentDidMount() {
     this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
   }
+  
+  addSingleBook() {
 
+  }
+  addSingleRow() {
+    <TableRow className = "row">
+    {}
+    </TableRow>
+  }
+  addRows() {
+    this.state.books.map(books =>
+
+      <th align="center">
+          <th>{books.title}</th>
+          <tr>
+            <Link to={`/book/${books.key}`}>
+            <img src = {cover} className="book-cover"></img>
+            </Link>
+          </tr>
+          <p align="center" className="description">Book Description</p>
+      </th>
+    )
+  }
   render() {
     return (
       <div className="Landing-header">
@@ -55,18 +77,7 @@ class Home extends Component {
       <Table>
       <TableBody>
         <TableRow className = "row">
-{        this.state.books.map(books =>
-
-          <th align="center">
-              <th>{books.title}</th>
-              <tr>
-                <Link to={`/book/${books.key}`}>
-                <img src = {cover} className="book-cover"></img>
-                </Link>
-              </tr>
-              <p align="center" className="description">Book Description</p>
-          </th>
-        )}
+            {}
         </TableRow>
       </TableBody>
     </Table>
