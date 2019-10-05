@@ -42,6 +42,7 @@ const useStyles = makeStyles(theme => ({
       var urlsplit = url.split("/").slice(-1)[0];
       console.log(urlsplit);
       const ref = firebase.firestore().collection('books').doc(urlsplit);
+      // const userRef = firebase.firestore().collection('users').doc(urlsplit);
       ref.get().then((doc) => {
         if (doc.exists) {
           this.setState({

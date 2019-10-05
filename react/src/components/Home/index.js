@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import { firebase } from '@firebase/app';
 import {Document, Page, pdfjs,} from 'react-pdf';
 import { withAuthorization, withEmailVerification } from '../Session';
+import SignOutButton from '../SignOut';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -51,9 +52,10 @@ class Home extends Component {
     return (
 
       <div className="Landing-header">
-        <Link to = {ROUTES.LANDING}> <button className ="libButton">
+        <SignOutButton/>
+        {/* <Link to = {ROUTES.LANDING}> <button className ="libButton">
                     Sign Out
-            </button></Link>
+            </button></Link> */}
         <h1>Library</h1>
       <Table>
       <TableBody>
