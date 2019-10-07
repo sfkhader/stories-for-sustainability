@@ -94,7 +94,7 @@ const Wrapper = styled.section`
   outline: none;
   font: inherit;
   background-color: #8FA2A8;
-  color: #2A2D34;
+  color: white;
   width: 50%;
   text-align: center;
 `;

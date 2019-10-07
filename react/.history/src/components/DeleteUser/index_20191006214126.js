@@ -1,4 +1,5 @@
 
+
 import cover from '../../images/cover.jpg';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -14,33 +15,33 @@ import { compose } from 'recompose';
 import * as ROLES from '../../constants/roles';
 import { withFirebase } from '../Firebase';
 import { withAuthorization, withEmailVerification } from '../Session';
+import styled, { css } from 'styled-components'
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-class PDFDelete extends Component {
+
+class DeleteUser extends Component {
   constructor(props) {
     super(props);
-    this.ref = firebase.firestore().collection('books');
+    this.ref = firebase.firestore().collection('users');
     this.unsubscribe = null;
     this.state = {
-      books: []
+      users: []
     };
   }
 
   onCollectionUpdate = (querySnapshot) => {
-    const books = [];
+    const users = [];
     querySnapshot.forEach((doc) => {
-      const { title, tags, url } = doc.data();
-      books.push({
+      const { email, username } = doc.data();
+      users.push({
         key: doc.id,
         doc,
-        title,
-        tags,
-        url,
+        email,
+        username,
       });
     });
     this.setState({
-      books
+      users
    });
   }
 
@@ -49,7 +50,7 @@ class PDFDelete extends Component {
   }
   
   delete(id){
-    firebase.firestore().collection('books').doc(id).delete().then(() => {
+    firebase.firestore().collection('users').doc(id).delete().then(() => {
       console.log("Document successfully deleted!");
       this.props.history.push("/")
       window.location.href = "/admin"
@@ -61,26 +62,21 @@ class PDFDelete extends Component {
   render() {
     return (
       <div className="Landing-header">
+          <h1>Delete a User</h1>
       <Table>
       <TableBody>
         <TableRow className = "row">
-            {this.state.books.map(books =>
+            {this.state.users.map(users =>
                 <th align="center">
-                    <th>{books.title}</th>
-                    <tr>
-                      <Link to={`/book/${books.key}`}>
-                      <img src = {cover} className="book-cover"></img>
-                      </Link>
-                    </tr>
-                    <p align="center" className="description">Book Description</p>
-                    <Link to={ROUTES.ADMIN}> 
-                        <button onClick={this.delete.bind(this, books.key)} class="login-button">
-                            Delete Story
-                        </button>
-                    </Link>
-                    </th>
-
-                     
+                <TableCell>
+                    <th align="center" className="description">Email: {users.email}</th>
+                    &nbsp;
+                    <th align="center" className="description">Username: {users.username}</th>
+                    <DeleteButton className = "admin-delete-button" onClick={this.delete.bind(this, users.key)}>
+                        Delete User
+                    </DeleteButton>
+                </TableCell>
+                </th>
                 )}
         </TableRow>
       </TableBody>
@@ -89,6 +85,22 @@ class PDFDelete extends Component {
     );
   }
 }
+const Button = styled.button`
+  display: inline-block;
+  color: palevioletred;
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border: 2px solid palevioletred;
+  border-radius: 3px;
+  display: block;
+`;
+
+const DeleteButton = styled(Button)`
+  color: white;
+  background-color: tomato;
+`;
+
 
 const condition = authUser =>
   authUser && !!authUser.roles[ROLES.ADMIN];
@@ -97,4 +109,4 @@ export default compose(
     withEmailVerification,
     withAuthorization(condition),
     withFirebase,
-)(PDFDelete);
+)(DeleteUser);

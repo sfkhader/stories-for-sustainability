@@ -266,6 +266,7 @@ select{
 }
 .description{
   color:#2A2D34;
+  font-weight:lighter;
 }
 .book {
   padding: 50px;

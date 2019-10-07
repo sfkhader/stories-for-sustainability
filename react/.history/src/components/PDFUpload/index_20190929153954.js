@@ -116,7 +116,7 @@ class PDFUploadFormBase extends Component {
       <br/>
         <input type="file" onChange={this.handleChange}/>
         {/* <Link to={ROUTES.ADMIN}>  */}
-        <button className="login-button" onClick={this.handleUpload}>Upload</button>
+        <button className="button" onClick={this.handleUpload}>Upload</button>
         {/* </Link> */}
         <br/>
       </div>

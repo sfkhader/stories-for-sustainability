@@ -74,7 +74,7 @@ class PDFDelete extends Component {
                     </tr>
                     <p align="center" className="description">Book Description</p>
                     <Link to={ROUTES.ADMIN}> 
-                        <button onClick={this.delete.bind(this, books.key)} class="login-button">
+                        <button onClick={this.delete.bind(this, books.key)} class="button">
                             Delete Story
                         </button>
                     </Link>

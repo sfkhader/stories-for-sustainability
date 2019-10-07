@@ -48,13 +48,13 @@ class AdminPage extends Component {
         </Wrapper>
         <Inline>
         <Link to={ROUTES.CREATE_ADMIN}>
-          <button class="login-button" >
+          <button class="button" >
             Create Admin
           </button>
         </Link>
         &nbsp;
         <Link to={ROUTES.FILEUPLOAD}>
-          <button class="login-button" >
+          <button class="button" >
             Upload Stories
           </button>
         </Link>
@@ -93,8 +93,8 @@ const Wrapper = styled.section`
   border: none;
   outline: none;
   font: inherit;
-  background-color: #8FA2A8;
-  color: #2A2D34;
+  background-color: green;
+  color: white;
   width: 50%;
   text-align: center;
 `;
@@ -102,7 +102,7 @@ const Wrapper = styled.section`
 const UserList = ({ users }) => (
   <ul>
     {users.map(user => (
-      <li key={user.uid} style = {{listStyle: "none"}}>
+      <li key={user.uid}>
         <span>
           <strong>E-Mail:</strong> {user.email}
         </span>
