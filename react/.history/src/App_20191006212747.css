@@ -270,8 +270,6 @@ select{
   padding: 50px;
 }
 .libButton {
-  color:#2A2D34;
-
   position: absolute;
   left: 40px;
   top: 20px;
@@ -284,6 +282,7 @@ select{
   box-shadow: 1px 1px 0px 2px rgba (0,0,0,0.3);
   background-color: #4CAF50;
   cursor: pointer;
+  color:black;
   font-weight:bold;
 
 }

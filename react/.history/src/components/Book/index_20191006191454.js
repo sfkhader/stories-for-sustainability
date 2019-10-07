@@ -74,12 +74,12 @@ const useStyles = makeStyles(theme => ({
             &nbsp;
             <h2>{this.state.title}</h2>
             <div>
-                <button className ="login-button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber - 1 }))}>
+                <button className ="button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber - 1 }))}>
                     Previous
                 </button>
                 &nbsp;
 
-                <button  className = "login-button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber + 1 }))}>
+                <button  className = "button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber + 1 }))}>
                     Next
                 </button>
 
