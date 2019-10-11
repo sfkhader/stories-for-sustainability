@@ -7,3 +7,7 @@
 /build
 /captures
 .externalNativeBuild
+package-lock.json
+/.history
+/.vscode
+/node_modules
