@@ -64,11 +64,11 @@ class AdminWrapper extends Component {
     var isHome = () => {
         if (this.state.home) {
           return (
-              <SignOut color = 'inherit'>Sign Out</SignOut>
+              <SignOut color = 'inherit' style = {{marginRight: "20px"}}>Sign Out</SignOut>
           )
         } else {
             return(
-              <Link to = {ROUTES.ADMIN} style= {{textDecoration: 'none', color: 'white'}}><Button variant = 'outlined' color= 'inherit'> Back to Home </Button></Link>
+              <Link to = {ROUTES.ADMIN} style= {{textDecoration: 'none', color: 'white', marginRight: "20px"}}><Button variant = 'outlined' color= 'inherit'> Back to Home </Button></Link>
             )
         }
     };
@@ -77,8 +77,14 @@ class AdminWrapper extends Component {
             <AppBar position = "static" style= {{sticky: true}}>
                 <Toolbar style={{flexGrow: 1}} >
                     {isHome()}
+                    <Link to = {ROUTES.CREATE_ADMIN} style= {{textDecoration: 'none', color: 'white', marginRight: "20px"}}><Button variant = 'outlined' color= 'inherit'> Create Admin</Button></Link>
+                    <Link to = {ROUTES.FILEUPLOAD} style= {{textDecoration: 'none', color: 'white', marginRight: "20px"}}><Button variant = 'outlined' color= 'inherit'>Upload Story</Button></Link>
+                    <Link to = {ROUTES.FILEDELETE} style= {{textDecoration: 'none', color: 'white', marginRight: "20px"}}><Button variant = 'outlined' color= 'inherit'>Delete Story</Button></Link>
+                    <Link to = {ROUTES.DELETE_USER} style= {{textDecoration: 'none', color: 'white', marginRight: "20px"}}><Button variant = 'outlined' color= 'inherit'>Delete User</Button></Link>
+
                     <div style = {{flexGrow: 1}}>
                     </div>
+
                     <IconButton color="inherit" aria-label="menu">
                         <AccountCircle />
                     </IconButton>

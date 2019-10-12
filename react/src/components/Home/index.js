@@ -23,6 +23,8 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import TextField from '@material-ui/core/TextField';
+
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -71,7 +73,7 @@ class Home extends Component {
         <UserWrapper>{{home: true}}</UserWrapper>
 
       <div className="homepage">
-        <h1>Library</h1>
+        <Typography variant = "h2" style = {{margin: '20px'}}>Library</Typography>
       <Table style ={{width: '40%', border: '2px', borderColor: "black"}}>
         <TableBody>
           <TableCell style= {{border: 'none'}}>Filter by:</TableCell>
@@ -110,13 +112,13 @@ class Home extends Component {
 {        this.state.books.map(books =>
 
           <th align="center">
-              <th>{books.title}</th>
+              <Typography variant = "h5" style = {{margin: "none"}}>{books.title}</Typography>
               <tr>
                 <Link to={`/book/${books.key}`}>
                 <img src = {cover} className="book-cover"></img>
                 </Link>
               </tr>
-              <p align="center" className="description">Book Description</p>
+              <Typography variant = 'body1' align="center" className="description">Book Description</Typography>
           </th>
         )}
         </TableRow>

@@ -15,6 +15,8 @@ import * as ROLES from '../../constants/roles';
 import { withFirebase } from '../Firebase';
 import { withAuthorization, withEmailVerification } from '../Session';
 import AdminWrapper from '../AdminWrapper';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -65,23 +67,23 @@ class PDFDelete extends Component {
         <AdminWrapper>{{home:false}}</AdminWrapper>
 
       <div className="Landing-header">
-          <h1>Delete Stories</h1>
+          <Typography variant = 'h2' style = {{marginTop: "none"}}>Delete Stories</Typography>
       <Table>
       <TableBody>
         <TableRow className = "row">
             {this.state.books.map(books =>
                 <th align="center">
-                    <th>{books.title}</th>
+                    <th><Typography variant = "h5" style = {{margin: 'none'}}>{books.title}</Typography></th>
                     <tr>
                       <Link to={`/book/${books.key}`}>
                       <img src = {cover} className="book-cover"></img>
                       </Link>
                     </tr>
-                    <p align="center" className="description">Book Description</p>
-                    <Link to={ROUTES.ADMIN}> 
-                        <button onClick={this.delete.bind(this, books.key)} class="login-button">
+                    <Typography variant = 'body1' align="center" className="description">Book Description</Typography>
+                    <Link to={ROUTES.ADMIN} style = {{textDecoration: 'none'}}> 
+                        <Button variant = "contained" onClick={this.delete.bind(this, books.key)} style = {{marginTop: "20px"}}>
                             Delete Story
-                        </button>
+                        </Button>
                     </Link>
                     </th>
 

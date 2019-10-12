@@ -9,7 +9,11 @@ import { compose } from 'recompose';
 import { withFirebase } from '../Firebase';
 import * as firebase from 'firebase';
 import AdminWrapper from '../AdminWrapper';
-
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import 'firebase/firestore';
 
 const PDFUploadPage = () => (
@@ -17,8 +21,7 @@ const PDFUploadPage = () => (
         <AdminWrapper>{{home:false}}</AdminWrapper>
 
   <div className="Landing-header">
-    {/* <img src={logo} className="Landing-logo" alt="logo" /> */}
-    <h1>Upload a PDF</h1>
+    <Typography variant = "h2" style = {{marginTop: "40px"}}>Upload a PDF</Typography>
     <FirebaseContext.Consumer>
       {firebase => <PDFUploadForm firebase={firebase} />}
     </FirebaseContext.Consumer>  </div>
@@ -106,29 +109,28 @@ class PDFUploadFormBase extends Component {
     return (
       <div className="Landing-header" style={style}>
         <form onSubmit={this.onSubmit}>
-       <ul className="form-style-1">
+       <ul style = {{listStyle: 'none'}}>
       <li>
-      <label>Title <span class="required">*</span></label>
-        <input type="text" name="title" class="field-divided" value={title} onChange={this.onChange} /> 
+      <Typography>Title</Typography>
+        <TextField required variant = "outlined" type="text" name="title" class="field-divided" value={title} onChange={this.onChange} /> 
       </li>
       <li>
-        <label>Tag <span class="required">*</span></label>
-        <input type="text" name="tag" class="field-long" value={tag} onChange={this.onChange}/>
+        <Typography>Tag </Typography>
+        <TextField required variant = "outlined" type="text" name="tag" class="field-long" value={tag} onChange={this.onChange}/>
       </li>
       </ul>
       </form>
-      <progress value={this.state.progress} max="100"/>
+      <CircularProgress color = "secondary" variant = "determinate" value={this.state.progress} />
       <br/>
         <input type="file" onChange={this.handleChange}/>
         {/* <Link to={ROUTES.ADMIN}>  */}
-        <button className="login-button" onClick={this.handleUpload}>Upload</button>
+        <Button variant = "contained" className="login-button" onClick={this.handleUpload} style = {{margin: '20px'}}>Upload</Button>
         {/* </Link> */}
         <br/>
       </div>
     )
   }
 }
-
 const PDFUploadForm = compose(
   withRouter,
   withFirebase,

@@ -20,7 +20,8 @@ import { withAuthorization, withEmailVerification } from '../Session';
 import styled, { css } from 'styled-components'
 import { makeStyles } from '@material-ui/core/styles';
 import AdminWrapper from '../AdminWrapper';
-
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 
 
@@ -83,7 +84,7 @@ class DeleteUser extends Component {
         <AdminWrapper>{{home:false}}</AdminWrapper>
 
       <div className="Landing-header">
-          <h1>Delete a User</h1>
+          <Typography variant = "h2" style = {{marginTop: 'none', marginBottom: '20px'}}>Delete a User</Typography>
       <Paper style ={{width: '80%', overflowX: 'auto'}}>
         <Table style = {{minWidth: 650, backgroundColor: "#9AA0A8"}}>
           <TableHead>
@@ -103,9 +104,9 @@ class DeleteUser extends Component {
                 <TableCell style= {{borderColor: "black"}}>{user.email}</TableCell>
                 <TableCell style= {{borderColor: "black"}}>{user.username}</TableCell>
                 <TableCell style= {{borderColor: "black"}}>
-                  <button className = "delete-user" onClick={this.delete.bind(this, user.key)}>
+                  <Button variant = "contained" className = "delete-user" onClick={this.delete.bind(this, user.key)}>
                           Delete User
-                      </button>
+                      </Button>
                 </TableCell>
                 
               </TableRow>
@@ -119,16 +120,6 @@ class DeleteUser extends Component {
     );
   }
 }
-const Button = styled.button`
-  display: inline-block;
-  color: palevioletred;
-  font-size: 1em;
-  margin: 1em;
-  padding: 0.25em 1em;
-  border: 2px solid palevioletred;
-  border-radius: 3px;
-  display: block;
-`;
 
 const DeleteButton = styled(Button)`
   color: white;

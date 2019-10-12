@@ -7,13 +7,15 @@ import { compose } from 'recompose';
 import logo from '../../logo2.png';
 import { withFirebase } from '../Firebase';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+
 
 
 const SignUpPage = () => (
   
   <div className="Landing-header">
-    <img src={logo} className="Landing-logo" alt="logo" />
-    <h1 className = "resitration">Register</h1>
+    <Typography variant = "h2" className = "resitration">Register</Typography>
     <FirebaseContext.Consumer>
       {firebase => <SignUpForm firebase={firebase} />}
     </FirebaseContext.Consumer>  </div>
@@ -94,27 +96,27 @@ class SignUpFormBase extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-       <ul className="form-style-1">
+       <ul style = {{listStyle: "none"}}>
       <li>
-      <label>Full Name <span class="required">*</span></label>
-        <input type="text" name="firstname" class="field-divided" placeholder="First" value={firstname} onChange={this.onChange} /> 
-        <input type="text" name="lastname" class="field-divided" placeholder="Last" value={lastname} onChange={this.onChange} />
+      <Typography variant = "h6" style = {{marginTop: '20px'}}>Full Name</Typography>
+        <TextField  required variant= "outlined" label = "First Name" name="firstname" value={firstname} onChange={this.onChange} /> 
+        <TextField required variant= "outlined"  label = "Last Name" name="lastname"  value={lastname} onChange={this.onChange} />
       </li>
       <li>
-        <label>Username <span class="required">*</span></label>
-        <input type="text" name="username" class="field-long" value={username} onChange={this.onChange}/>
+        <Typography variant = "h6" style = {{marginTop: '20px'}}>Username</Typography>
+        <TextField required variant= "outlined"  label = "Username" name="username" value={username} onChange={this.onChange} />
       </li>
       <li>
-        <label>Email <span class="required">*</span></label>
-        <input type="email" name="email" class="field-long" value={email} onChange={this.onChange}/>
+        <Typography variant = "h6" style = {{marginTop: '20px'}}>Email </Typography>
+        <TextField required variant= "outlined"  label = "Email" name="email" value={email} onChange={this.onChange}/>
       </li>
       <li>
-        <label>Password <span class="required">*</span></label>
-        <input type="password" name="passwordOne" class="field-long" value={passwordOne} onChange={this.onChange}/>
+        <Typography variant = "h6" style = {{marginTop: '20px'}}>Password </Typography>
+        <TextField required variant= "outlined"  label = "Password" type="password" name="passwordOne" value={passwordOne} onChange={this.onChange}/>
       </li>
       <li>
-        <label>Confirm Password <span class="required">*</span></label>
-        <input type="password" name="passwordTwo" class="field-long" value={passwordTwo} onChange={this.onChange}/>
+        <Typography variant = "h6" style = {{marginTop: '20px'}}>Confirm Password </Typography>
+        <TextField required variant= "outlined" label = "Confirm Password" type="password" name="passwordTwo" value={passwordTwo} onChange={this.onChange}/>
       </li>
         <Button variant = "contained" style = {{margin: '20px'}} className = "cancel-button" ><Link to = {ROUTES.LANDING} className = "link">Cancel</Link></Button> 
 
@@ -129,9 +131,9 @@ class SignUpFormBase extends Component {
   }
 }
 const SignUpLink = () => (
-  <p>
+  <Typography>
     Don't have an account? <Link to={ROUTES.SIGN_UP} style= {{color: "#2A2D34"}}>Sign Up</Link>
-  </p>
+    </Typography>
 );
 
 const SignUpForm = compose(

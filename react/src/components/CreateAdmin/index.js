@@ -8,6 +8,10 @@ import { compose } from 'recompose';
 import logo from '../../logo2.png';
 import { Link } from 'react-router-dom';
 import AdminWrapper from '../AdminWrapper';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
 
 import { withFirebase } from '../Firebase';
 
@@ -17,9 +21,7 @@ const CreateAdminPage = () => (
   
   <div className="Landing-header">
 
-            &nbsp;
-    <img src={logo} className="Landing-logo" alt="logo" />
-    <h1>Create Admin</h1>
+    <Typography variant="h2" style = {{marginTop: '20px'}}>Create Admin</Typography>
     <FirebaseContext.Consumer>
       {firebase => <CreateAdminForm firebase={firebase} />}
     </FirebaseContext.Consumer>  </div>
@@ -114,29 +116,32 @@ class CreateAdminFormBase extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-       <ul className="form-style-1">
-      <li>
-      <label>Full Name <span class="required">*</span></label>
-        <input type="text" name="firstname" class="field-divided" placeholder="First" value={firstname} onChange={this.onChange} /> 
-        <input type="text" name="lastname" class="field-divided" placeholder="Last" value={lastname} onChange={this.onChange} />
+       <ul style = {{listStyle: "none"}}>
+       <li>
+      <Typography variant = "h6" style = {{marginTop: '20px'}}>Full Name</Typography>
+        <TextField  required variant= "outlined" label = "First Name" name="firstname" value={firstname} onChange={this.onChange} /> 
+        <TextField required variant= "outlined"  label = "Last Name" name="lastname"  value={lastname} onChange={this.onChange} />
       </li>
       <li>
-        <label>Username <span class="required">*</span></label>
-        <input type="text" name="username" class="field-long" value={username} onChange={this.onChange}/>
+        <Typography variant = "h6" style = {{marginTop: '20px'}}>Username</Typography>
+        <TextField required variant= "outlined"  label = "Username" name="username" value={username} onChange={this.onChange} />
       </li>
       <li>
-        <label>Email <span class="required">*</span></label>
-        <input type="email" name="email" class="field-long" value={email} onChange={this.onChange}/>
+        <Typography variant = "h6" style = {{marginTop: '20px'}}>Email </Typography>
+        <TextField required variant= "outlined"  label = "Email" name="email" value={email} onChange={this.onChange}/>
       </li>
       <li>
-        <label>Password <span class="required">*</span></label>
-        <input type="password" name="passwordOne" class="field-long" value={passwordOne} onChange={this.onChange}/>
+        <Typography variant = "h6" style = {{marginTop: '20px'}}>Password </Typography>
+        <TextField required variant= "outlined"  label = "Password" type="password" name="passwordOne" value={passwordOne} onChange={this.onChange}/>
       </li>
       <li>
-        <label>Confirm Password <span class="required">*</span></label>
-        <input type="password" name="passwordTwo" class="field-long" value={passwordTwo} onChange={this.onChange}/>
+        <Typography variant = "h6" style = {{marginTop: '20px'}}>Confirm Password </Typography>
+        <TextField required variant= "outlined" label = "Confirm Password" type="password" name="passwordTwo" value={passwordTwo} onChange={this.onChange}/>
       </li>
-        <button disabled={isInvalid} className = "signup-button" type="submit"> Create Admin</button>
+        <Button variant = "contained" style = {{margin: '20px'}} className = "cancel-button" ><Link to = {ROUTES.ADMIN} className = "link">Cancel</Link></Button> 
+
+        <Button variant = "contained" style = {{margin: '20px', backgroundColor: '#60B2E5'}} disabled={isInvalid} className = "signup-button" type="submit">Create Admin</Button>
+
         {error && <p>{error.message}</p>}
         </ul>
 

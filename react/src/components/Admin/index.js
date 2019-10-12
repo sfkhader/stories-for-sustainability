@@ -15,6 +15,9 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import SignOutButton from '../SignOut';
 import AdminWrapper from '../AdminWrapper';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+
 
 
 // import classes from '*.module.sass';
@@ -54,42 +57,15 @@ class AdminPage extends Component {
 
       <div className="homepage">
 
-        <h1>Admin</h1>
-        <p>
+        <Typography variant = "h2" style = {{margin: '20px'}}>Admin</Typography>
+        <Typography variant = "h6">
           The Admin Page is accessible by every signed in admin user.
-        </p>
-        {loading && <div>Loading ...</div>}
-        <Wrapper> User List:
+        </Typography>
+        {/* {loading && <div>Loading ...</div>} */}
+        <Wrapper> <Typography variant = "h4"> User List: </Typography>
           <UserList users={users} />
         </Wrapper>
-        <Inline>
-        <Link to={ROUTES.CREATE_ADMIN}>
-          <button class="login-button" >
-            Create Admin
-          </button>
-        </Link>
-        &nbsp;
-        <Link to={ROUTES.FILEUPLOAD}>
-          <button class="login-button" >
-            Upload Stories
-          </button>
-        </Link>
-        </Inline>
-        <Inline>
-        <Link to={ROUTES.FILEDELETE}>
-            <button class="admin-delete-button" >
-              Delete Stories
-            </button>
 
-        </Link>
-        &nbsp;
-        <Link to={ROUTES.DELETE_USER}>
-            <button class="admin-delete-button" >
-              Delete Users
-            </button>
-
-        </Link>
-        </Inline>
       </div>
       </div>
     );
@@ -111,6 +87,7 @@ const Wrapper = styled.section`
   color: #2A2D34;
   width: 50%;
   text-align: center;
+  margin-top: 40px;
 `;
 const useStyles = makeStyles(theme => ({
   root: {

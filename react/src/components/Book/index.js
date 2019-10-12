@@ -7,6 +7,7 @@ import ReactDOM from "react-dom";
 import * as ROUTES from '../../constants/routes';
 import { Link } from 'react-router-dom';
 import UserWrapper from '../UserWrapper';
+import Typography from '@material-ui/core/Typography';
 
 
 
@@ -74,7 +75,7 @@ const useStyles = makeStyles(theme => ({
           <UserWrapper>{{home: false}}</UserWrapper>
         <div className="Landing-header">
             &nbsp;
-            <h2>{this.state.title}</h2>
+            <Typography variant = "h2">{this.state.title}</Typography>
             <div>
                 <Button variant = "contained" style ={{margin: '20px'}} className ="login-button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber - 1 }))}>
                     Previous

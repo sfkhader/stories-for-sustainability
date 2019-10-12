@@ -5,6 +5,7 @@ import * as ROUTES from '../../constants/routes';
 import { Link } from 'react-router-dom';
 import Navigation from '../Navigation';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 
 
@@ -16,8 +17,9 @@ const Landing = () => (
     <header className = "Landing-header">
 
       <img src={logo} className="Landing-logo" alt="logo" />
-      
-        Stories for Sustainability 
+        <Typography variant = "h4" style = {{margin: '30px'}}>
+          Stories for Sustainability 
+        </Typography>
         <Link to={ROUTES.SIGN_UP} style ={{textDecoration: 'none'}}> 
         <Button variant = "contained" className="login-button" style ={{ margin: '20px'}}>
           Register

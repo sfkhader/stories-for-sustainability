@@ -8,12 +8,15 @@ import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 import logo from '../../logo2.png';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+
+
 
 
 const SignInPage = () => (
   <div className="Landing-header">
-    <img src={logo} className="Landing-logo" alt="logo" />
-    <h1>Log In</h1>
+    <Typography variant = "h2">Log In</Typography>
     <SignInForm />
     <PasswordForgetLink />
     <SignUpLink />
@@ -66,14 +69,14 @@ class SignInFormBase extends Component {
     const isInvalid = password === '' || email === '';
     return (
       <form onSubmit={this.onSubmit}>
-        <ul class="form-style-1">
-         <li>
-        <label>Email <span class="required">*</span></label>
-        <input type="text" name="email" class="field-long" value={email} onChange={this.onChange} />
-       </li> 
-       <li>
-        <label>Password <span class="required">*</span></label>
-        <input type="password" name="password" class="field-long" value={password} onChange={this.onChange} />
+        <ul style = {{listStyle :"none"}}>
+          <li>
+            <Typography>Email</Typography>
+            <TextField required variant = "outlined"  type="text" name="email" class="field-long" value={email} onChange={this.onChange} />
+          </li> 
+          <li>
+        <Typography>Password </Typography>
+        <TextField required variant = "outlined"  type="password" name="password" class="field-long" value={password} onChange={this.onChange} />
       </li>
       <Button disabled={isInvalid} variant = "contained" className ="login-button" type="submit" style ={{margin: '20px'}}>Log In</Button>
         {error && <p>{error.message}</p>}
