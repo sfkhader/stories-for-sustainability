@@ -98,24 +98,24 @@ class SignUpFormBase extends Component {
       <form onSubmit={this.onSubmit}>
        <ul style = {{listStyle: "none"}}>
       <li>
-      <Typography variant = "h6" style = {{marginTop: '20px'}}>Full Name</Typography>
+      <Typography style = {{marginTop: '20px'}}>Full Name</Typography>
         <TextField  required variant= "outlined" label = "First Name" name="firstname" value={firstname} onChange={this.onChange} /> 
         <TextField required variant= "outlined"  label = "Last Name" name="lastname"  value={lastname} onChange={this.onChange} />
       </li>
       <li>
-        <Typography variant = "h6" style = {{marginTop: '20px'}}>Username</Typography>
+        <Typography  style = {{marginTop: '20px'}}>Username</Typography>
         <TextField required variant= "outlined"  label = "Username" name="username" value={username} onChange={this.onChange} />
       </li>
       <li>
-        <Typography variant = "h6" style = {{marginTop: '20px'}}>Email </Typography>
+        <Typography style = {{marginTop: '20px'}}>Email </Typography>
         <TextField required variant= "outlined"  label = "Email" name="email" value={email} onChange={this.onChange}/>
       </li>
       <li>
-        <Typography variant = "h6" style = {{marginTop: '20px'}}>Password </Typography>
+        <Typography style = {{marginTop: '20px'}}>Password </Typography>
         <TextField required variant= "outlined"  label = "Password" type="password" name="passwordOne" value={passwordOne} onChange={this.onChange}/>
       </li>
       <li>
-        <Typography variant = "h6" style = {{marginTop: '20px'}}>Confirm Password </Typography>
+        <Typography style = {{marginTop: '20px'}}>Confirm Password </Typography>
         <TextField required variant= "outlined" label = "Confirm Password" type="password" name="passwordTwo" value={passwordTwo} onChange={this.onChange}/>
       </li>
         <Button variant = "contained" style = {{margin: '20px'}} className = "cancel-button" ><Link to = {ROUTES.LANDING} className = "link">Cancel</Link></Button> 
