@@ -14,6 +14,7 @@ import { compose } from 'recompose';
 import * as ROLES from '../../constants/roles';
 import { withFirebase } from '../Firebase';
 import { withAuthorization, withEmailVerification } from '../Session';
+import AdminWrapper from '../AdminWrapper';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -60,7 +61,11 @@ class PDFDelete extends Component {
 
   render() {
     return (
+      <div>
+        <AdminWrapper>{{home:false}}</AdminWrapper>
+
       <div className="Landing-header">
+          <h1>Delete Stories</h1>
       <Table>
       <TableBody>
         <TableRow className = "row">
@@ -86,6 +91,8 @@ class PDFDelete extends Component {
       </TableBody>
     </Table>
     </div>
+    </div>
+
     );
   }
 }

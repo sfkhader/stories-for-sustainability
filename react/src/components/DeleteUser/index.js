@@ -3,6 +3,8 @@
 import cover from '../../images/cover.jpg';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
+import Paper from '@material-ui/core/Paper';
+
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
@@ -16,6 +18,9 @@ import * as ROLES from '../../constants/roles';
 import { withFirebase } from '../Firebase';
 import { withAuthorization, withEmailVerification } from '../Session';
 import styled, { css } from 'styled-components'
+import { makeStyles } from '@material-ui/core/styles';
+import AdminWrapper from '../AdminWrapper';
+
 
 
 
@@ -32,10 +37,12 @@ class DeleteUser extends Component {
   onCollectionUpdate = (querySnapshot) => {
     const users = [];
     querySnapshot.forEach((doc) => {
-      const { email, username } = doc.data();
+      const { email, username, firstname,lastname } = doc.data();
       users.push({
         key: doc.id,
         doc,
+        firstname,
+        lastname,
         email,
         username,
       });
@@ -60,28 +67,55 @@ class DeleteUser extends Component {
   }
 
   render() {
+    const useStyles = makeStyles(theme => ({
+      root: {
+        width: '100%',
+        marginTop: theme.spacing(3),
+        overflowX: 'auto',
+      },
+      table: {
+        minWidth: 650,
+        backgroundColor: '#9AA0A8'
+      },
+    })); 
     return (
+      <div>
+        <AdminWrapper>{{home:false}}</AdminWrapper>
+
       <div className="Landing-header">
           <h1>Delete a User</h1>
-      <Table>
-      <TableBody>
-        <TableRow className = "row">
-            {this.state.users.map(users =>
-                <th align="center">
-                <TableCell style = {{border: "10px", borderColor: "white"}}>
-                    <th align="center" className="description">Email: {users.email}</th>
-                    &nbsp;
-                    <th align="center" className="description">Username: {users.username}</th>
-                    <button className = "admin-delete-button" onClick={this.delete.bind(this, users.key)}>
-                        Delete User
-                    </button>
+      <Paper style ={{width: '80%', overflowX: 'auto'}}>
+        <Table style = {{minWidth: 650, backgroundColor: "#9AA0A8"}}>
+          <TableHead>
+            <TableRow>
+              <TableCell style= {{borderColor: "black"}}>First Name</TableCell>
+              <TableCell style= {{borderColor: "black"}}>Last Name</TableCell>
+              <TableCell style= {{borderColor: "black"}}>Email</TableCell>
+              <TableCell style= {{borderColor: "black"}}>Username</TableCell>
+              <TableCell style= {{borderColor: "black"}}></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {this.state.users.map(user => (
+              <TableRow style= {{borderColor: "black"}}>
+                <TableCell style= {{borderColor: "black"}}>{user.firstname}</TableCell>
+                <TableCell style= {{borderColor: "black"}}>{user.lastname}</TableCell>
+                <TableCell style= {{borderColor: "black"}}>{user.email}</TableCell>
+                <TableCell style= {{borderColor: "black"}}>{user.username}</TableCell>
+                <TableCell style= {{borderColor: "black"}}>
+                  <button className = "delete-user" onClick={this.delete.bind(this, user.key)}>
+                          Delete User
+                      </button>
                 </TableCell>
-                </th>
-                )}
-        </TableRow>
-      </TableBody>
-    </Table>
+                
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Paper>
     </div>
+    </div>
+
     );
   }
 }

@@ -10,9 +10,19 @@ import * as ROUTES from '../../constants/routes';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { firebase } from '@firebase/app';
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
 import {Document, Page, pdfjs,} from 'react-pdf';
 import { withAuthorization, withEmailVerification } from '../Session';
 import SignOutButton from '../SignOut';
+import UserWrapper from '../UserWrapper';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -23,8 +33,12 @@ class Home extends Component {
     this.unsubscribe = null;
     this.state = {
       books: [],
-      numAdded: 0
+      numAdded: 0,
+      language :'English',
+      goal :'goal1'
+
     };
+    this.setState.bind(this);
   }
 
   onCollectionUpdate = (querySnapshot) => {
@@ -49,17 +63,49 @@ class Home extends Component {
   }
 
   render() {
+    var handleChange = (event) => {
+      this.setState({[event.target.name]: event.target.value});
+    };
     return (
       <div>
-        <SignOutButton/>
+        <UserWrapper>{{home: true}}</UserWrapper>
 
       <div className="homepage">
-        {/* <Link to = {ROUTES.LANDING}> <button className ="libButton">
-                    Sign Out
-            </button></Link> */}
         <h1>Library</h1>
+      <Table style ={{width: '40%', border: '2px', borderColor: "black"}}>
+        <TableBody>
+          <TableCell style= {{border: 'none'}}>Filter by:</TableCell>
+          <TableCell style= {{border: 'none'}}>
+            <Select value = {this.state.language} onChange = {handleChange} inputProps ={{name: 'language'}}>
+              <MenuItem value = {"English"}>English</MenuItem>
+              <MenuItem value = {"Spanish"}>Spanish</MenuItem>
+              <MenuItem value = {"French"}>French</MenuItem>
+
+
+            </Select>
+            <FormHelperText>Language</FormHelperText>
+          </TableCell>
+          <TableCell style= {{border: 'none'}}>
+            <Select value = {this.state.goal} onChange = {handleChange} inputProps ={{name: 'goal'}}>
+              <MenuItem value = {"goal1"}>goal1</MenuItem>
+              <MenuItem value = {"goal2"}>goal2</MenuItem>
+              <MenuItem value = {"goal3"}>goal3</MenuItem>
+
+
+            </Select>
+            <FormHelperText>Sustainability Goal</FormHelperText>
+
+          </TableCell>
+          <TableCell style= {{border: 'none'}}>
+            <Button variant = "outlined" color="inherit">Filter</Button>
+          
+          </TableCell>
+        </TableBody>
+      </Table>
       <Table>
+
       <TableBody>
+
         <TableRow className = "row">
 {        this.state.books.map(books =>
 

@@ -6,6 +6,8 @@ import { FirebaseContext } from '../Firebase';
 import { compose } from 'recompose';
 import logo from '../../logo2.png';
 import { withFirebase } from '../Firebase';
+import Button from '@material-ui/core/Button';
+
 
 const SignUpPage = () => (
   
@@ -114,9 +116,9 @@ class SignUpFormBase extends Component {
         <label>Confirm Password <span class="required">*</span></label>
         <input type="password" name="passwordTwo" class="field-long" value={passwordTwo} onChange={this.onChange}/>
       </li>
-        <button className = "cancel-button" ><Link to = {ROUTES.LANDING} className = "link">Cancel</Link></button> 
+        <Button variant = "contained" style = {{margin: '20px'}} className = "cancel-button" ><Link to = {ROUTES.LANDING} className = "link">Cancel</Link></Button> 
 
-        <button disabled={isInvalid} className = "signup-button" type="submit">Register</button>
+        <Button variant = "contained" style = {{margin: '20px', backgroundColor: '#60B2E5'}} disabled={isInvalid} className = "signup-button" type="submit">Register</Button>
         {error && <p>{error.message}</p>}
 
         </ul>

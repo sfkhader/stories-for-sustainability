@@ -6,17 +6,24 @@ import * as ROLES from '../../constants/roles';
 import { FirebaseContext } from '../Firebase';
 import { compose } from 'recompose';
 import logo from '../../logo2.png';
+import { Link } from 'react-router-dom';
+import AdminWrapper from '../AdminWrapper';
 
 import { withFirebase } from '../Firebase';
 
 const CreateAdminPage = () => (
+  <div>
+  <AdminWrapper>{{home:false}}</AdminWrapper>
   
   <div className="Landing-header">
+
+            &nbsp;
     <img src={logo} className="Landing-logo" alt="logo" />
     <h1>Create Admin</h1>
     <FirebaseContext.Consumer>
       {firebase => <CreateAdminForm firebase={firebase} />}
     </FirebaseContext.Consumer>  </div>
+    </div>
 );
 
 const INITIAL_STATE = {

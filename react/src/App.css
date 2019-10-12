@@ -45,7 +45,20 @@ body {
   border-radius: 10px;
   border: none;
   box-shadow: 1px 1px 0px 2px rgba (0,0,0,0.3);
-  background-color:red;
+  background-color:#60B2E5;
+  cursor: pointer;
+  font-weight:bold;
+}
+.delete-user {
+  margin-right:0px;
+  margin-left:0px;
+  font-size: 18px;
+  height: 65px;
+  width: 150px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 1px 1px 0px 2px rgba (0,0,0,0.3);
+  background-color:#60B2E5;
   cursor: pointer;
   font-weight:bold;
 }
@@ -59,14 +72,18 @@ body {
  border-radius: 10px;
  border: none;
  box-shadow: 1px 1px 0px 2px rgba (0,0,0,0.3);
- background-color: #4CAF50;
+ background-color: #60B2E5;
  color: #2A2D34;
  cursor: pointer;
  font-weight:bold;
 }
 .signout-button {
   /* margin: auto 0; */
-  margin:50px;
+  margin-left:50px;
+  margin-top:50px;
+
+  margin-bottom: none;
+  margin-right:none;
   padding:20px;
   /* margin-bottom: 0px; */
   display: flex;
@@ -79,7 +96,7 @@ body {
   border-radius: 10px;
   border: none;
   box-shadow: 1px 1px 0px 2px rgba (0,0,0,0.3);
-  background-color: #4CAF50;
+  background-color: #60B2E5;
   color: #2A2D34;
   cursor: pointer;
   font-weight:bold;
@@ -94,7 +111,7 @@ body {
  border-radius: 10px;
  border: none;
  box-shadow: 1px 1px 0px 2px rgba (0,0,0,0.3);
- background-color: #4CAF50;
+ background-color: #60B2E5;
  color: #2A2D34;
  cursor: pointer;
  text-decoration: none;
@@ -283,7 +300,7 @@ select{
   border-radius: 10px;
   border: none;
   box-shadow: 1px 1px 0px 2px rgba (0,0,0,0.3);
-  background-color: #4CAF50;
+  background-color: #60B2E5;
   cursor: pointer;
   font-weight:bold;
 

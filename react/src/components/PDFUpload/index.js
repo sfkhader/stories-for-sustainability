@@ -8,16 +8,21 @@ import { compose } from 'recompose';
 // import logo from '../../logo2.png';
 import { withFirebase } from '../Firebase';
 import * as firebase from 'firebase';
+import AdminWrapper from '../AdminWrapper';
+
 import 'firebase/firestore';
 
 const PDFUploadPage = () => (
-  
+  <div>
+        <AdminWrapper>{{home:false}}</AdminWrapper>
+
   <div className="Landing-header">
     {/* <img src={logo} className="Landing-logo" alt="logo" /> */}
     <h1>Upload a PDF</h1>
     <FirebaseContext.Consumer>
       {firebase => <PDFUploadForm firebase={firebase} />}
     </FirebaseContext.Consumer>  </div>
+    </div>
 );
 
 const INITIAL_STATE = {

@@ -7,6 +7,8 @@ import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 import logo from '../../logo2.png';
+import Button from '@material-ui/core/Button';
+
 
 const SignInPage = () => (
   <div className="Landing-header">
@@ -73,7 +75,7 @@ class SignInFormBase extends Component {
         <label>Password <span class="required">*</span></label>
         <input type="password" name="password" class="field-long" value={password} onChange={this.onChange} />
       </li>
-      <button disabled={isInvalid} className ="login-button" type="submit">Log In</button>
+      <Button disabled={isInvalid} variant = "contained" className ="login-button" type="submit" style ={{margin: '20px'}}>Log In</Button>
         {error && <p>{error.message}</p>}
         </ul>
       </form>

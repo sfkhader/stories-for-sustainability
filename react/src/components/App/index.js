@@ -15,6 +15,8 @@ import { withAuthentication } from '../Session';
 import Book from '../Book';
 import PDFDelete from '../PDFDelete';
 import DeleteUser from '../DeleteUser';
+import UserWrapper from '../UserWrapper';
+
 
 const App = () => (
   <Router>

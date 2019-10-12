@@ -6,6 +6,18 @@ import * as ROLES from '../../constants/roles';
 import * as ROUTES from '../../constants/routes';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
+import SignOutButton from '../SignOut';
+import AdminWrapper from '../AdminWrapper';
+
+
+// import classes from '*.module.sass';
 
 class AdminPage extends Component {
   constructor(props) {
@@ -37,7 +49,11 @@ class AdminPage extends Component {
     const { users, loading } = this.state;
 
     return (
-      <div className="Landing-header">
+      <div>
+      <AdminWrapper>{{home:true}}</AdminWrapper>
+
+      <div className="homepage">
+
         <h1>Admin</h1>
         <p>
           The Admin Page is accessible by every signed in admin user.
@@ -75,6 +91,7 @@ class AdminPage extends Component {
         </Link>
         </Inline>
       </div>
+      </div>
     );
   }
 }
@@ -88,31 +105,48 @@ const Inline = styled.section`
 `;
 const Wrapper = styled.section`
   padding: 10px 10px;
-  box-shadow: inset 0 0 0 1px;
-  border-radius: 5px;
   border: none;
   outline: none;
   font: inherit;
-  background-color: #8FA2A8;
   color: #2A2D34;
   width: 50%;
   text-align: center;
 `;
-
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+    marginTop: theme.spacing(3),
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 650,
+    backgroundColor: '#9AA0A8'
+  },
+}));
 const UserList = ({ users }) => (
-  <ul>
-    {users.map(user => (
-      <li key={user.uid} style = {{listStyle: "none"}}>
-        <span>
-          <strong>E-Mail:</strong> {user.email}
-        </span>
-        <br></br>
-        <span>
-          <strong>Username:</strong> {user.username}
-        </span>
-      </li>
-    ))}
-  </ul>
+  <Paper className = {useStyles().root}>
+    <Table className = {useStyles().table}>
+      <TableHead>
+        <TableRow>
+          <TableCell style= {{borderColor: "black"}}>First Name</TableCell>
+          <TableCell style= {{borderColor: "black"}}>Last Name</TableCell>
+          <TableCell style= {{borderColor: "black"}}>Email</TableCell>
+          <TableCell style= {{borderColor: "black"}}>Username</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {users.map(user => (
+          <TableRow style= {{borderColor: "black"}}>
+            <TableCell style= {{borderColor: "black"}}>{user.firstname}</TableCell>
+            <TableCell style= {{borderColor: "black"}}>{user.lastname}</TableCell>
+            <TableCell style= {{borderColor: "black"}}>{user.email}</TableCell>
+            <TableCell style= {{borderColor: "black"}}>{user.username}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+
+  </Paper>
 );
 
 const condition = authUser =>

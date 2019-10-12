@@ -6,6 +6,9 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import * as ROUTES from '../../constants/routes';
 import { Link } from 'react-router-dom';
+import UserWrapper from '../UserWrapper';
+
+
 
 import * as firebase from 'firebase';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -67,24 +70,23 @@ const useStyles = makeStyles(theme => ({
       const { book, key, url, pageNumber, numPages, isLoading } = this.state;
   
       return (
+        <div>
+          <UserWrapper>{{home: false}}</UserWrapper>
         <div className="Landing-header">
-            <Link to = {ROUTES.HOME}> <button className ="libButton">
-                    Back to Library
-            </button></Link>
             &nbsp;
             <h2>{this.state.title}</h2>
             <div>
-                <button className ="login-button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber - 1 }))}>
+                <Button variant = "contained" style ={{margin: '20px'}} className ="login-button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber - 1 }))}>
                     Previous
-                </button>
+                </Button>
                 &nbsp;
 
-                <button  className = "login-button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber + 1 }))}>
+                <Button  variant = "contained" style ={{margin: '20px'}} className = "login-button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber + 1 }))}>
                     Next
-                </button>
+                </Button>
 
             </div>
-            &nbsp;
+            {/* &nbsp; */}
 
             <div width = "1000px" className = "book">
                 <Document file = {this.state.url}>
@@ -93,6 +95,7 @@ const useStyles = makeStyles(theme => ({
 
 
             </div>
+        </div>
         </div>
     )
     }
