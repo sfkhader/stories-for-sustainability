@@ -73,12 +73,19 @@ const useStyles = makeStyles(theme => ({
         if (user) {
           var currentUser = user.uid;
           const bookmarksRef = firebase.firestore().collection('users').doc(currentUser);
-          let updateNested = bookmarksRef.update({
-            ['bookmarks.' + key]: firebase.firestore.FieldValue.arrayUnion(pageNumber)
-          });
-        } 
-      });
+          bookmarksRef.get().then((doc) => {
+            if (doc.exists) {
+              if (!['bookmarks' + key].includes(pageNumber)) {
+                let updateNested = bookmarksRef.update({
+                  ['bookmarks.' + key]: firebase.firestore.FieldValue.arrayUnion(pageNumber)
+                })
+              }
+            }
+          })
+        }
+      })
     }
+        
   
     render() {
       const { book, key, url, pageNumber, numPages, isLoading } = this.state;
