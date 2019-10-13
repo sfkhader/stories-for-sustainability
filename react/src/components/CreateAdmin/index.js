@@ -11,8 +11,6 @@ import AdminWrapper from '../AdminWrapper';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-
-
 import { withFirebase } from '../Firebase';
 
 const CreateAdminPage = () => (
@@ -86,7 +84,6 @@ class CreateAdminFormBase extends Component {
       .then(() => {  
         this.setState({ ...INITIAL_STATE });
         this.props.history.push(ROUTES.ADMIN);
-
       })
       .catch(error => {
         this.setState({ error });

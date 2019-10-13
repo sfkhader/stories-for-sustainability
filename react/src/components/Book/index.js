@@ -28,6 +28,7 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
+ 
   class Book extends Component {
     
     constructor(props) {
@@ -41,12 +42,11 @@ const useStyles = makeStyles(theme => ({
       };
     }
 
+    
     componentDidMount() {
       var url = this.props.location.pathname;
       var urlsplit = url.split("/").slice(-1)[0];
-      console.log(urlsplit);
       const ref = firebase.firestore().collection('books').doc(urlsplit);
-      // const userRef = firebase.firestore().collection('users').doc(urlsplit);
       ref.get().then((doc) => {
         if (doc.exists) {
           this.setState({
@@ -61,15 +61,28 @@ const useStyles = makeStyles(theme => ({
           console.log("No such document!");
         }
       });
+      
     }
   
     onDocumentLoad = ({ numPages }) => {
       this.setState({ numPages });
     }
+    
+    setBookmark(pageNumber, key) {
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          var currentUser = user.uid;
+          const bookmarksRef = firebase.firestore().collection('users').doc(currentUser);
+          let updateNested = bookmarksRef.update({
+            ['bookmarks.' + key]: firebase.firestore.FieldValue.arrayUnion(pageNumber)
+          });
+        } 
+      });
+    }
   
     render() {
       const { book, key, url, pageNumber, numPages, isLoading } = this.state;
-  
+
       return (
         <div>
           <UserWrapper>{{home: false}}</UserWrapper>
@@ -79,6 +92,10 @@ const useStyles = makeStyles(theme => ({
             <div>
                 <Button variant = "contained" style ={{margin: '20px'}} className ="login-button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber - 1 }))}>
                     Previous
+                </Button>
+                &nbsp;
+                <Button  variant = "contained" style ={{margin: '20px'}} className = "login-button" onClick={() => this.setBookmark(pageNumber, key)}>
+                    Bookmark
                 </Button>
                 &nbsp;
 
