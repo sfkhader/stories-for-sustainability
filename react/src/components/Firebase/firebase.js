@@ -4,11 +4,13 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
 
-var admin = require('firebase-admin');
+var admin = require("firebase-admin");
+
+var serviceAccount = require("../../stories-for-sustainability-firebase-adminsdk-28p7t-5d98b6bd99.json");
 
 admin.initializeApp({
-  credential: admin.credential.applicationDefault(),
-  databaseURL: 'https://stories-for-sustainability.firebaseio.com'
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://stories-for-sustainability.firebaseio.com"
 });
 
 const config = {

@@ -58,6 +58,14 @@ class DeleteUser extends Component {
   }
   
   delete(id){
+    admin.auth().deleteUser(id)
+    console.log(id)
+    .then(function() {
+      console.log('Successfully deleted user');
+    })
+    .catch(function(error) {
+      console.log('Error deleting user:', error);
+    });
     firebase.firestore().collection('users').doc(id).delete().then(() => {
       console.log("Document successfully deleted!");
       this.props.history.push("/")
