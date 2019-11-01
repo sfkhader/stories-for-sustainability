@@ -16,6 +16,7 @@ import Book from '../Book';
 import PDFDelete from '../PDFDelete';
 import DeleteUser from '../DeleteUser';
 import UserWrapper from '../UserWrapper';
+import Bookmark from '../Bookmark';
 
 
 const App = () => (
@@ -33,6 +34,7 @@ const App = () => (
       <Route path={ROUTES.BOOK} component={Book} />
       <Route path={ROUTES.FILEDELETE} component={PDFDelete} />
       <Route path={ROUTES.DELETE_USER} component={DeleteUser} />
+      <Route path={ROUTES.BOOKMARK} component={Bookmark} />
 
     </div>
   </Router>
