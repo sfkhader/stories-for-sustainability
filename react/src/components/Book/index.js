@@ -64,8 +64,9 @@ const useStyles = makeStyles(theme => ({
       
     }
   
-    onDocumentLoad = ({ numPages }) => {
+    onDocumentLoadSuccess = ({ numPages }) => {
       this.setState({ numPages });
+      console.log(numPages);
     }
     
     setBookmark(pageNumber, key) {
@@ -90,6 +91,8 @@ const useStyles = makeStyles(theme => ({
   
     render() {
       const { book, key, url, pageNumber, numPages, isLoading } = this.state;
+      const isPrevInvalid = pageNumber - 1 == 0;
+      const isNextInvalid = pageNumber  == numPages;
 
       return (
         <div>
@@ -98,7 +101,7 @@ const useStyles = makeStyles(theme => ({
             &nbsp;
             <Typography variant = "h2">{this.state.title}</Typography>
             <div>
-                <Button variant = "contained" style ={{margin: '20px'}} className ="login-button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber - 1 }))}>
+                <Button variant = "contained" style ={{margin: '20px'}} disabled={isPrevInvalid} className ="login-button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber - 1 }))}>
                     Previous
                 </Button>
                 &nbsp;
@@ -107,7 +110,7 @@ const useStyles = makeStyles(theme => ({
                 </Button>
                 &nbsp;
 
-                <Button  variant = "contained" style ={{margin: '20px'}} className = "login-button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber + 1 }))}>
+                <Button  variant = "contained" style ={{margin: '20px'}} disabled={isNextInvalid} className = "login-button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber + 1 }))}>
                     Next
                 </Button>
 
@@ -115,7 +118,9 @@ const useStyles = makeStyles(theme => ({
             {/* &nbsp; */}
 
             <div width = "1000px" className = "book">
-                <Document file = {this.state.url}>
+                <Document 
+                  file = {this.state.url}
+                  onLoadSuccess={this.onDocumentLoadSuccess}>
                     <Page pageNumber={pageNumber}/>
                 </Document>
 
