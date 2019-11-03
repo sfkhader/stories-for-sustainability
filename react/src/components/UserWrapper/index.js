@@ -22,6 +22,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import { withAuthorization, withEmailVerification } from '../Session';
 import Home from '../Home';
 import SignOut from '../SignOut';
+import Bookmark from '../Bookmark';
+
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -77,8 +79,10 @@ class UserWrapper extends Component {
             <AppBar position = "static" style= {{sticky: true}}>
                 <Toolbar style={{flexGrow: 1}} >
                     {isHome()}
+                    <Link to = {ROUTES.BOOKMARK} style= {{textDecoration: 'none', color: 'white'}}><Button variant = "outlined" color= 'inherit'> Bookmarks </Button></Link>
                     <div style = {{flexGrow: 1}}>
                     </div>
+
                     <IconButton color="inherit" aria-label="menu">
                         <AccountCircle />
                     </IconButton>

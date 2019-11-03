@@ -1,47 +1,42 @@
-
+import React, { Component } from 'react';
 import { compose } from 'recompose';
-import cover from '../../images/cover.jpg';
+import { withFirebase } from '../Firebase';
+import { withAuthorization, withEmailVerification } from '../Session';
+import * as ROLES from '../../constants/roles';
+import * as ROUTES from '../../constants/routes';
+import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import * as ROUTES from '../../constants/routes';
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { firebase } from '@firebase/app';
+import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import {Document, Page, pdfjs,} from 'react-pdf';
-import { withAuthorization, withEmailVerification } from '../Session';
 import SignOutButton from '../SignOut';
-import UserWrapper from '../UserWrapper';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import TextField from '@material-ui/core/TextField';
+import { firebase } from '@firebase/app';
+import UserWrapper from '../UserWrapper';
 
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-class Home extends Component {
+// import classes from '*.module.sass';
+// var books = [];
+class Bookmark extends Component {
   constructor(props) {
     super(props);
-    this.ref = firebase.firestore().collection('users');
+    this.ref = firebase.firestore().collection('books');
     this.unsubscribe = null;
     this.state = {
-        books: [],
-        userID: '',
-        bookID: '',
+      bookmarks: [],
+      books: [],
+      // numAdded: 0,
     };
     this.setState.bind(this);
   }
 
-  onCollectionUpdate = (querySnapshot) => {
+ onCollectionUpdate = (querySnapshot) => {
     const books = [];
     querySnapshot.forEach((doc) => {
       const { title, tags, url } = doc.data();
@@ -56,106 +51,133 @@ class Home extends Component {
     this.setState({
       books: books
    });
-      firebase.auth().onIdTokenChanged(function(user) {
-        if (user) {
-          var currentUser = user.uid;
-          const bookmarksRef = firebase.firestore().collection('users').doc(currentUser);
-          bookmarksRef.get().then((doc) => {
-            if (doc.exists) {
-                console.log(doc.data());
-                this.setState({
-                    // user: doc.data(),
-                    books: doc.data().bookmarks,
-                    // tags: doc.data().tags,
-                    userID: doc.id,
-                    // url: doc.data().url,
-                    // isLoading: false
-                    });
-            //   console.log(books);
-            } else {
-                console.log("dne");
+   const bookmarks = [];
+   var that = this;
+   firebase.auth().onIdTokenChanged(function(user) {
+      if (user) {
+        var currentUser = user.uid;
+        const bookmarksRef = firebase.firestore().collection('users').doc(currentUser);
+        bookmarksRef.get().then((doc) => {
+          if (doc.exists) {
+            for (let bookid in doc.data().bookmarks) { 
+              var title; 
+              var pages = doc.data().bookmarks[bookid];
+              var key = bookid;
+              var pagenums = []
+              for (let book in books) {
+                if (books[book].key == key) {
+                  title = books[book].title;
+                  for (var i = 0; i < pages.length; i++) {
+                    pages = pages.sort(function (a, b) {  return a - b;  });
+                    if(i != pages.length - 1) {
+                      pagenums.push("" + pages[i] + ", ");
+                    } else {
+                      pagenums.push(pages[i]);
+                    }
+                  }
+                }
+                
+              }
+              bookmarks.push({ title, pagenums, key})
             }
+          } else {
+            console.log("No such document!");
+          }
+          that.setState({
+            bookmarks: bookmarks,
+          });  
 
-          })
-        }
-      })
+        })
+        
+      }
+    })
+
+    
   }
 
   componentDidMount() {
-    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate)
+
   }
 
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
   render() {
-    var handleChange = (event) => {
-      this.setState({[event.target.name]: event.target.value});
-    };
+    const { books, bookmarks } = this.state;
     return (
       <div>
-        <UserWrapper>{{home: true}}</UserWrapper>
+      <UserWrapper>{{home:true}}</UserWrapper>
 
       <div className="homepage">
-        <Typography variant = "h2" style = {{margin: '20px'}}>Library</Typography>
-      <Table style ={{width: '40%', border: '2px', borderColor: "black"}}>
-        <TableBody>
-          <TableCell style= {{border: 'none'}}>Filter by:</TableCell>
-          <TableCell style= {{border: 'none'}}>
-            <Select value = {this.state.language} onChange = {handleChange} inputProps ={{name: 'language'}}>
-              <MenuItem value = {"English"}>English</MenuItem>
-              <MenuItem value = {"Spanish"}>Spanish</MenuItem>
-              <MenuItem value = {"French"}>French</MenuItem>
 
+        <Typography variant = "h2" style = {{margin: '20px'}}>Bookmarks</Typography>
+        <Typography variant = "h6"></Typography>
+        <Wrapper> <Typography variant = "h4"> </Typography>
+          <BookmarksList bookmarks={bookmarks} />
+        </Wrapper>
 
-            </Select>
-            <FormHelperText>Language</FormHelperText>
-          </TableCell>
-          <TableCell style= {{border: 'none'}}>
-            <Select value = {this.state.goal} onChange = {handleChange} inputProps ={{name: 'goal'}}>
-              <MenuItem value = {"goal1"}>goal1</MenuItem>
-              <MenuItem value = {"goal2"}>goal2</MenuItem>
-              <MenuItem value = {"goal3"}>goal3</MenuItem>
-
-
-            </Select>
-            <FormHelperText>Sustainability Goal</FormHelperText>
-
-          </TableCell>
-          <TableCell style= {{border: 'none'}}>
-            <Button variant = "outlined" color="inherit">Filter</Button>
-          
-          </TableCell>
-        </TableBody>
-      </Table>
-      <Table>
-
-      <TableBody>
-
-        <TableRow className = "row">
-{        this.state.books.map(books =>
-
-          <th align="center">
-              <Typography variant = "h5" style = {{margin: "none"}}>{books.title}</Typography>
-              <tr>
-                <Link to={`/book/${books.key}`}>
-                <img src = {cover} className="book-cover"></img>
-                </Link>
-              </tr>
-              <Typography variant = 'body1' align="center" className="description">Book Description</Typography>
-          </th>
-        )}
-        </TableRow>
-      </TableBody>
-    </Table>
-
-    </div>
-    </div>
-
+      </div>
+      </div>
     );
   }
 }
 
-const condition = authUser => !!authUser;
+
+
+const Inline = styled.section`
+  display:inline-block;
+  margin-right:5px;
+  margin-bottom: 20px;
+`;
+const Wrapper = styled.section`
+  padding: 10px 10px;
+  border: none;
+  outline: none;
+  font: inherit;
+  color: #2A2D34;
+  width: 50%;
+  text-align: center;
+  margin-top: 40px;
+`;
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+    marginTop: theme.spacing(3),
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 650,
+    backgroundColor: '#9AA0A8'
+  },
+}));
+const BookmarksList = ({ bookmarks }) => (
+  <Paper className = {useStyles().root}>
+    <Table className = {useStyles().table}>
+      <TableHead>
+        <TableRow>
+          <TableCell style= {{borderColor: "black"}}>Title</TableCell>
+          <TableCell style= {{borderColor: "black"}}>Pages Bookmarked</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {bookmarks.map(bookmark => (
+          <TableRow style= {{borderColor: "black"}}>
+            <tr>
+                <Link to={`/book/${bookmark.key}`}>
+                <TableCell style= {{borderColor: "black"}}>{bookmark.title}</TableCell>
+                </Link>
+              </tr>
+            <TableCell style= {{borderColor: "black"}}>{bookmark.pagenums}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+
+  </Paper>
+);
 
 export default compose(
   withEmailVerification,
-  withAuthorization(condition),
-)(Home);
+  withFirebase,
+)(Bookmark);
