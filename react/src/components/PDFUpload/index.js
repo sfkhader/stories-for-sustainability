@@ -116,7 +116,13 @@ class PDFUploadFormBase extends Component {
       </li>
       <li>
         <Typography>Tag </Typography>
-        <TextField required variant = "outlined" type="text" name="tag" class="field-long" value={tag} onChange={this.onChange}/>
+        <select name="cars" required variant = "outlined" name="tag" class="field-long" value={tag} onChange={this.onChange}>
+          <option value="volvo">Volvo</option>
+          <option value="saab">Saab</option>
+          <option value="fiat">Fiat</option>
+          <option value="audi">Audi</option>
+        </select>
+        {/* <TextField required variant = "outlined" type="text" name="tag" class="field-long" value={tag} onChange={this.onChange}/> */}
       </li>
       </ul>
       </form>
