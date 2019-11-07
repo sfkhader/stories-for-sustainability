@@ -23,15 +23,14 @@ import UserWrapper from '../UserWrapper';
 
 // import classes from '*.module.sass';
 // var books = [];
-class Bookmark extends Component {
+class Favorite extends Component {
   constructor(props) {
     super(props);
     this.ref = firebase.firestore().collection('books');
     this.unsubscribe = null;
     this.state = {
-      bookmarks: [],
+      favorites: [],
       books: [],
-      // numAdded: 0,
     };
     this.setState.bind(this);
   }
@@ -51,45 +50,41 @@ class Bookmark extends Component {
     this.setState({
       books: books
    });
-   const bookmarks = [];
+   const favorites = [];
    var that = this;
    var user = firebase.auth().currentUser;
 
   //  firebase.auth().onIdTokenChanged(function(user) {
       if (user) {
         var currentUser = user.uid;
-        const bookmarksRef = firebase.firestore().collection('users').doc(currentUser);
-        bookmarksRef.get().then((doc) => {
+        const favoritesRef = firebase.firestore().collection('users').doc(currentUser);
+        favoritesRef.get().then((doc) => {
           if (doc.exists) {
-            for (let bookid in doc.data().bookmarks) { 
+
+            for (let book in doc.data().favorite) { 
+                var bookid = doc.data().favorite[book]
+                console.log(bookid)
               var title; 
-              var pages = doc.data().bookmarks[bookid];
-              var key = bookid;
-              var pagenums = []
+            //   var pages = doc.data().favorites;
+            //   var key = bookid;
+            //   var pagenums = []
               for (let book in books) {
-                if (books[book].key == key) {
+                if (books[book].key == bookid) {
+
                   title = books[book].title;
-                  for (var i = 0; i < pages.length; i++) {
-                    pages = pages.sort(function (a, b) {  return a - b;  });
-                    if(i != pages.length - 1) {
-                      pagenums.push("" + pages[i] + ", ");
-                    } else {
-                      pagenums.push(pages[i]);
-                    }
-                  }
+                  console.log(title)
+                  favorites.push({title, bookid})
+                    console.log(favorites)
                 }
                 
               }
-              bookmarks.push({ title, pagenums, key})
-              // console.log(bookmarks)
             }
           } else {
             console.log("No such document!");
           }
           that.setState({
-            bookmarks: bookmarks,
+            favorites: favorites,
           });  
-          console.log(bookmarks)
 
         })
         
@@ -108,17 +103,17 @@ class Bookmark extends Component {
     this.unsubscribe();
   }
   render() {
-    const { books, bookmarks } = this.state;
+    const { books, favorites } = this.state;
     return (
       <div>
       <UserWrapper>{{home:true}}</UserWrapper>
 
       <div className="homepage">
 
-        <Typography variant = "h2" style = {{margin: '20px'}}>Bookmarks</Typography>
+        <Typography variant = "h2" style = {{margin: '20px'}}>Favorites</Typography>
         <Typography variant = "h6"></Typography>
         <Wrapper> <Typography variant = "h4"> </Typography>
-          <BookmarksList bookmarks={bookmarks} />
+          <FavoritesList favorites={favorites} />
         </Wrapper>
 
       </div>
@@ -155,24 +150,22 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: '#9AA0A8'
   },
 }));
-const BookmarksList = ({ bookmarks }) => (
+const FavoritesList = ({ favorites }) => (
   <Paper className = {useStyles().root}>
     <Table className = {useStyles().table}>
       <TableHead>
         <TableRow>
           <TableCell style= {{borderColor: "black"}}>Title</TableCell>
-          <TableCell style= {{borderColor: "black"}}>Pages Bookmarked</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {bookmarks.map(bookmark => (
+        {favorites.map(favorite => (
           <TableRow style= {{borderColor: "black"}}>
             <tr>
-                <Link to={`/book/${bookmark.key}`}>
-                <TableCell style= {{borderColor: "black"}}>{bookmark.title}</TableCell>
+                <Link to={`/book/${favorite.bookid}`}>
+                <TableCell style= {{borderColor: "black"}}>{favorite.title}</TableCell>
                 </Link>
               </tr>
-            <TableCell style= {{borderColor: "black"}}>{bookmark.pagenums}</TableCell>
           </TableRow>
         ))}
       </TableBody>
@@ -184,4 +177,4 @@ const BookmarksList = ({ bookmarks }) => (
 export default compose(
   withEmailVerification,
   withFirebase,
-)(Bookmark);
+)(Favorite);

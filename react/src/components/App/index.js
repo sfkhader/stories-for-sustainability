@@ -18,6 +18,7 @@ import DeleteUser from '../DeleteUser';
 import UserWrapper from '../UserWrapper';
 import Bookmark from '../Bookmark';
 import Progress from '../Progress';
+import Favorite from '../Favorite';
 
 
 const App = () => (
@@ -37,6 +38,7 @@ const App = () => (
       <Route path={ROUTES.DELETE_USER} component={DeleteUser} />
       <Route path={ROUTES.BOOKMARK} component={Bookmark} />
       <Route path={ROUTES.PROGRESS} component={Progress} />
+      <Route path={ROUTES.FAVORITE} component={Favorite} />
 
     </div>
   </Router>

@@ -70,7 +70,7 @@ class UserWrapper extends Component {
           )
         } else {
             return(
-              <Link to = {ROUTES.HOME} style= {{textDecoration: 'none', color: 'white'}}><Button variant = "outlined" color= 'inherit'> Back to Library </Button></Link>
+              <Link to = {ROUTES.HOME} style= {{textDecoration: 'none', color: 'white', marginRight: "20px"}}><Button variant = "outlined" color= 'inherit'> Back to Library </Button></Link>
             )
         }
     };
@@ -81,6 +81,8 @@ class UserWrapper extends Component {
                     {isHome()}
                     <Link to = {ROUTES.BOOKMARK} style= {{textDecoration: 'none', color: 'white'}}><Button variant = "outlined" color= 'inherit'> Bookmarks </Button></Link>
                     <Link to = {ROUTES.PROGRESS} style= {{textDecoration: 'none', color: 'white'}}><Button variant = "outlined" color= 'inherit'> Progress </Button></Link>
+                    <Link to = {ROUTES.FAVORITE} style= {{textDecoration: 'none', color: 'white', marginRight: "20px"}}><Button variant = "outlined" color= 'inherit'> Favorites </Button></Link>
+
                     <div style = {{flexGrow: 1}}>
                     </div>
 

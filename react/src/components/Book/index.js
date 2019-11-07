@@ -15,6 +15,7 @@ import * as firebase from 'firebase';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 
+
 const useStyles = makeStyles(theme => ({
     button: {
       margin: theme.spacing(1),
@@ -85,22 +86,38 @@ const useStyles = makeStyles(theme => ({
     }
     
     setBookmark(pageNumber, key) {
-      firebase.auth().onIdTokenChanged(function(user) {
-        if (user) {
-          var currentUser = user.uid;
-          const bookmarksRef = firebase.firestore().collection('users').doc(currentUser);
-          bookmarksRef.get().then((doc) => {
-            if (doc.exists) {
-              if (!['bookmarks.' + key].includes(pageNumber)) {
-                bookmarksRef.update({['bookmarks.' + key]: firebase.firestore.FieldValue.arrayUnion(pageNumber)
-                })
-              }
-              console.log(['bookmarks.' + key]);
+      var user = firebase.auth().currentUser;
+      if (user) {
+        var currentUser = user.uid;
+        const bookmarksRef = firebase.firestore().collection('users').doc(currentUser);
+        bookmarksRef.get().then((doc) => {
+          if (doc.exists) {
+            if (!['bookmarks.' + key].includes(pageNumber)) {
+              bookmarksRef.update({['bookmarks.' + key]: firebase.firestore.FieldValue.arrayUnion(pageNumber)
+              })
             }
+            console.log(['bookmarks.' + key]);
+          }
 
-          })
-        }
-      })
+        })    
+      }
+    }
+     
+    setFavorite(key) {
+      var user = firebase.auth().currentUser;
+      if (user) {
+        var currentUser = user.uid;
+        const favoritesRef = firebase.firestore().collection('users').doc(currentUser);
+        favoritesRef.get().then((doc) => {
+          if (doc.exists) {
+            if (!'favorite'.includes(key)) {
+              favoritesRef.update({favorite: firebase.firestore.FieldValue.arrayUnion(key)
+              })
+            }
+          }
+
+        })
+      }
     }
     
     setCurrentPage(pageNumber, numPages, title, key) {
@@ -155,12 +172,17 @@ const useStyles = makeStyles(theme => ({
                     Bookmark
                 </Button>
                 &nbsp;
-
+                <Button  variant = "contained" style ={{margin: '20px'}} className = "login-button" onClick={() => this.setFavorite(key)}>
+                    Favorite
+                </Button>
+                &nbsp;
                 <Button  variant = "contained" style ={{margin: '20px'}} disabled={isNextInvalid} className = "login-button" onClick={() => 
-                {
-                  this.setState(prevState => ({ pageNumber: prevState.pageNumber + 1 }));
-                  this.setCurrentPage(pageNumber + 1, numPages, title, key)}
-              }>
+                  {
+                    this.setState(prevState => ({ pageNumber: prevState.pageNumber + 1 }));
+                    this.setState(prevState => ({ pageNumber: prevState.pageNumber + 1 }));
+                    this.setCurrentPage(pageNumber + 1, numPages, title, key)
+                  }
+                  }>
                     Next
                 </Button>
 
@@ -172,7 +194,7 @@ const useStyles = makeStyles(theme => ({
                   file = {this.state.url}
                   onLoadSuccess={this.onDocumentLoadSuccess}>
                     <Page pageNumber={pageNumber}/>
-                </Document>
+                </Document> 
 
 
             </div>
