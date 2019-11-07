@@ -54,7 +54,7 @@ class PDFUploadFormBase extends Component {
   }
   handleUpload = () => {
     const db = firebase.firestore();
-      const {pdf, title, tag, url} = this.state;
+      const {pdf, title, tags, url} = this.state;
       const uploadTask = storage.ref(`pdfs/${pdf.name}`).put(pdf);
       // const downloadUrl = storage.ref(`pdfs/${pdf.name}`).getDownloadURL();
       uploadTask.on('state_changed', 
@@ -73,14 +73,14 @@ class PDFUploadFormBase extends Component {
 
         db.collection('books').add({
           title: this.state.title,
-          tag: this.state.tag,
+          tag: this.state.tags,
           url: url
         });
         window.location.href = "/admin"
 
     })
      
-      this.setState({ title, tag, url }); 
+      this.setState({ title, tags, url }); 
       
     },
     
@@ -96,7 +96,7 @@ class PDFUploadFormBase extends Component {
   render() {
     const {
       title,
-      tag,
+      tags,
     } = this.state;
 
     const style = {
@@ -115,8 +115,8 @@ class PDFUploadFormBase extends Component {
         <TextField required variant = "outlined" type="text" name="title" class="field-divided" value={title} onChange={this.onChange} /> 
       </li>
       <li>
-        <Typography>Tag </Typography>
-        <select name="cars" required variant = "outlined" name="tag" class="field-long" value={tag} onChange={this.onChange}>
+        <Typography>Tags </Typography>
+        <select name="cars" required variant = "outlined" name="tags" class="field-long" value={tags} onChange={this.onChange}>
           <option value="volvo">Volvo</option>
           <option value="saab">Saab</option>
           <option value="fiat">Fiat</option>

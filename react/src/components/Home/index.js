@@ -64,6 +64,25 @@ class Home extends Component {
     this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
   }
 
+  filterBooks() {
+    var filteredBooks = [];
+    var book;
+    var bookTags;
+
+    var languageFilterValue = this.state.language;
+    var goalFilterValue = this.state.goal;
+
+    // console.log(this.state.books)
+
+    for (let index in this.state.books) {
+      book = this.state.books[index];
+      bookTags = book.tags;
+      if (bookTags.includes(languageFilterValue) && bookTags.includes(goalFilterValue)) {
+        filteredBooks.push(book)
+      }
+    }
+  }
+
   render() {
     var handleChange = (event) => {
       this.setState({[event.target.name]: event.target.value});
@@ -99,7 +118,7 @@ class Home extends Component {
 
           </TableCell>
           <TableCell style= {{border: 'none'}}>
-            <Button variant = "outlined" color="inherit">Filter</Button>
+            <Button variant = "outlined" color="inherit" onClick={() => this.filterBooks()}>Filter</Button>
           
           </TableCell>
         </TableBody>
