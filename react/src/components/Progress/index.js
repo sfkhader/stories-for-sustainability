@@ -194,10 +194,10 @@ const ProgressList = ({ progress}) => (
           <TableRow style= {{borderColor: "black"}}>
             <tr>
                 {/* <Link to={`/book/${progress.key}`}> */}
-                <TableCell style= {{borderColor: "black"}}>{prog.currentlyReadingList}</TableCell>
+                <TableCell style= {{borderColor: "black"}}>{prog.currentlyReadingList.currentlyReadingTitle}</TableCell>
                 {/* </Link> */}
               </tr>
-            <TableCell style= {{borderColor: "black"}}>{prog.finishedList}</TableCell>
+            <TableCell style= {{borderColor: "black"}}>{prog.finishedList.finishedTitle}</TableCell>
           </TableRow>
         ))}
       </TableBody>
