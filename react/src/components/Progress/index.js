@@ -23,14 +23,16 @@ import UserWrapper from '../UserWrapper';
 
 // import classes from '*.module.sass';
 // var books = [];
-class Bookmark extends Component {
+class Progress extends Component {
   constructor(props) {
     super(props);
     this.ref = firebase.firestore().collection('books');
     this.unsubscribe = null;
     this.state = {
-      bookmarks: [],
+      currentlyReading: [],
+      finished: [],
       books: [],
+      progress: []
       // numAdded: 0,
     };
     this.setState.bind(this);
@@ -39,62 +41,87 @@ class Bookmark extends Component {
  onCollectionUpdate = (querySnapshot) => {
     const books = [];
     querySnapshot.forEach((doc) => {
-      const { title, tags, url } = doc.data();
+      const { title, tags, url, numPages } = doc.data();
       books.push({
         key: doc.id,
         doc,
         title,
         tags,
         url,
+        numPages,
       });
     });
     this.setState({
       books: books
    });
-   const bookmarks = [];
+   const currentlyReading = [];
+   const finished = [];
+   const progress = [];
    var that = this;
+
    firebase.auth().onIdTokenChanged(function(user) {
-      if (user) {
-        var currentUser = user.uid;
-        const bookmarksRef = firebase.firestore().collection('users').doc(currentUser);
-        bookmarksRef.get().then((doc) => {
-          if (doc.exists) {
-            for (let bookid in doc.data().bookmarks) { 
-              var title; 
-              var pages = doc.data().bookmarks[bookid];
-              var key = bookid;
-              var pagenums = []
+    if (user) {
+      var currentUser = user.uid;
+      const progressRef = firebase.firestore().collection('users').doc(currentUser);
+      progressRef.get().then((doc) => {
+        if (doc.exists) {
+          for (let bookid in doc.data().finished) { 
+            // console.log(doc.data().currentlyReading.bookid)
+            var finishedTitle; 
+            var key = bookid;
+            // console.log(doc.data().finished[key])
+            if (!(doc.data().finished[key] === null)) {
               for (let book in books) {
                 if (books[book].key == key) {
-                  title = books[book].title;
-                  for (var i = 0; i < pages.length; i++) {
-                    pages = pages.sort(function (a, b) {  return a - b;  });
-                    if(i != pages.length - 1) {
-                      pagenums.push("" + pages[i] + ", ");
-                    } else {
-                      pagenums.push(pages[i]);
-                    }
-                  }
+                  finishedTitle = books[book].title
+                  // console.log(finishedTitle)
+                }
+              }
+              finished.push({ finishedTitle, key})
+              // console.log(finished)
+            }
+            
+            
+          }
+
+          for (let bookid in doc.data().currentlyReading) { 
+            // console.log(doc.data().currentlyReading.bookid)
+            var currentlyReadingTitle; 
+            var key = bookid;
+            // console.log(doc.data().currentlyReading[key])
+            if (! (doc.data().currentlyReading[key] === null)) {
+              // console.log('reading')
+              for (let book in books) {
+                if (books[book].key == key) {
+                  currentlyReadingTitle = books[book].title
+                  // console.log(currentlyReadingTitle)
                 }
                 
               }
-              bookmarks.push({ title, pagenums, key})
-              // console.log(bookmarks)
+              currentlyReading.push({ currentlyReadingTitle, key})
             }
-          } else {
-            console.log("No such document!");
+            
           }
-          that.setState({
-            bookmarks: bookmarks,
-          });  
-          console.log(bookmarks)
+          progress['currentlyReadingList'] = currentlyReading;
+          progress['finishedList'] = finished;
+        } else {
+          console.log("No such document!");
+        }
+        that.setState({
+          currentlyReading: currentlyReading,
+          finished: finished,
+          progress: progress
+        });  
 
-        })
-        
-      }
-    })
-
+        // console.log(currentlyReading)
+        // console.log(finished)
+        // console.log(progress.currentlyReadingList['currentlyReadingTitle'])
+        // console.log(progress['currentlyReadingList'])
+      })
+      
+    }
     
+  })
   }
 
   componentDidMount() {
@@ -106,17 +133,17 @@ class Bookmark extends Component {
     this.unsubscribe();
   }
   render() {
-    const { books, bookmarks } = this.state;
+    const { books, progress } = this.state;
     return (
       <div>
       <UserWrapper>{{home:true}}</UserWrapper>
 
       <div className="homepage">
 
-        <Typography variant = "h2" style = {{margin: '20px'}}>Bookmarks</Typography>
+        <Typography variant = "h2" style = {{margin: '20px'}}>Progress</Typography>
         <Typography variant = "h6"></Typography>
         <Wrapper> <Typography variant = "h4"> </Typography>
-          <BookmarksList bookmarks={bookmarks} />
+          <ProgressList progress={progress} />
         </Wrapper>
 
       </div>
@@ -153,24 +180,24 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: '#9AA0A8'
   },
 }));
-const BookmarksList = ({ bookmarks }) => (
+const ProgressList = ({ progress}) => (
   <Paper className = {useStyles().root}>
     <Table className = {useStyles().table}>
       <TableHead>
         <TableRow>
-          <TableCell style= {{borderColor: "black"}}>Title</TableCell>
-          <TableCell style= {{borderColor: "black"}}>Pages Bookmarked</TableCell>
+          <TableCell style= {{borderColor: "black"}}>Currently Reading</TableCell>
+          <TableCell style= {{borderColor: "black"}}>Finished</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {bookmarks.map(bookmark => (
+        {progress.map(prog => (
           <TableRow style= {{borderColor: "black"}}>
             <tr>
-                <Link to={`/book/${bookmark.key}`}>
-                <TableCell style= {{borderColor: "black"}}>{bookmark.title}</TableCell>
-                </Link>
+                {/* <Link to={`/book/${progress.key}`}> */}
+                <TableCell style= {{borderColor: "black"}}>{prog.currentlyReadingList}</TableCell>
+                {/* </Link> */}
               </tr>
-            <TableCell style= {{borderColor: "black"}}>{bookmark.pagenums}</TableCell>
+            <TableCell style= {{borderColor: "black"}}>{prog.finishedList}</TableCell>
           </TableRow>
         ))}
       </TableBody>
@@ -182,4 +209,4 @@ const BookmarksList = ({ bookmarks }) => (
 export default compose(
   withEmailVerification,
   withFirebase,
-)(Bookmark);
+)(Progress);

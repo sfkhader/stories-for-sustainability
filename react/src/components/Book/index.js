@@ -66,7 +66,22 @@ const useStyles = makeStyles(theme => ({
   
     onDocumentLoadSuccess = ({ numPages }) => {
       this.setState({ numPages });
+      this.setNumPages(numPages);
       console.log(numPages);
+    }
+
+    setNumPages(numPages) {
+      var url = this.props.location.pathname;
+      var urlsplit = url.split("/").slice(-1)[0];
+      const ref = firebase.firestore().collection('books').doc(urlsplit);
+      ref.get().then((doc) => {
+        if (doc.exists) {
+          ref.update({['numPages']: numPages
+          })
+        } else {
+          console.log("No such document!");
+        }
+      });
     }
     
     setBookmark(pageNumber, key) {
@@ -87,10 +102,37 @@ const useStyles = makeStyles(theme => ({
         }
       })
     }
-        
+    
+    setCurrentPage(pageNumber, numPages, title, key) {
+      firebase.auth().onIdTokenChanged(function(user) {
+        if (user) {
+          var currentUser = user.uid;
+          const currentPageRef = firebase.firestore().collection('users').doc(currentUser);
+          currentPageRef.get().then((doc) => {
+            if (doc.exists) {
+              if (pageNumber == numPages) {
+                currentPageRef.update({['finished.' + key]: firebase.firestore.FieldValue.arrayUnion(title)})
+                currentPageRef.update({['currentlyReading.' + key]: null})
+
+              } else if (pageNumber > 0 && pageNumber < numPages) {
+                currentPageRef.update({['currentlyReading.' + key]: firebase.firestore.FieldValue.arrayUnion(title)})
+                currentPageRef.update({['finished.' + key]: null})
+
+              }
+              if (!['currentPage.' + key].includes(pageNumber)) {
+                currentPageRef.update({['currentPage.' + key]: pageNumber})
+                
+              }
+              // console.log(['currentPage.' + key]);
+            }
+
+          })
+        }
+      })
+    }
   
     render() {
-      const { book, key, url, pageNumber, numPages, isLoading } = this.state;
+      const { book, key, url, pageNumber, numPages, isLoading, title } = this.state;
       const isPrevInvalid = pageNumber - 1 == 0;
       const isNextInvalid = pageNumber  == numPages;
 
@@ -101,7 +143,11 @@ const useStyles = makeStyles(theme => ({
             &nbsp;
             <Typography variant = "h2">{this.state.title}</Typography>
             <div>
-                <Button variant = "contained" style ={{margin: '20px'}} disabled={isPrevInvalid} className ="login-button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber - 1 }))}>
+                <Button variant = "contained" style ={{margin: '20px'}} disabled={isPrevInvalid} className ="login-button" onClick={() => 
+                {
+                  this.setState(prevState => ({ pageNumber: prevState.pageNumber - 1 }));
+                  this.setCurrentPage(pageNumber - 1, numPages, title, key)}
+              }>
                     Previous
                 </Button>
                 &nbsp;
@@ -110,7 +156,11 @@ const useStyles = makeStyles(theme => ({
                 </Button>
                 &nbsp;
 
-                <Button  variant = "contained" style ={{margin: '20px'}} disabled={isNextInvalid} className = "login-button" onClick={() => this.setState(prevState => ({ pageNumber: prevState.pageNumber + 1 }))}>
+                <Button  variant = "contained" style ={{margin: '20px'}} disabled={isNextInvalid} className = "login-button" onClick={() => 
+                {
+                  this.setState(prevState => ({ pageNumber: prevState.pageNumber + 1 }));
+                  this.setCurrentPage(pageNumber + 1, numPages, title, key)}
+              }>
                     Next
                 </Button>
 

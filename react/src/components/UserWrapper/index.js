@@ -80,6 +80,7 @@ class UserWrapper extends Component {
                 <Toolbar style={{flexGrow: 1}} >
                     {isHome()}
                     <Link to = {ROUTES.BOOKMARK} style= {{textDecoration: 'none', color: 'white'}}><Button variant = "outlined" color= 'inherit'> Bookmarks </Button></Link>
+                    <Link to = {ROUTES.PROGRESS} style= {{textDecoration: 'none', color: 'white'}}><Button variant = "outlined" color= 'inherit'> Progress </Button></Link>
                     <div style = {{flexGrow: 1}}>
                     </div>
 
