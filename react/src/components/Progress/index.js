@@ -66,7 +66,7 @@ class Progress extends Component {
       progressRef.get().then((doc) => {
         if (doc.exists) {
           for (let bookid in doc.data().finished) { 
-            // console.log(doc.data().currentlyReading.bookid)
+            // console.log(doc.data().currentlyReading)
             var finishedTitle; 
             var key = bookid;
             // console.log(doc.data().finished[key])
@@ -78,19 +78,20 @@ class Progress extends Component {
                 }
               }
               finished.push({ finishedTitle, key})
-              // console.log(finished)
+              // console.log(finished)  
             }
             
             
           }
 
           for (let bookid in doc.data().currentlyReading) { 
-            // console.log(doc.data().currentlyReading.bookid)
+            // console.log(bookid)
             var currentlyReadingTitle; 
-            var key = bookid;
             // console.log(doc.data().currentlyReading[key])
-            if (! (doc.data().currentlyReading[key] === null)) {
-              // console.log('reading')
+            // console.log(doc.data().currentlyReading[bookid])
+            var key = bookid;
+            if (! (doc.data().currentlyReading[key] == null)) {
+              console.log(doc.data().currentlyReading[bookid][0])
               for (let book in books) {
                 if (books[book].key == key) {
                   currentlyReadingTitle = books[book].title
@@ -99,11 +100,13 @@ class Progress extends Component {
                 
               }
               currentlyReading.push({ currentlyReadingTitle, key})
+              console.log(currentlyReading)
             }
             
           }
           progress['currentlyReadingList'] = currentlyReading;
           progress['finishedList'] = finished;
+          
         } else {
           console.log("No such document!");
         }
@@ -133,7 +136,7 @@ class Progress extends Component {
     this.unsubscribe();
   }
   render() {
-    const { books, progress } = this.state;
+    const { books, progress, currentlyReading, finished } = this.state;
     return (
       <div>
       <UserWrapper>{{home:true}}</UserWrapper>
@@ -143,7 +146,9 @@ class Progress extends Component {
         <Typography variant = "h2" style = {{margin: '20px'}}>Progress</Typography>
         <Typography variant = "h6"></Typography>
         <Wrapper> <Typography variant = "h4"> </Typography>
-          <ProgressList progress={progress} />
+          <CurrentlyReadingList currentlyReading={currentlyReading} />
+          <FinishedList finished={finished} />
+
         </Wrapper>
 
       </div>
@@ -180,24 +185,48 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: '#9AA0A8'
   },
 }));
-const ProgressList = ({ progress}) => (
+const CurrentlyReadingList = ({ currentlyReading}) => (
   <Paper className = {useStyles().root}>
     <Table className = {useStyles().table}>
       <TableHead>
         <TableRow>
           <TableCell style= {{borderColor: "black"}}>Currently Reading</TableCell>
+          {/* <TableCell style= {{borderColor: "black"}}>Finished</TableCell> */}
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {currentlyReading.map(curr => (
+          <TableRow style= {{borderColor: "black"}}>
+            <tr>
+                <Link to={`/book/${curr.key}`}>
+                <TableCell style= {{borderColor: "black"}}>{curr.currentlyReadingTitle}</TableCell>
+                </Link>
+              </tr>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+
+  </Paper>
+);
+
+const FinishedList = ({ finished}) => (
+  <Paper className = {useStyles().root}>
+    <Table className = {useStyles().table}>
+      <TableHead>
+        <TableRow>
+          {/* <TableCell style= {{borderColor: "black"}}>Currently Reading</TableCell> */}
           <TableCell style= {{borderColor: "black"}}>Finished</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {progress.map(prog => (
+        {finished.map(finish => (
           <TableRow style= {{borderColor: "black"}}>
             <tr>
-                {/* <Link to={`/book/${progress.key}`}> */}
-                <TableCell style= {{borderColor: "black"}}>{prog.currentlyReadingList.currentlyReadingTitle}</TableCell>
-                {/* </Link> */}
+                <Link to={`/book/${finish.key}`}>
+                <TableCell style= {{borderColor: "black"}}>{finish.finishedTitle}</TableCell>
+                </Link>
               </tr>
-            <TableCell style= {{borderColor: "black"}}>{prog.finishedList.finishedTitle}</TableCell>
           </TableRow>
         ))}
       </TableBody>

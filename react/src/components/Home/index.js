@@ -28,17 +28,23 @@ import TextField from '@material-ui/core/TextField';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
+const INITIAL_STATE = {
+  books: [],
+  numAdded: 0,
+  language :'Select',
+  languages : [],
+  goals : [],
+  goal :'Select',
+  filteredBooks: []
+};
 class Home extends Component {
+  
   constructor(props) {
     super(props);
     this.ref = firebase.firestore().collection('books');
     this.unsubscribe = null;
     this.state = {
-      books: [],
-      numAdded: 0,
-      language :'English',
-      goal :'goal1'
-
+      ...INITIAL_STATE
     };
     this.setState.bind(this);
   }
@@ -46,17 +52,20 @@ class Home extends Component {
   onCollectionUpdate = (querySnapshot) => {
     const books = [];
     querySnapshot.forEach((doc) => {
-      const { title, tags, url } = doc.data();
+      const { title, tags , url, languages, goals } = doc.data();
       books.push({
         key: doc.id,
         doc,
         title,
         tags,
         url,
+        languages,
+        goals
       });
     });
     this.setState({
-      books: books
+      books: books,
+      filteredBooks: books
    });
   }
 
@@ -67,20 +76,51 @@ class Home extends Component {
   filterBooks() {
     var filteredBooks = [];
     var book;
-    var bookTags;
-
     var languageFilterValue = this.state.language;
     var goalFilterValue = this.state.goal;
 
-    // console.log(this.state.books)
-
+    
     for (let index in this.state.books) {
       book = this.state.books[index];
-      bookTags = book.tags;
-      if (bookTags.includes(languageFilterValue) && bookTags.includes(goalFilterValue)) {
-        filteredBooks.push(book)
+
+      console.log(languageFilterValue);
+      console.log(goalFilterValue);
+      if (languageFilterValue != 'Select' && goalFilterValue != 'Select') {
+        if (book.languages.includes(languageFilterValue) && book.goals.includes(goalFilterValue)) {
+          filteredBooks.push(book)
+  
+        }
+      } else if (languageFilterValue != 'Select') {
+        if (book.languages.includes(languageFilterValue)) {
+        
+          console.log(languageFilterValue)
+          filteredBooks.push(book)
+  
+        }
+      } else if (goalFilterValue != 'Select') {
+        if (book.goals.includes(goalFilterValue)) {
+          filteredBooks.push(book)
+  
+        }
       }
+      
     }
+
+    this.setState({
+      filteredBooks: filteredBooks
+    })
+    
+  }
+
+  clearFilter() {
+    this.setState({
+      books: this.state.books,
+      numAdded: 0,
+      language :'Select',
+      languages : [],
+      goals : [],
+      goal :'Select',
+      filteredBooks:  this.state.books   })
   }
 
   render() {
@@ -98,6 +138,7 @@ class Home extends Component {
           <TableCell style= {{border: 'none'}}>Filter by:</TableCell>
           <TableCell style= {{border: 'none'}}>
             <Select value = {this.state.language} onChange = {handleChange} inputProps ={{name: 'language'}}>
+              <MenuItem value = {"Select"}>Select Language</MenuItem>
               <MenuItem value = {"English"}>English</MenuItem>
               <MenuItem value = {"Spanish"}>Spanish</MenuItem>
               <MenuItem value = {"French"}>French</MenuItem>
@@ -108,6 +149,7 @@ class Home extends Component {
           </TableCell>
           <TableCell style= {{border: 'none'}}>
             <Select value = {this.state.goal} onChange = {handleChange} inputProps ={{name: 'goal'}}>
+              <MenuItem value = {"Select"}>Select Goal</MenuItem>
               <MenuItem value = {"goal1"}>goal1</MenuItem>
               <MenuItem value = {"goal2"}>goal2</MenuItem>
               <MenuItem value = {"goal3"}>goal3</MenuItem>
@@ -121,6 +163,10 @@ class Home extends Component {
             <Button variant = "outlined" color="inherit" onClick={() => this.filterBooks()}>Filter</Button>
           
           </TableCell>
+          <TableCell style= {{border: 'none'}}>
+            <Button variant = "outlined" color="inherit" onClick={() => this.clearFilter()}>Clear Filter</Button>
+          
+          </TableCell>
         </TableBody>
       </Table>
       <Table>
@@ -128,7 +174,7 @@ class Home extends Component {
       <TableBody>
 
         <TableRow className = "row">
-{        this.state.books.map(books =>
+{        this.state.filteredBooks.map(books =>
 
           <th align="center">
               <Typography variant = "h5" style = {{margin: "none"}}>{books.title}</Typography>

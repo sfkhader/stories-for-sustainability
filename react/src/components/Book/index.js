@@ -178,7 +178,7 @@ const useStyles = makeStyles(theme => ({
                 &nbsp;
                 <Button  variant = "contained" style ={{margin: '20px'}} disabled={isNextInvalid} className = "login-button" onClick={() => 
                   {
-                    this.setState(prevState => ({ pageNumber: prevState.pageNumber + 1 }));
+                    // this.setState(prevState => ({ pageNumber: prevState.pageNumber + 1 }));
                     this.setState(prevState => ({ pageNumber: prevState.pageNumber + 1 }));
                     this.setCurrentPage(pageNumber + 1, numPages, title, key)
                   }

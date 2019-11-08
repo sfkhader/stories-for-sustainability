@@ -79,8 +79,8 @@ class UserWrapper extends Component {
             <AppBar position = "static" style= {{sticky: true}}>
                 <Toolbar style={{flexGrow: 1}} >
                     {isHome()}
-                    <Link to = {ROUTES.BOOKMARK} style= {{textDecoration: 'none', color: 'white'}}><Button variant = "outlined" color= 'inherit'> Bookmarks </Button></Link>
-                    <Link to = {ROUTES.PROGRESS} style= {{textDecoration: 'none', color: 'white'}}><Button variant = "outlined" color= 'inherit'> Progress </Button></Link>
+                    <Link to = {ROUTES.BOOKMARK} style= {{textDecoration: 'none', color: 'white', marginRight: "20px"}}><Button variant = "outlined" color= 'inherit'> Bookmarks </Button></Link>
+                    <Link to = {ROUTES.PROGRESS} style= {{textDecoration: 'none', color: 'white', marginRight: "20px"}}><Button variant = "outlined" color= 'inherit'> Progress </Button></Link>
                     <Link to = {ROUTES.FAVORITE} style= {{textDecoration: 'none', color: 'white', marginRight: "20px"}}><Button variant = "outlined" color= 'inherit'> Favorites </Button></Link>
 
                     <div style = {{flexGrow: 1}}>

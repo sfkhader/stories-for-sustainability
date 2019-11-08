@@ -15,6 +15,7 @@ import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import 'firebase/firestore';
+// import { connect } from 'react-redux'
 
 const PDFUploadPage = () => (
   <div>
@@ -30,7 +31,9 @@ const PDFUploadPage = () => (
 
 const INITIAL_STATE = {
   title:'',
-  tag:'',
+  languages: [],
+  tags:{},
+  goals: [],
   pdf: null,
   url: '',
   progress: 0,
@@ -54,7 +57,7 @@ class PDFUploadFormBase extends Component {
   }
   handleUpload = () => {
     const db = firebase.firestore();
-      const {pdf, title, tags, url} = this.state;
+      const {pdf, title, tags, url, languages, goals} = this.state;
       const uploadTask = storage.ref(`pdfs/${pdf.name}`).put(pdf);
       // const downloadUrl = storage.ref(`pdfs/${pdf.name}`).getDownloadURL();
       uploadTask.on('state_changed', 
@@ -73,14 +76,15 @@ class PDFUploadFormBase extends Component {
 
         db.collection('books').add({
           title: this.state.title,
-          tag: this.state.tags,
+          languages: this.state.languages,
+          goals: this.state.goals,
           url: url
         });
         window.location.href = "/admin"
 
     })
      
-      this.setState({ title, tags, url }); 
+      this.setState({ title, languages, goals, url }); 
       
     },
     
@@ -90,13 +94,52 @@ class PDFUploadFormBase extends Component {
 
 
   onChange = event => {
+    const languages = this.state.languages;
+    let index;
+
+    // check if the check box is checked or unchecked
+    if (event.target.checked) {
+      // add the numerical value of the checkbox to options array
+      languages.push(event.target.value)
+    } else {
+      // or remove the value from the unchecked checkbox from the array
+      index = languages.indexOf(event.target.value)
+      languages.splice(index, 1)
+    }
+
+    // update the state with the new array of options
+    this.setState({ languages: languages })
     this.setState({ [event.target.name]: event.target.value });
+
+
+  };
+
+  onGoalsChange = event => {
+    const goals = this.state.goals;
+    let index;
+
+    // check if the check box is checked or unchecked
+    if (event.target.checked) {
+      // add the numerical value of the checkbox to options array
+      goals.push(event.target.value)
+    } else {
+      // or remove the value from the unchecked checkbox from the array
+      index = goals.indexOf(event.target.value)
+      goals.splice(index, 1)
+    }
+
+    // update the state with the new array of options
+    this.setState({ goals: goals })
+    this.setState({ [event.target.name]: event.target.value });
+
+
   };
 
   render() {
     const {
       title,
       tags,
+      languages
     } = this.state;
 
     const style = {
@@ -115,14 +158,53 @@ class PDFUploadFormBase extends Component {
         <TextField required variant = "outlined" type="text" name="title" class="field-divided" value={title} onChange={this.onChange} /> 
       </li>
       <li>
-        <Typography>Tags </Typography>
-        <select name="cars" required variant = "outlined" name="tags" class="field-long" value={tags} onChange={this.onChange}>
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="fiat">Fiat</option>
-          <option value="audi">Audi</option>
-        </select>
-        {/* <TextField required variant = "outlined" type="text" name="tag" class="field-long" value={tag} onChange={this.onChange}/> */}
+        <Typography>Language </Typography>
+        <form>
+          <div className="input-group">
+            <label>English</label>
+            <input type="checkbox" value={"English"} onChange={this.onChange.bind(this)} />
+          </div>
+          <div className="input-group">
+            <label>Spanish</label>
+            <input type="checkbox" value={"Spanish"} onChange={this.onChange.bind(this)} />
+          </div>
+          <div className="input-group">
+            <label>French</label>
+            <input type="checkbox" value={"French"} onChange={this.onChange.bind(this)} />
+          </div>
+        </form>
+
+        <div className="selected-items">
+          {this.state.languages.map(lang => 
+             <p key={lang}>item: {lang}</p>
+          )}
+        </div>
+      </li>
+
+      <li>
+        <Typography>Goals </Typography>
+        <form>
+          <div className="input-group">
+            <label>Goal1</label>
+            <input type="checkbox" value={"goal1"} onChange={this.onGoalsChange.bind(this)} />
+          </div>
+          <div className="input-group">
+            <label>Goal2</label>
+            <input type="checkbox" value={"goal2"} onChange={this.onGoalsChange.bind(this)} />
+          </div>
+          <div className="input-group">
+            <label>Goal3</label>
+            <input type="checkbox" value={"goal3"} onChange={this.onGoalsChange.bind(this)} />
+          </div>
+        </form>
+
+        <div className="selected-items">
+          {this.state.goals.map(goal => 
+             <p key={goal}>item: {goal}</p>
+          )}
+        </div>
+
+
       </li>
       </ul>
       </form>
