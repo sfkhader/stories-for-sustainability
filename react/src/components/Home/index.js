@@ -183,7 +183,7 @@ class Home extends Component {
                 <img src = {cover} className="book-cover"></img>
                 </Link>
               </tr>
-              <Typography variant = 'body1' align="center" className="description">Book Description</Typography>
+              {/* <Typography variant = 'body1' align="center" className="description">Book Description</Typography> */}
           </th>
         )}
         </TableRow>
