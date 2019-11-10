@@ -150,9 +150,9 @@ class Home extends Component {
           <TableCell style= {{border: 'none'}}>
             <Select value = {this.state.goal} onChange = {handleChange} inputProps ={{name: 'goal'}}>
               <MenuItem value = {"Select"}>Select Goal</MenuItem>
-              <MenuItem value = {"goal1"}>goal1</MenuItem>
-              <MenuItem value = {"goal2"}>goal2</MenuItem>
-              <MenuItem value = {"goal3"}>goal3</MenuItem>
+              <MenuItem value = {"Goal1"}>Goal1</MenuItem>
+              <MenuItem value = {"Goal2"}>Goal2</MenuItem>
+              <MenuItem value = {"Goal3"}>Goal3</MenuItem>
 
 
             </Select>
