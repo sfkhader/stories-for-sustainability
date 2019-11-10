@@ -283,23 +283,23 @@ class SignUpFormBase extends Component {
         <Typography  style = {{marginTop: '20px'}}>Interested Goals</Typography>
         <FormControl>
           <FormGroup>
-            <FormControlLabel control= {<Checkbox value = {"Goal1"} onChange={this.onChangeGoals.bind(this)}/>} label="No Poverty"/>
-            <FormControlLabel control= {<Checkbox value = {"Goal2"} onChange={this.onChangeGoals.bind(this)}/>} label="Zero Hunger"/>
-            <FormControlLabel control= {<Checkbox value = {"Goal3"} onChange={this.onChangeGoals.bind(this)}/>} label="Good Health and Well-being"/>
-            <FormControlLabel control= {<Checkbox value = {"Goal4"} onChange={this.onChangeGoals.bind(this)}/>} label="Quality Education"/>
-            <FormControlLabel control= {<Checkbox value = {"Goal5"} onChange={this.onChangeGoals.bind(this)}/>} label="Gender Equality"/>
-            <FormControlLabel control= {<Checkbox value = {"Goal6"} onChange={this.onChangeGoals.bind(this)}/>} label="Clean Water and Sanitation"/>
-            <FormControlLabel control= {<Checkbox value = {"Goal7"} onChange={this.onChangeGoals.bind(this)}/>} label="Affordable and Clean Energy"/>
-            <FormControlLabel control= {<Checkbox value = {"Goal8"} onChange={this.onChangeGoals.bind(this)}/>} label="Decent Work and Economic Growth"/>
-            <FormControlLabel control= {<Checkbox value = {"Goal9"} onChange={this.onChangeGoals.bind(this)}/>} label="Industry, Innovation and Infrastructure"/>
-            <FormControlLabel control= {<Checkbox value = {"Goal10"} onChange={this.onChangeGoals.bind(this)}/>} label="Reduced Inequality"/>
-            <FormControlLabel control= {<Checkbox value = {"Goal11"} onChange={this.onChangeGoals.bind(this)}/>} label="Sustainable Cities and Communities"/>
-            <FormControlLabel control= {<Checkbox value = {"Goal12"} onChange={this.onChangeGoals.bind(this)}/>} label="Responsible Comsumption and Production"/>
-            <FormControlLabel control= {<Checkbox value = {"Goal13"} onChange={this.onChangeGoals.bind(this)}/>} label="Climate Action"/>
-            <FormControlLabel control= {<Checkbox value = {"Goal14"} onChange={this.onChangeGoals.bind(this)}/>} label="Life Below Water"/>
-            <FormControlLabel control= {<Checkbox value = {"Goal15"} onChange={this.onChangeGoals.bind(this)}/>} label="Life on Land"/>
-            <FormControlLabel control= {<Checkbox value = {"Goal16"} onChange={this.onChangeGoals.bind(this)}/>} label="Peace and Justice Strong Institiutions"/>
-            <FormControlLabel control= {<Checkbox value = {"Goal17"} onChange={this.onChangeGoals.bind(this)}/>} label="Partnerships to achieve the Goal"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal1"} onChange={this.onChangeGoals.bind(this)}/>} label="Goal 1: No Poverty"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal2"} onChange={this.onChangeGoals.bind(this)}/>} label="Goal 2: Zero Hunger"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal3"} onChange={this.onChangeGoals.bind(this)}/>} label="Goal 3: Good Health and Well-being"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal4"} onChange={this.onChangeGoals.bind(this)}/>} label="Goal 4: Quality Education"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal5"} onChange={this.onChangeGoals.bind(this)}/>} label="Goal 5: Gender Equality"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal6"} onChange={this.onChangeGoals.bind(this)}/>} label="Goal 6: Clean Water and Sanitation"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal7"} onChange={this.onChangeGoals.bind(this)}/>} label="Goal 7: Affordable and Clean Energy"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal8"} onChange={this.onChangeGoals.bind(this)}/>} label="Goal 8: Decent Work and Economic Growth"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal9"} onChange={this.onChangeGoals.bind(this)}/>} label="Goal 9: Industry, Innovation and Infrastructure"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal10"} onChange={this.onChangeGoals.bind(this)}/>} label="Goal 10: Reduced Inequality"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal11"} onChange={this.onChangeGoals.bind(this)}/>} label="Goal 11: Sustainable Cities and Communities"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal12"} onChange={this.onChangeGoals.bind(this)}/>} label="Goal 12: Responsible Comsumption and Production"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal13"} onChange={this.onChangeGoals.bind(this)}/>} label="Goal 13: Climate Action"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal14"} onChange={this.onChangeGoals.bind(this)}/>} label="Goal 14: Life Below Water"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal15"} onChange={this.onChangeGoals.bind(this)}/>} label="Goal 15: Life on Land"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal16"} onChange={this.onChangeGoals.bind(this)}/>} label="Goal 16: Peace and Justice Strong Institiutions"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal17"} onChange={this.onChangeGoals.bind(this)}/>} label="Goal 17: Partnerships to achieve the Goal"/>
           </FormGroup>
         </FormControl>
       </li>
