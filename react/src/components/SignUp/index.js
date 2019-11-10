@@ -90,7 +90,7 @@ class SignUpFormBase extends Component {
   };
 
   onChangeGoals = event => {
-    const goals = this.state.goals;
+    const goals = this.state.interested;
     let index;
 
     // check if the check box is checked or unchecked

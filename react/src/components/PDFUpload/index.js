@@ -176,9 +176,9 @@ class PDFUploadFormBase extends Component {
         <FormControl>
           <FormLabel>Goals</FormLabel>
           <FormGroup>
-            <FormControlLabel control= {<Checkbox value = {"Goal1"} onChange={this.onGoalsChange.bind(this)}/>} label="Goal1"/>
-            <FormControlLabel control= {<Checkbox value = {"Goal2"} onChange={this.onGoalsChange.bind(this)}/>} label="Goal2"/>
-            <FormControlLabel control= {<Checkbox value = {"Goal3"} onChange={this.onGoalsChange.bind(this)}/>} label="Goal3"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal1"} onChange={this.onGoalsChange.bind(this)}/>} label="Goal 1"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal2"} onChange={this.onGoalsChange.bind(this)}/>} label="Goal 2"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal3"} onChange={this.onGoalsChange.bind(this)}/>} label="Goal 3"/>
           </FormGroup>
         </FormControl>
 

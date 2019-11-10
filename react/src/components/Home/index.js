@@ -150,10 +150,23 @@ class Home extends Component {
           <TableCell style= {{border: 'none'}}>
             <Select value = {this.state.goal} onChange = {handleChange} inputProps ={{name: 'goal'}}>
               <MenuItem value = {"Select"}>Select Goal</MenuItem>
-              <MenuItem value = {"Goal1"}>Goal1</MenuItem>
-              <MenuItem value = {"Goal2"}>Goal2</MenuItem>
-              <MenuItem value = {"Goal3"}>Goal3</MenuItem>
-
+              <MenuItem value = {"Goal1"}>Goal 1</MenuItem>
+              <MenuItem value = {"Goal2"}>Goal 2</MenuItem>
+              <MenuItem value = {"Goal3"}>Goal 3</MenuItem>
+              <MenuItem value = {"Goal4"}>Goal 4</MenuItem>
+              <MenuItem value = {"Goal5"}>Goal 5</MenuItem>
+              <MenuItem value = {"Goal6"}>Goal 6</MenuItem>
+              <MenuItem value = {"Goal7"}>Goal 7</MenuItem>
+              <MenuItem value = {"Goal8"}>Goal 8</MenuItem>
+              <MenuItem value = {"Goal9"}>Goal 9</MenuItem>
+              <MenuItem value = {"Goal10"}>Goal 10</MenuItem>
+              <MenuItem value = {"Goal11"}>Goal 11</MenuItem>
+              <MenuItem value = {"Goal12"}>Goal 12</MenuItem>
+              <MenuItem value = {"Goal13"}>Goal 13</MenuItem>
+              <MenuItem value = {"Goal14"}>Goal 14</MenuItem>
+              <MenuItem value = {"Goal15"}>Goal 15</MenuItem>
+              <MenuItem value = {"Goal16"}>Goal 16</MenuItem>
+              <MenuItem value = {"Goal17"}>Goal 17</MenuItem>
 
             </Select>
             <FormHelperText>Sustainability Goal</FormHelperText>
@@ -174,7 +187,8 @@ class Home extends Component {
       <TableBody>
 
         <TableRow className = "row">
-{        this.state.filteredBooks.map(books =>
+        
+        {this.state.filteredBooks.map(books =>
 
           <th align="center">
               <Typography variant = "h5" style = {{margin: "none"}}>{books.title}</Typography>
@@ -183,7 +197,6 @@ class Home extends Component {
                 <img src = {cover} className="book-cover"></img>
                 </Link>
               </tr>
-              {/* <Typography variant = 'body1' align="center" className="description">Book Description</Typography> */}
           </th>
         )}
         </TableRow>
