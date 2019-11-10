@@ -106,7 +106,7 @@ class Favorite extends Component {
     const { books, favorites } = this.state;
     return (
       <div>
-      <UserWrapper>{{home:true}}</UserWrapper>
+      <UserWrapper>{{home:false}}</UserWrapper>
 
       <div className="homepage">
 

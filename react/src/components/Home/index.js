@@ -164,7 +164,7 @@ class Home extends Component {
           
           </TableCell>
           <TableCell style= {{border: 'none'}}>
-            <Button variant = "outlined" color="inherit" onClick={() => this.clearFilter()}>Clear Filter</Button>
+            <Button variant = "outlined" color="inherit" onClick={() => this.clearFilter()}>Clear</Button>
           
           </TableCell>
         </TableBody>

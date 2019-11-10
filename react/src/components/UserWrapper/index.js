@@ -85,10 +85,10 @@ class UserWrapper extends Component {
 
                     <div style = {{flexGrow: 1}}>
                     </div>
-
-                    <IconButton color="inherit" aria-label="menu">
+                    <Link to = {ROUTES.ACCOUNT} style= {{textDecoration: 'none', color: 'white', marginRight: "20px"}}><IconButton color="inherit" aria-label="menu">
                         <AccountCircle />
-                    </IconButton>
+                    </IconButton></Link>
+
                 </Toolbar>
             </AppBar>
         </div>

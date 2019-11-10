@@ -111,7 +111,7 @@ class Bookmark extends Component {
     const { books, bookmarks } = this.state;
     return (
       <div>
-      <UserWrapper>{{home:true}}</UserWrapper>
+      <UserWrapper>{{home:false}}</UserWrapper>
 
       <div className="homepage">
 

@@ -17,6 +17,12 @@ import { withAuthorization, withEmailVerification } from '../Session';
 import AdminWrapper from '../AdminWrapper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -26,6 +32,7 @@ class PDFDelete extends Component {
     this.ref = firebase.firestore().collection('books');
     this.unsubscribe = null;
     this.state = {
+      open:false,
       books: []
     };
   }
@@ -62,6 +69,12 @@ class PDFDelete extends Component {
   }
 
   render() {
+    const openDialog = () => {
+      this.setState({open:true})
+    }
+    const closeDialog = () => {
+      this.setState({open:false})
+    }
     return (
       <div>
         <AdminWrapper>{{home:false}}</AdminWrapper>
@@ -80,11 +93,18 @@ class PDFDelete extends Component {
                       </Link>
                     </tr>
                     <Typography variant = 'body1' align="center" className="description">Book Description</Typography>
-                    <Link to={ROUTES.ADMIN} style = {{textDecoration: 'none'}}> 
-                        <Button variant = "contained" onClick={this.delete.bind(this, books.key)} style = {{marginTop: "20px"}}>
+
+                        <Button variant = "contained" onClick={openDialog } style = {{marginTop: "20px"}}>
                             Delete Story
                         </Button>
-                    </Link>
+                        <Dialog open={this.state.open} onClose={closeDialog}>
+                          <DialogTitle>{"Are you sure you would like to delete this story?"}</DialogTitle>
+                          <DialogActions>
+                            <Button onClick={this.delete.bind(this, books.key)}>Yes</Button>
+                            <Button onClick={closeDialog}>No</Button>
+                          </DialogActions>
+                        </Dialog>
+
                     </th>
 
                      

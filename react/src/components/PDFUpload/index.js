@@ -15,6 +15,12 @@ import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import 'firebase/firestore';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Checkbox from '@material-ui/core/Checkbox';
 // import { connect } from 'react-redux'
 
 const PDFUploadPage = () => (
@@ -155,52 +161,37 @@ class PDFUploadFormBase extends Component {
        <ul style = {{listStyle: 'none'}}>
       <li>
       <Typography>Title</Typography>
-        <TextField required variant = "outlined" type="text" name="title" class="field-divided" value={title} onChange={this.onChange} /> 
+        <TextField required variant = "outlined" type="text" name="title" class="field-divided" value={title} onChange={this.onChange} style={{paddingBottom:'20px'}}/> 
       </li>
       <li>
-        <Typography>Language </Typography>
-        <form>
-          <div className="input-group">
-            <label>English</label>
-            <input type="checkbox" value={"English"} onChange={this.onChange.bind(this)} />
-          </div>
-          <div className="input-group">
-            <label>Spanish</label>
-            <input type="checkbox" value={"Spanish"} onChange={this.onChange.bind(this)} />
-          </div>
-          <div className="input-group">
-            <label>French</label>
-            <input type="checkbox" value={"French"} onChange={this.onChange.bind(this)} />
-          </div>
-        </form>
+        <FormControl>
+          <FormLabel>Language</FormLabel>
+          <FormGroup>
+            <FormControlLabel control= {<Checkbox value = {"English"} onChange={this.onChange.bind(this)}/>} label="English"/>
+            <FormControlLabel control= {<Checkbox value = {"Spanish"} onChange={this.onChange.bind(this)}/>} label="Spanish"/>
+            <FormControlLabel control= {<Checkbox value = {"French"} onChange={this.onChange.bind(this)}/>} label="French"/>
+          </FormGroup>
+        </FormControl>
 
+        <FormControl>
+          <FormLabel>Goals</FormLabel>
+          <FormGroup>
+            <FormControlLabel control= {<Checkbox value = {"Goal1"} onChange={this.onChange.bind(this)}/>} label="Goal1"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal2"} onChange={this.onChange.bind(this)}/>} label="Goal2"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal3"} onChange={this.onChange.bind(this)}/>} label="Goal3"/>
+          </FormGroup>
+        </FormControl>
+
+        <Typography variant="body1">Selected Tags:</Typography>
         <div className="selected-items">
           {this.state.languages.map(lang => 
-             <p key={lang}>item: {lang}</p>
+             <Typography variant = "body2" key={lang}>{lang}</Typography>
           )}
         </div>
-      </li>
-
-      <li>
-        <Typography>Goals </Typography>
-        <form>
-          <div className="input-group">
-            <label>Goal1</label>
-            <input type="checkbox" value={"goal1"} onChange={this.onGoalsChange.bind(this)} />
-          </div>
-          <div className="input-group">
-            <label>Goal2</label>
-            <input type="checkbox" value={"goal2"} onChange={this.onGoalsChange.bind(this)} />
-          </div>
-          <div className="input-group">
-            <label>Goal3</label>
-            <input type="checkbox" value={"goal3"} onChange={this.onGoalsChange.bind(this)} />
-          </div>
-        </form>
 
         <div className="selected-items">
           {this.state.goals.map(goal => 
-             <p key={goal}>item: {goal}</p>
+             <Typography variant="body2" key={goal}>{goal}</Typography>
           )}
         </div>
 

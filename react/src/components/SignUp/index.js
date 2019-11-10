@@ -121,7 +121,7 @@ class SignUpFormBase extends Component {
         <Button variant = "contained" style = {{margin: '20px'}} className = "cancel-button" ><Link to = {ROUTES.LANDING} className = "link">Cancel</Link></Button> 
 
         <Button variant = "contained" style = {{margin: '20px', backgroundColor: '#60B2E5'}} disabled={isInvalid} className = "signup-button" type="submit">Register</Button>
-        {error && <p>{error.message}</p>}
+        {error && <Typography>{error.message}</Typography>}
 
         </ul>
 

@@ -3,7 +3,8 @@ import '../../EmailVerification.css';
 
 import AuthUserContext from './context';
 import { withFirebase } from '../Firebase';
-
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 const needsEmailVerification = authUser =>
   authUser &&
@@ -33,27 +34,26 @@ const withEmailVerification = Component => {
             needsEmailVerification(authUser) ? (
               <div className="header">
                 {this.state.isSent ? (
-                  <p className="message">
+                  <Typography className="message">
                     E-Mail confirmation sent: Check your E-Mails (Spam
                     folder included) for a confirmation E-Mail.
                     Refresh this page once you confirmed your E-Mail.
-                  </p>
+                  </Typography>
                 ) : (
-                  <p className="message">
+                  <Typography className="message">
                     Verify your E-Mail: Check your E-Mails (Spam folder
                     included) for a confirmation E-Mail or send
                     another confirmation E-Mail.
-                  </p>
+                  </Typography>
                 )}
 
-                <button
-                  type="button"
-                  className="button"
+                <Button
+                  variant ='contained'
                   onClick={this.onSendEmailVerification}
                   disabled={this.state.isSent}
                 >
                   Send confirmation E-Mail
-                </button>
+                </Button>
               </div>
             ) : (
               <Component {...this.props} />

@@ -22,7 +22,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import AdminWrapper from '../AdminWrapper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 class DeleteUser extends Component {
@@ -31,7 +35,8 @@ class DeleteUser extends Component {
     this.ref = firebase.firestore().collection('users');
     this.unsubscribe = null;
     this.state = {
-      users: []
+      users: [],
+      open:false
     };
   }
 
@@ -78,6 +83,12 @@ class DeleteUser extends Component {
   }
 
   render() {
+    const openDialog = () => {
+      this.setState({open:true})
+    }
+    const closeDialog = () => {
+      this.setState({open:false})
+    }
     const useStyles = makeStyles(theme => ({
       root: {
         width: '100%',
@@ -114,9 +125,16 @@ class DeleteUser extends Component {
                 <TableCell style= {{borderColor: "black"}}>{user.email}</TableCell>
                 <TableCell style= {{borderColor: "black"}}>{user.username}</TableCell>
                 <TableCell style= {{borderColor: "black"}}>
-                  <Button variant = "contained" className = "delete-user" onClick={this.delete.bind(this, user.key)}>
+                  <Button variant = "contained" className = "delete-user" onClick={openDialog}>
                           Delete User
                       </Button>
+                  <Dialog open={this.state.open} onClose={closeDialog}>
+                      <DialogTitle>{"Are you sure you would like to delete this user?"}</DialogTitle>
+                      <DialogActions>
+                        <Button onClick={this.delete.bind(this, user.key)}>Yes</Button>
+                        <Button onClick={closeDialog}>No</Button>
+                      </DialogActions>
+                    </Dialog>
                 </TableCell>
                 
               </TableRow>

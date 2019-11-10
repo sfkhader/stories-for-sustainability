@@ -139,7 +139,7 @@ class Progress extends Component {
     const { books, progress, currentlyReading, finished } = this.state;
     return (
       <div>
-      <UserWrapper>{{home:true}}</UserWrapper>
+      <UserWrapper>{{home:false}}</UserWrapper>
 
       <div className="homepage">
 
