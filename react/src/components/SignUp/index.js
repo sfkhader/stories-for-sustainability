@@ -11,7 +11,10 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 
 
@@ -33,6 +36,7 @@ const INITIAL_STATE = {
   email: '',
   passwordOne: '',
   passwordTwo: '',
+  interested: [],
   error: null,
 };
 
@@ -44,7 +48,7 @@ class SignUpFormBase extends Component {
 
   }
   onSubmit = event => {
-    const { firstname, lastname, age, grade, username, email, passwordOne } = this.state;
+    const { firstname, lastname, age, grade, username, email, passwordOne, interested} = this.state;
     const roles = {};
 
     this.props.firebase
@@ -61,6 +65,7 @@ class SignUpFormBase extends Component {
             username,
             email,
             passwordOne,
+            interested,
             roles,
           },
           { merge: true },
@@ -84,6 +89,25 @@ class SignUpFormBase extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  onChangeGoals = event => {
+    const goals = this.state.goals;
+    let index;
+
+    // check if the check box is checked or unchecked
+    if (event.target.checked) {
+      // add the numerical value of the checkbox to options array
+      goals.push(event.target.value)
+    } else {
+      // or remove the value from the unchecked checkbox from the array
+      index = goals.indexOf(event.target.value)
+      goals.splice(index, 1)
+    }
+
+    // update the state with the new array of options
+    this.setState({ goals: goals })
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
 
   render() {
     const {
@@ -95,6 +119,7 @@ class SignUpFormBase extends Component {
       email,
       passwordOne,
       passwordTwo,
+      interested,
       error,
     } = this.state;
     const isInvalid =
@@ -254,6 +279,31 @@ class SignUpFormBase extends Component {
         <Typography style = {{marginTop: '20px'}}>Confirm Password </Typography>
         <TextField required variant= "outlined" label = "Confirm Password" type="password" name="passwordTwo" value={passwordTwo} onChange={this.onChange}/>
       </li>
+      <li>
+        <Typography  style = {{marginTop: '20px'}}>Interested Goals</Typography>
+        <FormControl>
+          <FormGroup>
+            <FormControlLabel control= {<Checkbox value = {"Goal1"} onChange={this.onChangeGoals.bind(this)}/>} label="No Poverty"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal2"} onChange={this.onChangeGoals.bind(this)}/>} label="Zero Hunger"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal3"} onChange={this.onChangeGoals.bind(this)}/>} label="Good Health and Well-being"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal4"} onChange={this.onChangeGoals.bind(this)}/>} label="Quality Education"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal5"} onChange={this.onChangeGoals.bind(this)}/>} label="Gender Equality"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal6"} onChange={this.onChangeGoals.bind(this)}/>} label="Clean Water and Sanitation"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal7"} onChange={this.onChangeGoals.bind(this)}/>} label="Affordable and Clean Energy"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal8"} onChange={this.onChangeGoals.bind(this)}/>} label="Decent Work and Economic Growth"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal9"} onChange={this.onChangeGoals.bind(this)}/>} label="Industry, Innovation and Infrastructure"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal10"} onChange={this.onChangeGoals.bind(this)}/>} label="Reduced Inequality"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal11"} onChange={this.onChangeGoals.bind(this)}/>} label="Sustainable Cities and Communities"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal12"} onChange={this.onChangeGoals.bind(this)}/>} label="Responsible Comsumption and Production"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal13"} onChange={this.onChangeGoals.bind(this)}/>} label="Climate Action"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal14"} onChange={this.onChangeGoals.bind(this)}/>} label="Life Below Water"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal15"} onChange={this.onChangeGoals.bind(this)}/>} label="Life on Land"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal16"} onChange={this.onChangeGoals.bind(this)}/>} label="Peace and Justice Strong Institiutions"/>
+            <FormControlLabel control= {<Checkbox value = {"Goal17"} onChange={this.onChangeGoals.bind(this)}/>} label="Partnerships to achieve the Goal"/>
+          </FormGroup>
+        </FormControl>
+      </li>
+      
         <Button variant = "contained" style = {{margin: '20px'}} className = "cancel-button" ><Link to = {ROUTES.LANDING} className = "link">Cancel</Link></Button> 
 
         <Button variant = "contained" style = {{margin: '20px', backgroundColor: '#60B2E5'}} disabled={isInvalid} className = "signup-button" type="submit">Register</Button>
@@ -261,7 +311,7 @@ class SignUpFormBase extends Component {
 
         </ul>
 
-
+    
       </form>
     );
   }
