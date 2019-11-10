@@ -24,6 +24,7 @@ const SignUpPage = () => (
 const INITIAL_STATE = {
   firstname: '',
   lastname: '',
+  age: '',
   username: '',
   email: '',
   passwordOne: '',
@@ -39,7 +40,7 @@ class SignUpFormBase extends Component {
 
   }
   onSubmit = event => {
-    const { firstname, lastname, username, email, passwordOne } = this.state;
+    const { firstname, lastname, age, username, email, passwordOne } = this.state;
     const roles = {};
 
     this.props.firebase
@@ -51,6 +52,7 @@ class SignUpFormBase extends Component {
           .set({
             firstname, 
             lastname,
+            age,
             username,
             email,
             passwordOne,
@@ -82,6 +84,7 @@ class SignUpFormBase extends Component {
     const {
       firstname,
       lastname,
+      age,
       username,
       email,
       passwordOne,
@@ -101,6 +104,10 @@ class SignUpFormBase extends Component {
       <Typography style = {{marginTop: '20px'}}>Full Name</Typography>
         <TextField  required variant= "outlined" label = "First Name" name="firstname" value={firstname} onChange={this.onChange} /> 
         <TextField required variant= "outlined"  label = "Last Name" name="lastname"  value={lastname} onChange={this.onChange} />
+      </li>
+      <li>
+        <Typography  style = {{marginTop: '20px'}}>Age</Typography>
+        <TextField required variant= "outlined"  label = "Age" name="age" value={age} onChange={this.onChange} />
       </li>
       <li>
         <Typography  style = {{marginTop: '20px'}}>Username</Typography>
