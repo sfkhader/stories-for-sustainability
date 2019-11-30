@@ -68,7 +68,7 @@ const useStyles = makeStyles(theme => ({
     onDocumentLoadSuccess = ({ numPages }) => {
       this.setState({ numPages });
       this.setNumPages(numPages);
-      console.log(numPages);
+      // console.log(numPages);
     }
 
     setNumPages(numPages) {
@@ -96,7 +96,7 @@ const useStyles = makeStyles(theme => ({
               bookmarksRef.update({['bookmarks.' + key]: firebase.firestore.FieldValue.arrayUnion(pageNumber)
               })
             }
-            console.log(['bookmarks.' + key]);
+            // console.log(['bookmarks.' + key]);
           }
 
         })    

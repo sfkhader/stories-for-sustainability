@@ -66,7 +66,7 @@ class DeleteUser extends Component {
     var admin = require("firebase-admin");
     
     admin.auth().deleteUser(id)
-    console.log(id)
+    // console.log(id)
     .then(function() {
       console.log('Successfully deleted user');
     })

@@ -139,7 +139,7 @@ class CreateAdminFormBase extends Component {
 
         <Button variant = "contained" style = {{margin: '20px', backgroundColor: '#60B2E5'}} disabled={isInvalid} className = "signup-button" type="submit">Create Admin</Button>
 
-        {error && <p>{error.message}</p>}
+        {/* {error && <p>{error.message}</p>} */}
         </ul>
 
       </form>

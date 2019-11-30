@@ -63,7 +63,7 @@ class Favorite extends Component {
 
             for (let book in doc.data().favorite) { 
                 var bookid = doc.data().favorite[book]
-                console.log(bookid)
+                // console.log(bookid)
               var title; 
             //   var pages = doc.data().favorites;
             //   var key = bookid;
@@ -72,9 +72,9 @@ class Favorite extends Component {
                 if (books[book].key == bookid) {
 
                   title = books[book].title;
-                  console.log(title)
+                  // console.log(title)
                   favorites.push({title, bookid})
-                    console.log(favorites)
+                    // console.log(favorites)
                 }
                 
               }

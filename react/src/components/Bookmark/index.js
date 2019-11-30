@@ -89,7 +89,7 @@ class Bookmark extends Component {
           that.setState({
             bookmarks: bookmarks,
           });  
-          console.log(bookmarks)
+          // console.log(bookmarks)
 
         })
         

@@ -83,8 +83,8 @@ class Home extends Component {
     for (let index in this.state.books) {
       book = this.state.books[index];
 
-      console.log(languageFilterValue);
-      console.log(goalFilterValue);
+      // console.log(languageFilterValue);
+      // console.log(goalFilterValue);
       if (languageFilterValue != 'Select' && goalFilterValue != 'Select') {
         if (book.languages.includes(languageFilterValue) && book.goals.includes(goalFilterValue)) {
           filteredBooks.push(book)
@@ -93,7 +93,7 @@ class Home extends Component {
       } else if (languageFilterValue != 'Select') {
         if (book.languages.includes(languageFilterValue)) {
         
-          console.log(languageFilterValue)
+          // console.log(languageFilterValue)
           filteredBooks.push(book)
   
         }
