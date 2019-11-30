@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 
 
 const INITIAL_STATE = {
+  oldPassword:'',
   passwordOne: '',
   passwordTwo: '',
   error: null,
@@ -15,10 +16,13 @@ class PasswordChangeForm extends Component {
   constructor(props) {
     super(props);
     this.state = { ...INITIAL_STATE };
+    this.oldPassword = props.props.authUser.passwordOne;
+    console.log(props.props.authUser.passwordOne);
   }
   onSubmit = event => {
     const { passwordOne } = this.state;
-    this.props.firebase
+    if (this.state.oldPassword === this.oldPassword) {
+      this.props.firebase
       .doPasswordUpdate(passwordOne)
       .then(() => {
         this.setState({ ...INITIAL_STATE });
@@ -26,17 +30,23 @@ class PasswordChangeForm extends Component {
       .catch(error => {
         this.setState({ error });
       });
+    } else {
+      this.setState({error: "incorrect old password"})
+    }
+
     event.preventDefault();
   };
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
   render() {
-    const { passwordOne, passwordTwo, error } = this.state;
+    const { oldPassword, passwordOne, passwordTwo, error } = this.state;
     const isInvalid =
-      passwordOne !== passwordTwo || passwordOne === '';
+      passwordOne !== passwordTwo || passwordOne === '' || oldPassword === passwordOne || oldPassword === passwordTwo;
     return (
       <form onSubmit={this.onSubmit}>
+        <Typography>Old Password</Typography>
+        <TextField required variant = "outlined"  type="password" name="oldPassword" class="field-long" value={oldPassword} onChange={this.onChange} />
         <Typography>New Password</Typography>
         <TextField required variant = "outlined"  type="password" name="passwordOne" class="field-long" value={passwordOne} onChange={this.onChange} />
         <Typography>Confirm New Password</Typography>

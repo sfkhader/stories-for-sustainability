@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 import { withFirebase } from '../Firebase';
+import { firebase } from '@firebase/app';
+import cover from '../../images/cover.jpg';
+
 import { withAuthorization, withEmailVerification } from '../Session';
 import * as ROLES from '../../constants/roles';
 import * as ROUTES from '../../constants/routes';
@@ -17,18 +20,64 @@ import SignOutButton from '../SignOut';
 import AdminWrapper from '../AdminWrapper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 // import classes from '*.module.sass';
+const INITIAL_STATE = {
+  loading:false,
+  users:[],
+  books: [],
+  numAdded: 0,
+  language :'Select',
+  languages : [],
+  goals : [],
+  goal :'Select',
+  filteredBooks: [],
+  open:false
+};
 
 class AdminPage extends Component {
   constructor(props) {
     super(props);
+    this.ref = firebase.firestore().collection('books');
+    this.unsubscribe = null;
+    this.unsubscribeBooks = null;
     this.state = {
-      loading: false,
-      users: [],
+      ...INITIAL_STATE
     };
+  }
+  onCollectionUpdate = (querySnapshot) => {
+    const books = [];
+    querySnapshot.forEach((doc) => {
+      const { title, tags , url, languages, goals } = doc.data();
+      books.push({
+        key: doc.id,
+        doc,
+        title,
+        tags,
+        url,
+        languages,
+        goals
+      });
+    });
+    this.setState({
+      books: books,
+      filteredBooks: books
+   });
+  }
+  delete(id){
+    firebase.firestore().collection('books').doc(id).delete().then(() => {
+      console.log("Document successfully deleted!");
+      this.props.history.push("/")
+      window.location.href = "/admin"
+    }).catch((error) => {
+      console.error("Error removing document: ", error);
+    });
   }
   componentDidMount() {
     this.setState({ loading: true });
@@ -44,11 +93,19 @@ class AdminPage extends Component {
         loading: false,
       });
     });
+    this.unsubscribeBooks = this.ref.onSnapshot(this.onCollectionUpdate);
   }
   componentWillUnmount() {
     this.unsubscribe();
+    this.unsubscribeBooks();
   }
   render() {
+    const openDialog = () => {
+      this.setState({open:true})
+    }
+    const closeDialog = () => {
+      this.setState({open:false})
+    }
     const { users, loading } = this.state;
 
     return (
@@ -58,13 +115,42 @@ class AdminPage extends Component {
       <div className="homepage">
 
         <Typography variant = "h2" style = {{margin: '20px'}}>Admin</Typography>
-        <Typography variant = "h6">
+        <Typography variant = "h6" style = {{marginBottom: '20px'}}>
           The Admin Page is accessible by every signed in admin user.
         </Typography>
         {/* {loading && <div>Loading ...</div>} */}
-        <Wrapper> <Typography variant = "h4"> User List: </Typography>
-          <UserList users={users} />
-        </Wrapper>
+        <Table>
+
+          <TableBody>
+
+            <TableRow className = "row">
+            
+            {this.state.filteredBooks.map(books =>
+
+              <th align="center">
+                  <Typography variant = "h5" style = {{margin: "none"}}>{books.title}</Typography>
+                  <tr>
+                    <Link to={`/book/${books.key}`}>
+                    <img src = {cover} className="book-cover"></img>
+                    </Link>
+
+
+                  </tr>
+                  <Button variant = "contained" onClick={openDialog } style = {{marginTop: "20px"}}>
+                            Delete Story
+                        </Button>
+                        <Dialog open={this.state.open} onClose={closeDialog}>
+                          <DialogTitle>{"Are you sure you would like to delete this story?"}</DialogTitle>
+                          <DialogActions>
+                            <Button onClick={this.delete.bind(this, books.key)}>Yes</Button>
+                            <Button onClick={closeDialog}>No</Button>
+                          </DialogActions>
+                        </Dialog>
+              </th>
+            )}
+            </TableRow>
+          </TableBody>
+          </Table>
 
       </div>
       </div>

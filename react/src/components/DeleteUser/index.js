@@ -107,7 +107,7 @@ class DeleteUser extends Component {
       <div className="Landing-header">
           <Typography variant = "h2" style = {{marginTop: 'none', marginBottom: '20px'}}>Delete a User</Typography>
       <Paper style ={{width: '80%', overflowX: 'auto'}}>
-        <Table style = {{minWidth: 650, backgroundColor: "#9AA0A8"}}>
+        <Table style = {{minWidth: 650, backgroundColor: "#EFEFEF"}}>
           <TableHead>
             <TableRow>
               <TableCell style= {{borderColor: "black"}}>First Name</TableCell>

@@ -15,11 +15,10 @@ const AccountPage = () => (
        <UserWrapper>{{home:false}}</UserWrapper>
         <div className="homepage">
           <Typography variant="h4" style={{padding:'20px'}}>Account: {authUser.email}</Typography>
-          <Typography variant="h5" style={{padding:'10px'}}>Reset Password:</Typography>
-          <PasswordForgetForm />
+
           <Typography variant="h5" style={{padding:'10px', paddingTop:'30px'}}>Change Password:</Typography>
 
-          <PasswordChangeForm />
+          <PasswordChangeForm props={{authUser}}/>
         </div>
       </div>
     )}

@@ -181,8 +181,8 @@ const useStyles = makeStyles(theme => ({
     overflowX: 'auto',
   },
   table: {
-    minWidth: 650,
-    backgroundColor: '#9AA0A8'
+    minWidth: 400,
+    backgroundColor: '#EFEFEF'
   },
 }));
 const CurrentlyReadingList = ({ currentlyReading}) => (
