@@ -35,7 +35,8 @@ const INITIAL_STATE = {
   languages : [],
   goals : [],
   goal :'Select',
-  filteredBooks: []
+  filteredBooks: [],
+  imageurl: ''
 };
 class Home extends Component {
   
@@ -52,7 +53,7 @@ class Home extends Component {
   onCollectionUpdate = (querySnapshot) => {
     const books = [];
     querySnapshot.forEach((doc) => {
-      const { title, tags , url, languages, goals } = doc.data();
+      const { title, tags , url, languages, goals, imageurl } = doc.data();
       books.push({
         key: doc.id,
         doc,
@@ -60,7 +61,8 @@ class Home extends Component {
         tags,
         url,
         languages,
-        goals
+        goals,
+        imageurl
       });
     });
     this.setState({
@@ -120,6 +122,7 @@ class Home extends Component {
       languages : [],
       goals : [],
       goal :'Select',
+      imageurl: '',
       filteredBooks:  this.state.books   })
   }
 
@@ -194,7 +197,7 @@ class Home extends Component {
               <Typography variant = "h5" style = {{margin: "none"}}>{books.title}</Typography>
               <tr>
                 <Link to={`/book/${books.key}`}>
-                <img src = {cover} className="book-cover"></img>
+                <img src = {books.imageurl} className="book-cover"></img>
                 </Link>
               </tr>
           </th>
