@@ -36,37 +36,62 @@ const PDFUploadPage = () => (
 );
 
 const INITIAL_STATE = {
+  bookid: '',
   title:'',
   languages: [],
   tags:{},
   goals: [],
   pdf: null,
+  image: null,
   url: '',
+  imageurl: '',
   progress: 0,
   error: null,
 };
-
+     
 class PDFUploadFormBase extends Component {
   constructor(props) {
     super(props);
     this.state = { ...INITIAL_STATE };
-    this.handleChange = this
-      .handleChange
+    this.handlePDFChange = this
+      .handlePDFChange
       .bind(this);
-      this.handleUpload = this.handleUpload.bind(this);
+    this.handleImageChange = this
+      .handleImageChange
+      .bind(this);
+    this.handleUpload = this.handleUpload.bind(this);
   }
-  handleChange = e => {
+  handlePDFChange = e => {
     if (e.target.files[0]) {
-      const pdf = e.target.files[0];
-      this.setState(() => ({pdf}));
+        console.log("pdf: " + e.target.files[0]);
+        const pdf = e.target.files[0];
+        this.setState(() => ({pdf}));
+    } 
+  }
+
+  handleImageChange = e => {
+    if (e.target.files[0]) {
+        console.log("image: " + e.target.files[0]);
+        const image = e.target.files[0];
+        this.setState(() => ({image}));
     }
+      
   }
   handleUpload = () => {
     const db = firebase.firestore();
-      const {pdf, title, tags, url, languages, goals} = this.state;
-      const uploadTask = storage.ref(`pdfs/${pdf.name}`).put(pdf);
-      // const downloadUrl = storage.ref(`pdfs/${pdf.name}`).getDownloadURL();
-      uploadTask.on('state_changed', 
+      const {pdf, title, tags, url, languages, goals, image, imageurl} = this.state;
+      const pdfuploadTask = storage.ref(`pdfs/${pdf.name}`).put(pdf);
+      storage.ref(`pdfs/${pdf.name}`).getDownloadURL().then(url => {
+        this.setState({ url: url })
+       });
+      const imageuploadTask = storage.ref(`images/${image.name}`).put(image);
+      storage.ref(`images/${image.name}`).getDownloadURL().then(url => {
+        this.setState({ imageurl: url })
+      });
+
+      console.log(this.state.url);
+
+      pdfuploadTask.on('state_changed', 
       (snapshot) => {
         // progrss function ....
         const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
@@ -77,26 +102,38 @@ class PDFUploadFormBase extends Component {
         // console.log(error);
       }, 
     () => {
-      storage.ref('pdfs').child(pdf.name).getDownloadURL().then(url => {
-        // console.log(url);
-
-        db.collection('books').add({
-          title: this.state.title,
-          languages: this.state.languages,
-          goals: this.state.goals,
-          url: url
-        });
-        window.location.href = "/admin"
-
-    })
-     
-      this.setState({ title, languages, goals, url }); 
+      db.collection('books').add({
+        title: this.state.title,
+        languages: this.state.languages,
+        goals: this.state.goals,
+        url: this.state.url,
+        imageurl: this.state.imageurl
+      });
+      this.setState({ title, languages, goals, url, imageurl }); 
       
     },
     
       
   );
+    //   pdfuploadTask.on('state_changed', 
+    //   (snapshot) => {
+    //     const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+    //     this.setState({progress});
+    //   }, 
+    //   (error) => {
+    //   }, 
+    // db.collection('books').add({
+    //   title: this.state.title,
+    //   languages: this.state.languages,
+    //   goals: this.state.goals,
+    //   url: this.state.url,
+    //   imageurl: this.state.imageurl
+    // })
+    // window.location.href = "/admin"
+      
+  // );
   }
+
 
 
   onChange = event => {
@@ -201,11 +238,16 @@ class PDFUploadFormBase extends Component {
       </form>
       <CircularProgress color = "secondary" variant = "determinate" value={this.state.progress} />
       <br/>
-        <input type="file" onChange={this.handleChange}/>
-        {/* <Link to={ROUTES.ADMIN}>  */}
-        <Button variant = "contained" className="login-button" onClick={this.handleUpload} style = {{margin: '20px'}}>Upload</Button>
-        {/* </Link> */}
+        <input type="file" onChange={this.handlePDFChange}/>
+        <CircularProgress color = "secondary" variant = "determinate" value={this.state.progress} />
+      <br/>
+      {/* image */}
+        <input  type="file" onChange={this.handleImageChange}/> image
         <br/>
+        <Button variant = "contained" className="login-button" onClick={this.handleUpload} style = {{margin: '20px'}}>Upload</Button>
+        <br/>
+      
+      
       </div>
     )
   }
