@@ -196,7 +196,7 @@ const CurrentlyReadingList = ({ currentlyReading}) => (
       </TableHead>
       <TableBody>
         {currentlyReading.map(curr => (
-          <TableRow style= {{borderColor: "black"}}>
+          <TableRow style= {{borderStyle: "none"}}>
             <tr>
                 <Link to={`/book/${curr.key}`}>
                 <TableCell style= {{borderColor: "black"}}>{curr.currentlyReadingTitle}</TableCell>
@@ -221,10 +221,10 @@ const FinishedList = ({ finished}) => (
       </TableHead>
       <TableBody>
         {finished.map(finish => (
-          <TableRow style= {{borderColor: "black"}}>
+          <TableRow style= {{borderStyle: "none"}}>
             <tr>
                 <Link to={`/book/${finish.key}`}>
-                <TableCell style= {{borderColor: "black"}}>{finish.finishedTitle}</TableCell>
+                <TableCell style= {{borderStyle: "none"}}>{finish.finishedTitle}</TableCell>
                 </Link>
               </tr>
           </TableRow>

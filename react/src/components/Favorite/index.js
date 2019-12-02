@@ -160,10 +160,10 @@ const FavoritesList = ({ favorites }) => (
       </TableHead>
       <TableBody>
         {favorites.map(favorite => (
-          <TableRow style= {{borderColor: "black"}}>
+          <TableRow style= {{borderStyle: "none"}}>
             <tr>
                 <Link to={`/book/${favorite.bookid}`}>
-                <TableCell style= {{borderColor: "black"}}>{favorite.title}</TableCell>
+                <TableCell style= {{borderStyle: "none"}}>{favorite.title}</TableCell>
                 </Link>
               </tr>
           </TableRow>

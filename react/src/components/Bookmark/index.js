@@ -166,13 +166,13 @@ const BookmarksList = ({ bookmarks }) => (
       </TableHead>
       <TableBody>
         {bookmarks.map(bookmark => (
-          <TableRow style= {{borderColor: "black"}}>
+          <TableRow style= {{borderStyle: "none"}}>
             <tr>
                 <Link to={`/book/${bookmark.key}`}>
-                <TableCell style= {{borderColor: "black"}}>{bookmark.title}</TableCell>
+                <TableCell style= {{borderStyle: "none"}}>{bookmark.title}</TableCell>
                 </Link>
               </tr>
-            <TableCell style= {{borderColor: "black"}}>{bookmark.pagenums}</TableCell>
+            <TableCell style= {{borderStyle: "none"}}>{bookmark.pagenums}</TableCell>
           </TableRow>
         ))}
       </TableBody>
