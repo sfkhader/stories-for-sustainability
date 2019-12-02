@@ -199,7 +199,7 @@ const CurrentlyReadingList = ({ currentlyReading}) => (
           <TableRow style= {{borderStyle: "none"}}>
             <tr>
                 <Link to={`/book/${curr.key}`}>
-                <TableCell style= {{borderColor: "black"}}>{curr.currentlyReadingTitle}</TableCell>
+                <TableCell style= {{borderStyle: "none"}}>{curr.currentlyReadingTitle}</TableCell>
                 </Link>
               </tr>
           </TableRow>
