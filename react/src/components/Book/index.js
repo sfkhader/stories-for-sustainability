@@ -165,15 +165,15 @@ const useStyles = makeStyles(theme => ({
 
       let wrapper;
 
-      if (checkAdmin) {
-        wrapper = <AdminWrapper>{{home: false}}</AdminWrapper>;
-      } else {
-        wrapper = <UserWrapper>{{home: false}}</UserWrapper>;
-      }
+      // if (checkAdmin) {
+      //   wrapper = <AdminWrapper>{{home: false}}</AdminWrapper>;
+      // } else {
+      //   wrapper = <UserWrapper>{{home: false}}</UserWrapper>;
+      // }
 
       return (
         <div>
-          {/* <UserWrapper>{{home: false}}</UserWrapper> */}
+          <UserWrapper>{{home: false}}</UserWrapper>
           <checkAdmin isAdmin = {isAdmin} />;
           {wrapper}
         <div className="Landing-header">
