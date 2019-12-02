@@ -4,9 +4,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import {Document, Page, pdfjs,} from 'react-pdf';
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import * as ROLES from '../../constants/roles';
 import * as ROUTES from '../../constants/routes';
 import { Link } from 'react-router-dom';
 import UserWrapper from '../UserWrapper';
+import AdminWrapper from '../AdminWrapper';
 import Typography from '@material-ui/core/Typography';
 
 
@@ -14,7 +16,14 @@ import Typography from '@material-ui/core/Typography';
 import * as firebase from 'firebase';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
+let isAdmin;
 
+function checkAdmin (authUser) {
+  if (authUser.roles != null && authUser.roles.ADMIN == [ROLES.ADMIN]) {
+    isAdmin = true;
+  }
+  isAdmin = false;
+}
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -153,9 +162,20 @@ const useStyles = makeStyles(theme => ({
       const isPrevInvalid = pageNumber - 1 == 0;
       const isNextInvalid = pageNumber  == numPages;
 
+
+      let wrapper;
+
+      if (checkAdmin) {
+        wrapper = <AdminWrapper>{{home: false}}</AdminWrapper>;
+      } else {
+        wrapper = <UserWrapper>{{home: false}}</UserWrapper>;
+      }
+
       return (
         <div>
-          <UserWrapper>{{home: false}}</UserWrapper>
+          {/* <UserWrapper>{{home: false}}</UserWrapper> */}
+          <checkAdmin isAdmin = {isAdmin} />;
+          {wrapper}
         <div className="Landing-header">
             &nbsp;
             <Typography variant = "h2">{this.state.title}</Typography>
