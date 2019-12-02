@@ -153,23 +153,23 @@ class Home extends Component {
           <TableCell style= {{border: 'none'}}>
             <Select value = {this.state.goal} onChange = {handleChange} inputProps ={{name: 'goal'}}>
               <MenuItem value = {"Select"}>Select Goal</MenuItem>
-              <MenuItem value = {"Goal1"}>Goal 1</MenuItem>
-              <MenuItem value = {"Goal2"}>Goal 2</MenuItem>
-              <MenuItem value = {"Goal3"}>Goal 3</MenuItem>
-              <MenuItem value = {"Goal4"}>Goal 4</MenuItem>
-              <MenuItem value = {"Goal5"}>Goal 5</MenuItem>
-              <MenuItem value = {"Goal6"}>Goal 6</MenuItem>
-              <MenuItem value = {"Goal7"}>Goal 7</MenuItem>
-              <MenuItem value = {"Goal8"}>Goal 8</MenuItem>
-              <MenuItem value = {"Goal9"}>Goal 9</MenuItem>
-              <MenuItem value = {"Goal10"}>Goal 10</MenuItem>
-              <MenuItem value = {"Goal11"}>Goal 11</MenuItem>
-              <MenuItem value = {"Goal12"}>Goal 12</MenuItem>
-              <MenuItem value = {"Goal13"}>Goal 13</MenuItem>
-              <MenuItem value = {"Goal14"}>Goal 14</MenuItem>
-              <MenuItem value = {"Goal15"}>Goal 15</MenuItem>
-              <MenuItem value = {"Goal16"}>Goal 16</MenuItem>
-              <MenuItem value = {"Goal17"}>Goal 17</MenuItem>
+              <MenuItem value = {"Goal1"}>Goal 1: No Poverty</MenuItem>
+              <MenuItem value = {"Goal2"}>Goal 2: Zero Hunger</MenuItem>
+              <MenuItem value = {"Goal3"}>Goal 3: Good Health and Well-being</MenuItem>
+              <MenuItem value = {"Goal4"}>Goal 4: Quality Education</MenuItem>
+              <MenuItem value = {"Goal5"}>Goal 5: Gender Equality</MenuItem>
+              <MenuItem value = {"Goal6"}>Goal 6: Clean Water and Sanitation</MenuItem>
+              <MenuItem value = {"Goal7"}>Goal 7: Affordable and Clean Energy</MenuItem>
+              <MenuItem value = {"Goal8"}>Goal 8: Decent Work and Economic Growth</MenuItem>
+              <MenuItem value = {"Goal9"}>Goal 9: Industry, Innovation and Infrastructure</MenuItem>
+              <MenuItem value = {"Goal10"}>Goal 10: Reduced Inequality</MenuItem>
+              <MenuItem value = {"Goal11"}>Goal 11: Sustainable Cities and Communities</MenuItem>
+              <MenuItem value = {"Goal12"}>Goal 12: Responsible Comsumption and Production</MenuItem>
+              <MenuItem value = {"Goal13"}>Goal 13: Climate Action</MenuItem>
+              <MenuItem value = {"Goal14"}>Goal 14: Life Below Water</MenuItem>
+              <MenuItem value = {"Goal15"}>Goal 15: Life on Land</MenuItem>
+              <MenuItem value = {"Goal16"}>Goal 16: Peace and Justice Strong Institiutions</MenuItem>
+              <MenuItem value = {"Goal17"}>Goal 17: Partnerships to achieve the Goal</MenuItem>
 
             </Select>
             <FormHelperText>Sustainability Goal</FormHelperText>
