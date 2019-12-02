@@ -38,7 +38,8 @@ const INITIAL_STATE = {
   goals : [],
   goal :'Select',
   filteredBooks: [],
-  open:false
+  open:false,
+  imageurl: ''
 };
 
 class AdminPage extends Component {
@@ -54,7 +55,7 @@ class AdminPage extends Component {
   onCollectionUpdate = (querySnapshot) => {
     const books = [];
     querySnapshot.forEach((doc) => {
-      const { title, tags , url, languages, goals } = doc.data();
+      const { title, tags , url, languages, goals, imageurl } = doc.data();
       books.push({
         key: doc.id,
         doc,
@@ -62,7 +63,8 @@ class AdminPage extends Component {
         tags,
         url,
         languages,
-        goals
+        goals,
+        imageurl
       });
     });
     this.setState({
@@ -131,7 +133,7 @@ class AdminPage extends Component {
                   <Typography variant = "h5" style = {{margin: "none"}}>{books.title}</Typography>
                   <tr>
                     <Link to={`/book/${books.key}`}>
-                    <img src = {cover} className="book-cover"></img>
+                    <img src = {books.imageurl} className="book-cover"></img>
                     </Link>
 
 
