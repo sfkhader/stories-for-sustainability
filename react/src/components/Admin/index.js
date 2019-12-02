@@ -132,9 +132,9 @@ class AdminPage extends Component {
               <th align="center">
                   <Typography variant = "h5" style = {{margin: "none"}}>{books.title}</Typography>
                   <tr>
-                    <Link to={`/book/${books.key}`}>
+                    {/* <Link to={`/book/${books.key}`}> */}
                     <img src = {books.imageurl} className="book-cover"></img>
-                    </Link>
+                    {/* </Link> */}
 
 
                   </tr>
