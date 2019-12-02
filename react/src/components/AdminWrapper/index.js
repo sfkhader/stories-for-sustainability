@@ -76,7 +76,7 @@ class AdminWrapper extends Component {
                     <div style = {{flexGrow: 1}}>
                     </div>
 
-                    <Link to = {ROUTES.ACCOUNT} style= {{textDecoration: 'none', color: 'white', marginRight: "20px"}}><IconButton color="inherit" aria-label="menu">
+                    <Link to = {ROUTES.ADMINACCOUNT} style= {{textDecoration: 'none', color: 'white', marginRight: "20px"}}><IconButton color="inherit" aria-label="menu">
                         <AccountCircle />
                     </IconButton></Link>
                 </Toolbar>

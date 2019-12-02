@@ -19,6 +19,8 @@ import UserWrapper from '../UserWrapper';
 import Bookmark from '../Bookmark';
 import Progress from '../Progress';
 import Favorite from '../Favorite';
+import AdminAccountPage from '../AdminAccount';
+
 
 
 const App = () => (
@@ -39,6 +41,7 @@ const App = () => (
       <Route path={ROUTES.BOOKMARK} component={Bookmark} />
       <Route path={ROUTES.PROGRESS} component={Progress} />
       <Route path={ROUTES.FAVORITE} component={Favorite} />
+      <Route path={ROUTES.ADMINACCOUNT} component={AdminAccountPage} />
 
     </div>
   </Router>

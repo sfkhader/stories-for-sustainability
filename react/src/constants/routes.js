@@ -13,3 +13,4 @@ export const DELETE_USER = '/deleteuser'
 export const BOOKMARK = '/bookmark'
 export const PROGRESS = '/progress'
 export const FAVORITE = '/favorite'
+export const ADMINACCOUNT = '/adminaccount';
